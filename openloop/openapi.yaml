@@ -2,6 +2,8 @@ openapi: 3.0.0
 info:
   title: OpenLoop API
   version: 1.1.0
+  description: 
+    $ref: description.md
 tags:
   - name: Custody->Exchange
     description: Custody calls Exchange
