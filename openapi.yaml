@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: OpenLoop Api
-  version: 1.0.0
+  title: OpenLoop API
+  version: 1.1.0
 tags:
   - name: Custody->Exchange
     description: Custody calls Exchange
@@ -12,7 +12,8 @@ paths:
     post:
       tags:
         - Custody->Exchange
-      summary: Connect CVA account with MEA account
+      description: Connect CVA account with MEA account
+      summary: /exchange/v1/connect
       requestBody:
         required: true
         content:
@@ -53,7 +54,8 @@ paths:
     post:
       tags:
         - Custody->Exchange
-      summary: Notify exchange to add new addresses for the CVA account
+      description: Notify exchange to add new addresses for the CVA account
+      summary: /exchange/v1/address
       requestBody:
         required: true
         content:
@@ -109,7 +111,8 @@ paths:
     get:
       tags:
         - Custody->Exchange
-      summary: Check the status of the address addition request
+      description: Check the status of the address addition request
+      summary: /exchange/v1/address/status
       parameters:
         - name: requestId
           in: query
@@ -133,7 +136,8 @@ paths:
     post:
       tags:
         - Custody->Exchange
-      summary: Set the default settlement network for CVA addresses (multi-chain scenario)
+      description: Set the default settlement network for CVA addresses (multi-chain scenario)
+      summary: /exchange/v1/settlement/network
       requestBody:
         required: true
         content:
@@ -165,11 +169,13 @@ paths:
                   status:
                     type: boolean
                     description: Status of setting the preferred network, False/True (failed/success)
+
   /exchange/v1/settlement/list:
     post:
       tags:
         - Custody->Exchange
-      summary: Request settlement details from the exchange for user-initiated settlements
+      description: Request settlement details from the exchange for user-initiated settlements
+      summary: /exchange/v1/settlement/list
       requestBody:
         required: true
         content:
@@ -250,7 +256,8 @@ paths:
     post:
       tags:
         - Custody->Exchange
-      summary: Notify the exchange to initiate settlement to CVA account after user confirmation
+      description: Notify the exchange to initiate settlement to CVA account after user confirmation
+      summary: /exchange/v1/settlement/confirm
       requestBody:
         required: true
         content:
@@ -282,12 +289,13 @@ paths:
                   status:
                     type: boolean
                     description: Settlement initiation status, False/True (failed/success)
-  # GET /exchange/v1/settlement/status
+
   /exchange/v1/settlement/status:
     get:
       tags:
         - Custody->Exchange
-      summary: Query the settlement progress from SinoHope to the exchange
+      description: Query the settlement progress from SinoHope to the exchange
+      summary: /exchange/v1/settlement/status
       parameters:
         - name: settlementId
           in: query
@@ -319,12 +327,12 @@ paths:
                           nullable: true
                           description: Transaction hash, if the transfer is completed
 
-  # POST /exchange/v1/settlement/finish
   /exchange/v1/settlement/finish:
     post:
       tags:
         - Custody->Exchange
-      summary: Notify the exchange after SinoHope settlement is completed
+      description: Notify the exchange after SinoHope settlement is completed
+      summary: /exchange/v1/settlement/finish
       requestBody:
         required: true
         content:
@@ -365,12 +373,12 @@ paths:
                     type: boolean
                     description: Status of the settlement finish notification, False/True (failed/success)
 
-  # POST /exchange/v1/withdraw
   /exchange/v1/withdraw:
     post:
       tags:
         - Custody->Exchange
-      summary: Request authorization from the exchange after the user initiates a withdrawal from the CVA account
+      description: Request authorization from the exchange after the user initiates a withdrawal from the CVA account
+      summary: /exchange/v1/withdraw
       requestBody:
         required: true
         content:
@@ -423,12 +431,12 @@ paths:
                     type: boolean
                     description: Status of the withdrawal request, False/True (failed/success)
 
-  # POST /collateral/v1/address/status
   /collateral/v1/address/status:
     post:
       tags:
         - Exchange->Custody
-      summary: Notify SinoHope after the exchange asynchronously processes the added address request
+      description: Notify SinoHope after the exchange asynchronously processes the added address request
+      summary: /collateral/v1/address/status
       requestBody:
         required: true
         content:
@@ -453,12 +461,12 @@ paths:
                     type: boolean
                     description: Status of the address request processing, False/True (failed/success)
 
-  # POST /collateral/v1/settlement
   /collateral/v1/settlement:
     post:
       tags:
         - Exchange->Custody
-      summary: Notify SinoHope of the settlement details list after the exchange initiates a settlement
+      description: Notify SinoHope of the settlement details list after the exchange initiates a settlement
+      summary: /collateral/v1/settlement
       requestBody:
         required: true
         content:
@@ -525,12 +533,12 @@ paths:
                     type: string
                     description: Unique identifier for a settlement batch
 
-  # GET /collateral/v1/transactions
   /collateral/v1/transactions:
     get:
       tags:
         - Exchange->Custody
-      summary: Query the progress of CVA account withdrawal based on the withdrawal order number initiated by SinoHope
+      description: Query the progress of CVA account withdrawal based on the withdrawal order number initiated by SinoHope
+      summary: /collateral/v1/transactions
       parameters:
         - name: txId
           in: query
