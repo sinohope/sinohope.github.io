@@ -10,7 +10,7 @@
 
 Roles: User U, Exchange E, Custody Platform C.
 
-Main Exchange Account: Abbreviated as MEA. It is an account opened by User U on the exchange E, usually uniquely identified by an appkey.
+Main Exchange Account: Abbreviated as MEA. It is an account opened by User U on the exchange E, usually uniquely identified by an API KEY.
 
 Collateral Vault Account: Abbreviated as CVA. When User U needs to map assets to Exchange E, a CVA is created on Custody Platform C. CVA and MEA achieve a one-to-one mapping. The unique ID of CVA is collateralId.
 
