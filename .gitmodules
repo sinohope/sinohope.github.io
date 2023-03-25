@@ -1,0 +1,3 @@
+[submodule "openloop"]
+	path = openloop
+	url = git@github.com:sinohope/openloop.git
