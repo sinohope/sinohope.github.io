@@ -2,7 +2,9 @@ ALL: update build push
 
 update:
 	git pull origin main
-	git submodule update --init --recursive
+	rm -rf ./openloop
+	git clone git@github.com:sinohope/openloop.git
+	cd ./openloop && rm -rf ./.git
 
 build:
 	cd openloop && make
