@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  contact: 
+      email: "bd@newhuotech.com"
+  license: 
+      name: MIT,
+      url: https://www.mit.edu/~amini/LICENSE.md
+  title: SinoHope Open API
+  version: 1.0.0
+  description: |
+    Welcome to the Open API homepage of SinoHope, please visit:
+    
+    [OpenLoop](./openloop/index.html)
