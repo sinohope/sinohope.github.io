@@ -42,10 +42,6 @@ paths:
                 properties:
                   status:
                     type: boolean
-                    enum:
-                      - True
-                      - False
-                    default: False
                     description: Binding status, False/True (failed/success)
                   rejectReason:
                     type: string
