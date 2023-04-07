@@ -3,7 +3,7 @@ ALL: update build push
 update:
 	git pull origin main
 	rm -rf ./openloop
-	git clone git@github.com:sinohope/openloop.git
+	git clone --depth 1 git@github.com:sinohope/openloop.git
 	cd ./openloop && rm -rf ./.git
 
 build:
