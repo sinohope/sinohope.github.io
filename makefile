@@ -7,8 +7,7 @@ update:
 	cd ./openloop && rm -rf ./.git
 
 build:
-	cd openloop && make
-	redoc-cli build openapi.yaml  -o index.html
-	
+	cd openloop && make build
+
 push:
 	git add . && git commit -m "add new" && git push origin main
