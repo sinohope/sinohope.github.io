@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdemo=self.webpackChunkdemo||[]).push([[2535],{45641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\u6b22\u8fce\u4f7f\u7528 SINOHOPE \u5e73\u53f0","permalink":"/zh-Hant/blog/welcome"}]}')}}]);
