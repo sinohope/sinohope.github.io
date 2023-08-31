@@ -17,12 +17,6 @@ const FeatureList = [
           </div>
           <div className={styles.buttons}>
             <Link
-              to="https://sinohope.com">
-              BOOK DEMO
-            </Link>
-          </div>
-          <div className={styles.buttons}>
-            <Link
               to="/docs/use/user-guide/SUMMARY">
               User Guide
             </Link>
@@ -37,19 +31,19 @@ const FeatureList = [
       <>
         <div className={styles.buttons}>
           <Link
-            to="/blog">
-            Blog
-          </Link>
-        </div>
-        <div className={styles.buttons}>
-          <Link
             to="/docs/learn/news/latest">
             News
           </Link>
         </div>
         <div className={styles.buttons}>
           <Link
-            to="https://space.bilibili.com/3493266041342842/channel/series">
+            to="/blog">
+            Blog
+          </Link>
+        </div>
+        <div className={styles.buttons}>
+          <Link
+            href="https://space.bilibili.com/3493266041342842/channel/series">
             Sinohope Lecture
           </Link>
         </div>
@@ -63,7 +57,7 @@ const FeatureList = [
       <>
        <div className={styles.buttons}>
             <Link
-              to="/docs/develop/get-started">
+              to="/docs/develop/get-started/quick-start">
               Get Started
             </Link>
           </div>

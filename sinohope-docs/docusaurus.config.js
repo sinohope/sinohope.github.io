@@ -77,10 +77,6 @@ const config = {
                 to: '/docs/use/cases',
               },
               {
-                label: 'BOOK DEMO',
-                to: 'https://sinohope.com',
-              },
-              {
                 type: 'docSidebar',
                 sidebarId: 'userGuideSidebar',
                 label: 'User Guide',
@@ -95,18 +91,18 @@ const config = {
             position: 'left',
             items: [
               {
-                label: 'Blog',
-                to: 'blog',
-              },
-              {
                 type: 'docSidebar',
                 sidebarId: 'newsSidebar',
                 label: 'News',
                 to: '/docs/learn/news/',
               },
               {
+                label: 'Blog',
+                to: 'blog',
+              },
+              {
                 label: 'Sinohope Lecture',
-                to: 'https://space.bilibili.com/3493266041342842/channel/series',
+                href: 'https://space.bilibili.com/3493266041342842/channel/series',
               },
             ],
           },
@@ -120,7 +116,7 @@ const config = {
                 type: 'docSidebar',
                 sidebarId: 'getStartedSidebar',
                 label: 'Get Started',
-                to: '/docs/develop/get-started/',
+                to: '/docs/develop/get-started/quick-start',
               },
               {
                 type: 'docSidebar',
@@ -168,7 +164,7 @@ const config = {
                 to: '/docs/use/user-guide/SUMMARY',
               }, {
                 label: 'Developer Guide',
-                to: '/docs/develop/get-started/',
+                to: '/docs/develop/get-started/quick-start',
               },
             ],
           },
@@ -177,11 +173,11 @@ const config = {
             items: [
               {
                 label: 'Twitter',
-                to: 'https://twitter.com/SinohopeGroup',
+                href: 'https://twitter.com/SinohopeGroup',
               },
               {
                 label: 'Telegram',
-                to: 'https://t.me/SINOHOPE_DEV',
+                href: 'https://t.me/SINOHOPE_DEV',
               },
             ],
           },
@@ -194,7 +190,7 @@ const config = {
               },
               {
                 label: 'Feedback',
-                to: 'https://github.com/sinohope/feedback',
+                href: 'https://github.com/sinohope/feedback',
               },
             ],
           },
