@@ -2,12 +2,13 @@ ALL: update build push
 
 update:
 	git pull origin main
-	rm -rf ./openloop
-	git clone --depth 1 git@github.com:sinohope/openloop.git
-	cd ./openloop && rm -rf ./.git
+	rm -rf ./sinohope-docs
+	git clone --depth 1 git@github.com:sinohope/sinohope-docs.git
+	cd ./sinohope-docs && rm -rf ./.git
 
 build:
-	cd openloop && make build
+	cd sinohope-docs && make build
+	cp -r build/* ../docs/
 
 push:
 	git add . && git commit -m "add new" && git push origin main
