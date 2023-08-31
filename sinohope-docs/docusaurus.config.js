@@ -143,26 +143,6 @@ const config = {
             ],
           },
 
-          //community
-          {
-            label: 'Community',
-            position: 'left',
-            items: [
-              {
-                label: 'Feedback',
-                to: 'https://github.com/sinohope/feedback',
-              },
-              {
-                label: 'Telegram',
-                to: 'https://t.me/SINOHOPE_DEV',
-              },
-              {
-                label: 'Twitter',
-                to: 'https://twitter.com/SinohopeGroup',
-              },
-            ],
-          },
-
           //right
           {
             href: 'https://github.com/sinohope',
@@ -180,6 +160,45 @@ const config = {
       footer: {
         style: 'dark',
         links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'User Guide',
+                to: '/docs/use/user-guide/SUMMARY',
+              }, {
+                label: 'Developer Guide',
+                to: '/docs/develop/get-started/',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Twitter',
+                to: 'https://twitter.com/SinohopeGroup',
+              },
+              {
+                label: 'Telegram',
+                to: 'https://t.me/SINOHOPE_DEV',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+              {
+                label: 'Feedback',
+                to: 'https://github.com/sinohope/feedback',
+              },
+            ],
+          },
+
         ],
         copyright: `Copyright © ${new Date().getFullYear()} SINOHOPE. Built with Docusaurus.`,
       },

@@ -50,7 +50,7 @@ const FeatureList = [
         <div className={styles.buttons}>
           <Link
             to="https://space.bilibili.com/3493266041342842/channel/series">
-            SINOHOPE Lecture
+            Sinohope Lecture
           </Link>
         </div>
       </>
