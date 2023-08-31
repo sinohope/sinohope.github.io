@@ -1,0 +1,3348 @@
+openapi: 3.0.1
+info:
+  title: Sinohope WaaS API
+  version: 0.9.1
+  description:
+    $ref: description.md
+servers:
+  - url: https://api.sinohope.com/
+  - url: https://api-sandbox.sinohope.com/
+tags:
+  - name: 回调API
+    description: 回调API定义
+  - name: 通用接口
+    description: 一些多业务线通用的查询接口
+  - name: 账户&地址
+    description: 创建、管理、查询钱包账户与地址信息
+  - name: 交易
+    description: 创建及查询交易信息，创建离线签名
+  - name: 高级
+    description: 高级功能允许直接签名指定的原始数据，需钱包组及钱包均开启“高级功能”才可用
+  - name: MPC Node
+    description: 查询mpc协议执行信息以及您的MPC Node在线状态
+paths:
+  /v1/call_back/transaction/notify:
+    servers:
+      - url: https://your.callback.url/
+    post:
+      tags:
+        - 回调API
+      summary: 交易通知
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/call_back/transaction/notify/",
+              {
+                "requestType": 1,
+                "requestId": "413497079388421",
+                "requestDetail": "{
+                  "txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ",
+                  "nonce":"nonce",
+                  "blockHash":"块hash",
+                  "blockHeight":"块高度",
+                  "confirmed_number":6,
+                  "walletId": "52321312",
+                  "chainSymbol": "ETH",
+                  "assetId": "USDC_ETH",
+                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                  "toTag": "32143",
+                  "amount": "1200000000000000",
+                  "fee": "1000000",
+                  "gasPrice": "13250000",
+                  "gasLimit": "21000"
+                }"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/call_back/transaction/notify/", map[string]string{
+                "requestType": 1,
+                "requestId": "413497079388421",
+                "requestDetail": "{
+                  "txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ",
+                  "nonce":"nonce",
+                  "blockHash":"块hash",
+                  "blockHeight":"块高度",
+                  "confirmed_number":6,
+                  "walletId": "52321312",
+                  "chainSymbol": "ETH",
+                  "assetId": "USDC_ETH",
+                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                  "toTag": "32143",
+                  "amount": "1200000000000000",
+                  "fee": "1000000",
+                  "gasPrice": "13250000",
+                  "gasLimit": "21000"
+                }"
+            }) 
+      description: 交易上链成功后，推送确认数变化
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestDetail
+                - requestId
+                - requestType
+              type: object
+              properties:
+                requestType:
+                  type: integer
+                  description: 回调请求类型 (充值：1，提现：2)
+                  example: 1
+                requestId:
+                  type: string
+                  description: 请求的唯一id,多次调用不变
+                  example: "413497079388421"
+                requestDetail:
+                  type: string
+                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON
+                    字符串
+                  example: {"txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ","nonce":"nonce",
+                            "blockHash":"块hash","blockHeight":"块高度","confirmed_number":6,"walletId":"52321312","chainSymbol":"ETH",
+                            "assetId":"USDC_ETH",
+                            "from":"0xc429aeda8bf786cf092224dddadbc0813f9f230b","to":"0x546A62c54F50D57D30478C8C275360f20239A23E","toTag":"32143",
+                            "amount":"1200000000000000","fee":"1000000","gasPrice":"13250000","gasLimit":"21000"}
+                extraInfo:
+                  type: string
+                  description: 与回调请求相关的其他信息；每种类型的回调请求对应于不同的extra_info结构；格式为序列化 JSON
+                    字符串
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  requestId:
+                    type: string
+                    description: 请求的唯一id,多次调用不变
+                    example: "431431431431431"
+                  message:
+                    type: string
+                    description: 错误信息
+                    example: ""
+      x-codegen-request-body-name: root
+  /v1/call_back/withdrawal/confirm:
+    servers:
+      - url: https://your.callback.url/
+    post:
+      tags:
+        - 回调API
+      summary: 提现二次确认
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/call_back/transaction/notify/",
+              {
+                "requestId": "413497079388421",
+                "requestDetail": "{
+                  "walletId": "52321312",
+                  "chainSymbol": "ETH",
+                  "assetId": "USDC_ETH",
+                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                  "toTag": "32143",
+                  "amount": "1200000000000000",
+                  "fee": "1000000",
+                  "gasPrice": "13250000",
+                  "gasLimit": "21000"
+                }"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/call_back/transaction/notify/", map[string]string{
+                "requestId": "413497079388421",
+                "requestDetail": "{
+                  "walletId": "52321312",
+                  "chainSymbol": "ETH",
+                  "assetId": "USDC_ETH",
+                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                  "toTag": "32143",
+                  "amount": "1200000000000000",
+                  "fee": "1000000",
+                  "gasPrice": "13250000",
+                  "gasLimit": "21000"
+                }"
+            })
+      description: 当sinohope收到提现请求时，会向商户制定的url发送确认请求
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestDetail
+                - requestId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求的唯一id,多次调用不变
+                  example: "413497079388421"
+                requestDetail:
+                  type: string
+                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON
+                    字符串
+                  example: { "walletId": "52321312","chainSymbol": "ETH","assetId": "USDC_ETH",
+                             "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b","to": "0x546A62c54F50D57D30478C8C275360f20239A23E","toTag": "32143",
+                             "amount": "1200000000000000","fee": "1000000","gasPrice": "13250000","gasLimit": "21000" }
+                extraInfo:
+                  type: string
+                  description: 与回调请求相关的其他信息；每种类型的回调请求对应于不同的extra_info结构；格式为序列化 JSON
+                    字符串
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  requestId:
+                    type: string
+                    description: 请求的唯一id,多次调用不变
+                    example: "431431431431431"
+                  message:
+                    type: string
+                    description: 错误信息
+                    example: ""
+                  action:
+                    type: string
+                    description: 任务执行说明，APPROVE 批准、REJECT 拒绝
+                    example: "APPROVE"
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/mpcnode/list_mpc_requests:
+    post:
+      tags:
+        - MPC Node
+      summary: 查询mpc协议执行记录
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/mpcnode/list_mpc_requests/",
+              {
+                "businessExecType": 1,
+                "businessExecStatus": 1,
+                "sinoId": "413497079388421",
+                "pageIndex": 1,
+                "pageSize": 10
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/mpcnode/list_mpc_requests/", map[string]string{
+                "businessExecType": 1,
+                "businessExecStatus": 1,
+                "sinoId": "413497079388421",
+                "pageIndex": 1,
+                "pageSize": 10
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                businessExecType:
+                  type: integer
+                  description: 业务执行类型（KeyGen 类型请求：1，signTx 类型请求：2，signMessage 类型请求：3，signRawData
+                    类型请求：4）
+                  example: 1
+                businessExecStatus:
+                  type: integer
+                  description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                  example: 1
+                sinoId:
+                  type: string
+                  description: sinoId,不传按照分页查询
+                  example: "413497079388421"
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            requestId:
+                              type: string
+                              description: 用户发起业务自己生成的唯一请求id
+                              example: "asdf123123123"
+                            sinoId:
+                              type: string
+                              description: sinoId sinohope 根据当前业务生成的唯一id
+                              example: "123123123"
+                            requestTime:
+                              type: integer
+                              description: 请求时间
+                              example: 123123123213
+                            param:
+                              type: string
+                              description: 参数
+                              example: "xxxxxxxx"
+                            businessExecType:
+                              type: integer
+                              description: 业务执行类型（KeyGen 类型请求：1，signTx 类型请求：2，signMessage
+                                类型请求：3，signRawData 类型请求：4）
+                              example: 8
+                            businessExecStatus:
+                              type: integer
+                              description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                              example: 0
+                            isSuccess:
+                              type: boolean
+                              description: 是否成功
+                              example: true
+                            failedReason:
+                              type: string
+                              description: 失败原因
+                              example: ""
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/mpcnode/status:
+    post:
+      tags:
+        - MPC Node
+      summary: 查询MPC node状态
+      description: 查询您的MPC Node当前的在线状态
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/mpcnode/status/",
+              {},
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/mpcnode/status/", map[string]string{})
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: empty object
+              type: object
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      nodeId:
+                        type: string
+                        description: 节点id
+                        example: "asdf123123123"
+                      onlineStatus:
+                        type: integer
+                        description: |-
+                          在线状态 (offline：0，online：1)
+                          <p> MPC Node 和 sinohope的连接状态</p>
+                        example: 0
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/advance/sign_raw_data:
+    post:
+      tags:
+        - 高级
+      summary: 原始数据签名
+      description: 直接对指定数据进行签名
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/advance/sign_raw_data/",
+              {
+                "vaultId": "450632968208222",
+                "requestId": "413497079388421",
+                "walletId": "413497079382091",
+                "hdPath": "m/1/1/60/0",
+                "rawData": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/advance/sign_raw_data/", map[string]string{
+                "vaultId": "450632968208222",
+                "requestId": "413497079388421",
+                "walletId": "413497079382091",
+                "hdPath": "m/1/1/60/0",
+                "rawData": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - hdPath
+                - rawData
+                - requestId
+                - walletId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                requestId:
+                  type: string
+                  description: |-
+                    唯一id
+                    <p> 用户自己生成的请求唯一id, 用于重试<p/>
+                  example: "413497079388421"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "413497079382091"
+                hdPath:
+                  type: string
+                  description: 地址对应的path
+                  example: "m/1/1/60/0"
+                rawData:
+                  type: string
+                  description: 签名数据
+                  example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: |-
+                          sinohope Id
+                          <p> sinohope 为每个业务生成的唯一id <p/>
+                        example: "12312321"
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/advance/gen_address_by_path:
+    post:
+      tags:
+        - 高级
+      summary: 根据指定的路径创建地址
+      description: 根据指定派生路径创建地址
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/advance/gen_address_by_path/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "index": "1",
+                "algorithmType": 1,
+                "coinType": 10
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/advance/gen_address_by_path/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "index": "1",
+                "algorithmType": 1,
+                "coinType": 10
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - algorithmType
+                - coinType
+                - index
+                - walletId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "413497079388421"
+                index:
+                  type: string
+                  description: 用于区分同一个钱包的同一个cointype 下的不同地址
+                  example: "1"
+                algorithmType:
+                  type: integer
+                  description: '算法类型(0: "ECDSA:secp256k1", 1: "EdDSA:ed25519")'
+                  example: 1
+                coinType:
+                  type: integer
+                  description: 参考slip-44 https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+                    中定义的coin type常量，使用none-hardened 的版本。根据业界常规做法，对于所有 eth-like 公链，可共用以太坊的
+                    coin type `60`
+                  example: 10
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: '#/components/schemas/addressInfo'
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/advance/update_wallet:
+    post:
+      tags:
+        - 高级
+      summary: 更新钱包属性（高级功能开启、关闭）
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/advance/update_wallet/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": 413497079388421,
+                "advancedEnabled": 1
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/advance/update_wallet/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": 413497079388421,
+                "advancedEnabled": 1
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - advancedEnabled
+                - walletId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: |-
+                    钱包id
+                    <p> 当指定了以后就是根据钱包开关 <p/>
+                  example: "413497079388421"
+                advancedEnabled:
+                  type: integer
+                  description: |-
+                    高级功能开关 (关：0，开：1)
+                    <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                  example: 1
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      updateWallet:
+                        type: boolean
+                        description: 修改结果
+                        example: true
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/common/get_supported_chains:
+    post:
+      tags:
+        - 通用接口
+      summary: 查询系统支持链
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/common/get_supported_chains/",
+              {},
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/common/get_supported_chains/", map[string]string{})
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: empty object
+              type: object
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      required:
+                        - chainName
+                        - chainSymbol
+                      type: object
+                      properties:
+                        chainName:
+                          type: string
+                          description: 链全名
+                          example: "Near"
+                        chainSymbol:
+                          type: string
+                          description: 链名称 简称 链标识 具有唯一性
+                          example: "NEAR"
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/common/get_supported_coins:
+    post:
+      tags:
+        - 通用接口
+      summary: 查询链支持的币种列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/common/get_supported_coins/",
+              {
+                "chainSymbol": "ETH"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/common/get_supported_coins/", map[string]string{
+                "chainSymbol": "ETH"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+              type: object
+              properties:
+                chainSymbol:
+                  type: string
+                  description: 链名称 简称 链标识 具有唯一性
+                  example: "ETH"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    required:
+                      - assetDecimal
+                      - assetId
+                      - assetName
+                    type: object
+                    properties:
+                      assetName:
+                        type: string
+                        description: 币种全名称
+                        example: "ETH"
+                      assetId:
+                        type: string
+                        description: 币标识 具有唯一性
+                        example: "ETH_ETH"
+                      assetDecimal:
+                        type: integer
+                        description: 币种精度
+                        example: 18
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/common/get_vaults:
+    post:
+      tags:
+        - 通用接口
+      summary: 金库列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/common/get_vaults/",
+              {},
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/common/get_vaults/", map[string]string{})
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: empty object
+              type: object
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        businessType:
+                          type: integer
+                          description: 业务类型：0：自托管 2：waas 3:全托管
+                          example: 2
+                        vaultInfoOfOpenApiList:
+                          type: array
+                          description: 金库信息
+                          items:
+                            type: object
+                            properties:
+                              vaultId:
+                                type: string
+                                description: 金库id
+                                example: "450632968208222"
+                              vaultName:
+                                type: string
+                                description: 金库名称
+                                example: "测试金库"
+                              createTime:
+                                type: string
+                                description: 创建时间，格式yyyy-MM-dd HH:mm:ss
+                                example: "2023-08-16 16:04:49"
+                              authorityType:
+                                type: string
+                                description: 权限分类：0 所有，1 查询，2 操作，3 提现，4 任意交易 描述：apiKey绑定金库所属权限，该字段参数存在多权限组合形式出现，逗号分隔。例如："1,3"
+                                example: "1"
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/create_wallets:
+    post:
+      tags:
+        - 账户&地址
+      summary: 创建钱包
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/create_wallets/",
+              {
+                "requestId": "413497079388421",
+                "vaultId": "450632968208222",
+                "count": 1,
+                "walletInfos": [
+                  {
+                    "walletName": "wallet1",
+                    "advancedEnabled": 1
+                  }
+                ]
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/create_wallets/", map[string]string{
+                "count": 1,
+                "walletInfos": [
+                  {
+                    "requestId": "413497079388421",
+                    "vaultId": "450632968208222",
+                    "walletName": "wallet1",
+                    "advancedEnabled": 1
+                  }
+                ]
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - requestId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 业务唯一值
+                  example: "413497079388421"
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                count:
+                  type: integer
+                  description: 创建多少个。默认值为 1，最大值 50。
+                  example: 1
+                walletInfos:
+                  type: array
+                  description: |-
+                    钱包信息
+                    如果不为空 count值必须 walletInfos的数量一致
+                  items:
+                    type: object
+                    properties:
+                      walletName:
+                        type: string
+                        description: |-
+                          钱包名称
+                          为空的话用默认值: wallet+随机值
+                          不为空时：部门下钱包名称不能给重复
+                        example: "wallet1"
+                      advancedEnabled:
+                        type: integer
+                        description: |-
+                          高级功能开关 (关：0，开：1)
+                          <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                        example: 1
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        walletId:
+                          type: string
+                          description: 钱包id
+                          example: "413497079388421"
+                        wallName:
+                          type: string
+                          description: 钱包名称
+                          example: "wallet1"
+                        advancedEnabled:
+                          type: integer
+                          description: |-
+                            高级功能开关 (关：0，开：1)
+                            <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                          example: 1
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/list_addresses:
+    post:
+      tags:
+        - 账户&地址
+      summary: 查询链地址
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/list_addresses/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "chainSymbol": "ETH",
+                "pageIndex": 1,
+                "pageSize": 10
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/list_addresses/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "chainSymbol": "ETH",
+                "pageIndex": 1,
+                "pageSize": 10
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - chainSymbol
+                - walletId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "413497079388421"
+                chainSymbol:
+                  type: string
+                  description: 链名称 简称 链标识
+                  example: "ETH"
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 4
+                      list:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/addressInfo'
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/generate_chain_addresses:
+    post:
+      tags:
+        - 账户&地址
+      summary: 生成链地址
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/generate_chain_addresses/",
+              {
+                "requestId": "413497079388421",
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "count": 1,
+                "chainSymbol": "ETH"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/generate_chain_addresses/", map[string]string{
+                "requestId": "413497079388421",
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421",
+                "count": 1,
+                "chainSymbol": "ETH"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - chainSymbol
+                - walletId
+                - requestId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 业务唯一值
+                  example: "413497079388421"
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "413497079388421"
+                count:
+                  type: integer
+                  description: 创建多少个。默认值为 1，最大值 50。
+                  example: 1
+                chainSymbol:
+                  type: string
+                  description: 链名称 简称 链标识 具有唯一性
+                  example: "ETH"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/addressInfo'
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/list_wallets:
+    post:
+      tags:
+        - 账户&地址
+      summary: 查询钱包列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/list_wallets/",
+              {
+                "vaultId": "450632968208222",
+                "pageIndex": 1,
+                "pageSize": 10
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/list_wallets/", map[string]string{
+                "vaultId": "450632968208222",
+                "pageIndex": 1,
+                "pageSize": 10
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 0
+                      list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            walletId:
+                              type: string
+                              description: 钱包id
+                              example: "413497079388421"
+                            walletName:
+                              type: string
+                              description: 钱包名称
+                              example: "wallet1"
+                            advancedEnabled:
+                              type: integer
+                              description: |-
+                                高级功能开关 (关：0，开：1)
+                                <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                              example: 1
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/list_added_chains:
+    post:
+      tags:
+        - 账户&地址
+      summary: 查询指定钱包下已添加地址的链及其首个地址信息
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/list_added_chains/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/list_added_chains/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": "413497079388421"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - walletId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "413497079388421"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      required:
+                        - chainSymbol
+                        - firstAddressInfo
+                      type: object
+                      properties:
+                        chainSymbol:
+                          type: string
+                          description: 链名称 简称 链标识
+                          example: "ETH"
+                        firstAddressInfo:
+                          $ref: '#/components/schemas/addressInfo'
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/get_address_balance:
+    post:
+      tags:
+        - 账户&地址
+      summary: 查询地址余额信息
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/get_address_balance/",
+              {
+                "assetId": "USDT_ETH",
+                "address": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/get_address_balance/", map[string]string{
+                "assetId": "USDT_ETH",
+                "address": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - assetId
+              type: object
+              properties:
+                assetId:
+                  type: string
+                  description: 币名称 简称 币标识 具有唯一性
+                  example: "USDT_ETH"
+                address:
+                  type: string
+                  description: 地址
+                  example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    required:
+                      - assetDecimal
+                      - assetId
+                      - balance
+                      - chainSymbol
+                    type: object
+                    properties:
+                      chainSymbol:
+                        type: string
+                        description: 链名称 简称 链标识
+                        example: "BTC"
+                      assetId:
+                        type: string
+                        description: 币名称 简称 币标识
+                        example: "USDT_BTC"
+                      balance:
+                        type: string
+                        description: |-
+                          金额
+                          <p>比如1个eth,精度18位, 这里就是 10^18 Wei,   1,000,000,000,000,000,000<p/>
+                        example: "12223111"
+                      assetDecimal:
+                        type: integer
+                        description: 币种精度
+                        example: 18
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/is_valid_address:
+    post:
+      tags:
+        - 账户&地址
+      summary: 检查币种地址是否正确
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/is_valid_address/",
+              {
+                "assetId": "USDT_ETH",
+                "address": "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/is_valid_address/", map[string]string{
+                "assetId": "USDT_ETH",
+                "address": "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - assetId
+              type: object
+              properties:
+                assetId:
+                  type: string
+                  description: 币种代号 币标识 具有唯一性
+                  example: "USDT_ETH"
+                address:
+                  type: string
+                  description: 地址
+                  example: "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      isValid:
+                        type: boolean
+                        description: 检查结果
+                        example: true
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/transfer_address_book:
+    post:
+      tags:
+        - 账户&地址
+      summary: 当前金库设置开关以后,支持转账的地址簿
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/transfer_address_book/",
+              {
+                "vaultId": "450632968208222",
+                "chainSymbol": "ETH",
+                "pageIndex": 1,
+                "pageSize": 10
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/transfer_address_book/", map[string]string{
+                "vaultId": "450632968208222",
+                "chainSymbol": "ETH",
+                "pageIndex": 1,
+                "pageSize": 10
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - chainSymbol
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                chainSymbol:
+                  type: string
+                  description: 链名称 简称 链标识 具有唯一性
+                  example: "ETH"
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                              description: 地址
+                              example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/wallet/transfer_risk_control_switch:
+    post:
+      tags:
+        - 账户&地址
+      summary: 查询当前金库是否设置了风控开关
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/wallet/transfer_risk_control_switch/",
+              {
+                "vaultId": "450632968208222"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/wallet/transfer_risk_control_switch/", map[string]string{
+              "vaultId": "450632968208222"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      riskControlEnabled:
+                        type: boolean
+                        description: 风控开关 (true 开启, false 关闭)
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/create_transfer:
+    post:
+      tags:
+        - 交易
+      summary: 发起转账交易
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/create_transfer/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": "52321312",
+                "requestId": "2132134",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                "toTag": "32143",
+                "amount": "1200000000000000",
+                "fee": "1000000",
+                "fee_rate": "1",
+                "gasPrice": "13250000",
+                "gasLimit": "21000",
+                "remark": "用户信息备注"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/create_transfer/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": "52321312",
+                "requestId": "2132134",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
+                "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
+                "toTag": "32143",
+                "amount": "1200000000000000",
+                "fee": "1000000",
+                "fee_rate": "1",
+                "gasPrice": "13250000",
+                "gasLimit": "21000",
+                "remark": "用户信息备注"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - walletId
+                - amount
+                - assetId
+                - chainSymbol
+                - from
+                - requestId
+                - to
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: 52321312
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: 2132134
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+                from:
+                  type: string
+                  description: from 地址
+                  example: "0xc429aeda8bf786cf092224dddadbc0813f9f230b"
+                to:
+                  type: string
+                  description: to地址
+                  example: "0x546A62c54F50D57D30478C8C275360f20239A23E"
+                toTag:
+                  type: string
+                  description: memo
+                  example: 32143
+                amount:
+                  type: string
+                  description: 金额
+                  example: 1200000000000000
+                fee:
+                  type: string
+                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  example: 1000000
+                fee_rate:
+                  type: string
+                  description: 手续费费率 1:快 2:中 3:慢
+                  example: 1
+                gasPrice:
+                  type: string
+                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  example: 13250000
+                gasLimit:
+                  type: string
+                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  example: 21000
+                remark:
+                  type: string
+                  description: 备注：用于用户自己需要的一些备注信息
+                  example: 用户交易信息备注
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: sinoId
+                        example: 23234
+                      chainSymbol:
+                        type: string
+                        description: 链标识
+                        example: ETH
+                      txType:
+                        type: integer
+                        description: 交易类型。对于以太坊，可能的交易类型为：0 - legacy，1 - EIP2930，2 - EIP1559
+                        example: 0
+                      hasToBeSigned:
+                        type: string
+                        description: 签名前信息
+                        example: 23434dasdfr34345556782232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                      txInfo:
+                        type: object
+                        properties:
+                          asset:
+                            type: string
+                            description: 资产id
+                            example: ETH
+                          decimal:
+                            type: integer
+                            description: 精度
+                            example: 18
+                          currentTime:
+                            type: integer
+                            description: 当前时间
+                            example: 1691500611
+
+                          expireTime:
+                            type: integer
+                            description: 有效时间
+                            example: 1691500231
+                          expireBlockHeight:
+                            type: integer
+                            description: 交易有效高度
+                            example: 6566009
+                          referBlockHeight:
+                            type: integer
+                            description: refer 高度
+                            example: 6566020
+                          from:
+                            type: string
+                            description: from地址
+                            example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                          fromTag:
+                            type: string
+                            description: from地址tag
+                            example: 12300
+                          to:
+                            type: string
+                            description: to地址
+                            example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                          toTag:
+                            type: string
+                            description: to地址tag
+                            example: 1001
+                          amount:
+                            type: string
+                            description: 金额：最小精度的整数值 例如：1230000000000000000
+                            example: 1230000000000000000
+                          fee:
+                            type: string
+                            description: 手续费
+                            example: 3000000
+                          feeAsset:
+                            type: string
+                            description: 手续费资产
+                            example: ETH
+                          feePrice:
+                            type: string
+                            description: 手续费Price
+                            example: 100
+                          feeStep:
+                            type: string
+                            description: 手续费Step
+                            example: 30000
+                          chainId:
+                            type: string
+                            description: 链id
+                            example: 2
+                          nonce:
+                            type: string
+                            description: 交易nonce
+                            example: 2
+                          vin:
+                            type: array
+                            description: utxo input, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  description: 交易id
+                                  example: 1
+                                hash:
+                                  type: string
+                                  description: 交易hash
+                                  example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+                                voutIndex:
+                                  type: string
+                                  description: 交易index,代表当前未花费交易所在位置
+                                  example: 1
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: BTC
+                          vout:
+                            type: array
+                            description: 交易output, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: ETH
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 1230000000000000000
+                          funName:
+                            type: string
+                            description: 主币：coin token：transfer
+                            example: coin
+                          params:
+                            type: array
+                            description: transfer 交易参数
+                            items:
+                              type: string
+                              example: ""
+                        description: 签名交易信息
+                      hdpath:
+                        type: string
+                        description: hdpath
+                        example: "m/1/1/60/0"
+                      cryptography:
+                        type: string
+                        description: ECDSA_SECP256K1，EDDSA_ED25519
+                        example: "ECDSA_SECP256K1"
+                      remark:
+                        type: string
+                        description: 用户交易信息备注
+                        example: "用户填写的任意交易信息"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/create_transaction:
+    post:
+      tags:
+        - 交易
+      summary: 发起任意交易
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/create_transaction/",
+              {
+                "vaultId": "450632968208222",
+                "walletId": "435663",
+                "requestId": "3423434",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "from": "d3912f1a067d3fd45a705de4f224a1f41e07081d",
+                "to": "88a0315ec02224e1ed487193f4d650c5b57051e1",
+                "toTag": "23133",
+                "amount": "200000000000",
+                "fee": "12000",
+                "fee_rate": "1",
+                "gasPrice": "2300000",
+                "gasLimit": "21000",
+                "inputdata":
+            "0x000000000000000000000000000000000000000000000000000b4a02a73d00000000000000000000000000000000000000000000001478334d4aa26fb416e61300000000000000000000000000000000000000000000411bf70fe348f5f3a6d30000000000000000000000000000000000000000001478334d3f586d0cd9e61300000000000000000000000000000000000000000000411bf71b2d4b9d30a6d3",
+                "remark": "用户交易信息备注"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/create_transaction/", map[string]string{
+                "vaultId": "450632968208222",
+                "walletId": "435663",
+                "requestId": "3423434",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "from": "d3912f1a067d3fd45a705de4f224a1f41e07081d",
+                "to": "88a0315ec02224e1ed487193f4d650c5b57051e1",
+                "toTag": "23133",
+                "amount": "200000000000",
+                "fee": "12000",
+                "fee_rate": "1",
+                "gasPrice": "2300000",
+                "gasLimit": "21000",
+                "inputdata":
+            "0x000000000000000000000000000000000000000000000000000b4a02a73d00000000000000000000000000000000000000000000001478334d4aa26fb416e61300000000000000000000000000000000000000000000411bf70fe348f5f3a6d30000000000000000000000000000000000000000001478334d3f586d0cd9e61300000000000000000000000000000000000000000000411bf71b2d4b9d30a6d3",
+                "remark": "用户交易信息备注"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - walletId
+                - amount
+                - assetId
+                - chainSymbol
+                - from
+                - requestId
+                - to
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: 435663
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: 3423434
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+                from:
+                  type: string
+                  description: from 地址
+                  example: d3912f1a067d3fd45a705de4f224a1f41e07081d
+                to:
+                  type: string
+                  description: to地址
+                  example: 88a0315ec02224e1ed487193f4d650c5b57051e1
+                toTag:
+                  type: string
+                  description: 交易的memo
+                  example: 23133
+                amount:
+                  type: string
+                  description: 金额
+                  example: 200000000000
+                fee:
+                  type: string
+                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  example: 12000
+                fee_rate:
+                  type: string
+                  description: 手续费费率 1:快 2:中 3:慢
+                  example: 1
+                gasPrice:
+                  type: string
+                  description: gasprice
+                  example: 2300000
+                gasLimit:
+                  type: string
+                  description: gaslimit
+                  example: 21000
+                inputdata:
+                  type: string
+                  description: 以太坊交易data
+                  example: 0x000000000000000000000000000000000000000000000000000b4a02a73d00000000000000000000000000000000000000000000001478334d4aa26fb416e61300000000000000000000000000000000000000000000411bf70fe348f5f3a6d30000000000000000000000000000000000000000001478334d3f586d0cd9e61300000000000000000000000000000000000000000000411bf71b2d4b9d30a6d3
+                remark:
+                  type: string
+                  description: 备注：用于用户自己需要的一些备注信息
+                  example: 用户交易信息备注
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: sinoId
+                        example: 23234
+                      chainSymbol:
+                        type: string
+                        description: 链标识
+                        example: ETH
+                      txType:
+                        type: integer
+                        description: 交易类型。对于以太坊，可能的交易类型为：0 - legacy，1 - EIP2930，2 - EIP1559
+                        example: 0
+                      hasToBeSigned:
+                        type: string
+                        description: 签名前信息
+                        example: 23434dasdfr34345556782232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                      txInfo:
+                        type: object
+                        properties:
+                          asset:
+                            type: string
+                            description: 资产id
+                            example: ETH
+                          decimal:
+                            type: integer
+                            description: 精度
+                            example: 18
+                          currentTime:
+                            type: integer
+                            description: 当前时间
+                            example: 1691500611
+                          expireTime:
+                            type: integer
+                            description: 有效时间
+                            example: 1691500231
+                          expireBlockHeight:
+                            type: integer
+                            description: 交易有效高度
+                            example: 6566009
+                          referBlockHeight:
+                            type: integer
+                            description: refer 高度
+                            example: 6566020
+                          from:
+                            type: string
+                            description: from地址
+                            example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                          fromTag:
+                            type: string
+                            description: from地址tag
+                            example: 12300
+                          to:
+                            type: string
+                            description: to地址
+                            example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                          toTag:
+                            type: string
+                            description: to地址tag
+                            example: 12300
+                          amount:
+                            type: string
+                            description: 金额：最小精度的整数值 例如：1230000000000000000
+                            example: 1230000000000000000
+                          fee:
+                            type: string
+                            description: 手续费
+                            example: 3000000
+                          feeAsset:
+                            type: string
+                            description: 手续费资产
+                            example: ETH
+                          feePrice:
+                            type: string
+                            description: 手续费Price
+                            example: 100
+                          feeStep:
+                            type: string
+                            description: 手续费Step
+                            example: 30000
+                          chainId:
+                            type: string
+                            description: 链id
+                            example: 2
+                          nonce:
+                            type: string
+                            description: 交易nonce
+                            example: 2
+                          vin:
+                            type: array
+                            description: utxo input, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  description: 交易id
+                                  example: 1
+                                hash:
+                                  type: string
+                                  description: 交易hash
+                                  example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+                                voutIndex:
+                                  type: string
+                                  description: 交易index,代表当前未花费交易所在位置
+                                  example: 1
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: BTC
+                          vout:
+                            type: array
+                            description: 交易output, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: ETH
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                          funName:
+                            type: string
+                            description: 主币：coin token：transfer
+                            example: coin
+                          params:
+                            type: array
+                            description: transfer 交易参数
+                            items:
+                              type: string
+                              example: ""
+
+                        description: 签名交易信息
+                      hdpath:
+                        type: string
+                        description: bip32、bip44的推导路径
+                        example: m/1/1/60/0
+                      cryptography:
+                        type: string
+                        example: "ECDSA_SECP256K1"
+                        description: ECDSA_SECP256K1，EDDSA_ED25519
+                      remark:
+                        type: string
+                        description: 用户交易信息备注
+                        example: "用户填写的任意交易信息"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/speedup_transaction:
+    post:
+      tags:
+        - 交易
+      summary: 交易加速
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/speedup_transaction/",
+              {
+                "requestId": "123234,45345,324234",
+                "gasLimit": "21000",
+                "gasPrice": "1300000",
+                "fee": "344000",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "sinoId": "加速交易的sinoId"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/speedup_transaction/", map[string]string{
+                "requestId": "123234,45345,324234",
+                "gasLimit": "21000",
+                "gasPrice": "1300000",
+                "fee": "344000",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "sinoId": "加速交易的sinoId"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - assetId
+                - chainSymbol
+                - requestId
+                - sinoId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 当前请求的requestId
+                  example: 123234,45345,324234
+                sinoId:
+                  type: string
+                  description: 要加速的交易的sinoId
+                  example: 1
+                gasLimit:
+                  type: string
+                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  example: 21000
+                gasPrice:
+                  type: string
+                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  example: 1300000
+                fee:
+                  type: string
+                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  example: 344000
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 新生成的加速交易的sinoId
+                        example: 2
+                      chainSymbol:
+                        type: string
+                        description: 链标识
+                        example: ETH
+                      txType:
+                        type: string
+                        description: 交易类型。对于以太坊，可能的交易类型为：0 - legacy，1 - EIP2930，2 - EIP1559
+                        example: 0
+                      hasToBeSigned:
+                        type: string
+                        description: 签名前信息
+                        example: 23434dasdfr34345556782232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                      txInfo:
+                        type: object
+                        properties:
+                          asset:
+                            type: string
+                            description: 资产id
+                            example: ETH
+                          decimal:
+                            type: integer
+                            description: 精度
+                            example: 18
+                          currentTime:
+                            type: integer
+                            description: 当前时间
+                            example: 1691500611
+                          expireTime:
+                            type: integer
+                            description: 有效时间
+                            example: 1691500231
+                          expireBlockHeight:
+                            type: integer
+                            description: 交易有效高度
+                            example: 6566009
+                          referBlockHeight:
+                            type: integer
+                            description: refer 高度
+                            example: 6566020
+                          from:
+                            type: string
+                            description: from地址
+                            example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                          fromTag:
+                            type: string
+                            description: from地址tag
+                            example: 12300
+                          to:
+                            type: string
+                            description: to地址
+                            example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                          toTag:
+                            type: string
+                            description: to地址tag
+                            example: 1001
+                          amount:
+                            type: string
+                            description: 金额：最小精度的整数值 例如：1230000000000000000
+                            example: 1230000000000000000
+                          fee:
+                            type: string
+                            description: 手续费
+                            example: 3000000
+                          feeAsset:
+                            type: string
+                            description: 手续费资产
+                            example: ETH
+                          feePrice:
+                            type: string
+                            description: 手续费Price
+                            example: 100
+                          feeStep:
+                            type: string
+                            description: 手续费Step
+                            example: 30000
+                          chainId:
+                            type: string
+                            description: 链id
+                            example: 2
+                          nonce:
+                            type: string
+                            description: 交易nonce
+                            example: 2
+                          vin:
+                            type: array
+                            description: utxo input, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  description: 交易id
+                                  example: 1
+                                hash:
+                                  type: string
+                                  description: 交易hash
+                                  example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+                                voutIndex:
+                                  type: string
+                                  description: 交易index,代表当前未花费交易所在位置
+                                  example: 1
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: BTC
+                          vout:
+                            type: array
+                            description: 交易output, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: ETH
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                          funName:
+                            type: string
+                            description: 主币：coin token：transfer
+                            example: coin
+                          params:
+                            type: array
+                            description: transfer 交易参数
+                            items:
+                              type: string
+                              example: ""
+                        description: 签名交易信息
+                      hdpath:
+                        type: string
+                        description: bip32、bip44的推导路径
+                        example: m/1/1/60/0
+                      cryptography:
+                        type: string
+                        description: ECDSA_SECP256K1，EDDSA_ED25519
+                        example: "ECDSA_SECP256K1"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/cancel_transaction:
+    post:
+      tags:
+        - 交易
+      summary: 交易取消，该方法只支持类eth系列交易取消
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/cancel_transaction/",
+              {
+                "requestId": "64534",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH"
+                "sinoId": "1"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/cancel_transaction/", map[string]string{
+                "requestId": "64534",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "sinoId": "1"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - assetId
+                - chainSymbol
+                - requestId
+                - sinoId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求的唯一标识
+                  example: 64534
+                sinoId:
+                  type: string
+                  description: 要取消的交易对应的sinoId
+                  example: 1
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 新生成的交易的sinoId
+                        example: 2
+                      chainSymbol:
+                        type: string
+                        description: 链标识
+                      txType:
+                        type: string
+                        description: 交易类型。对于以太坊，可能的交易类型为：0 - legacy，1 - EIP2930，2 - EIP1559
+                        example: 0
+                      hasToBeSigned:
+                        type: string
+                        description: 签名前信息
+                        example: 23434dasdfr34345556782232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                      txInfo:
+                        type: object
+                        properties:
+                          asset:
+                            type: string
+                            description: 资产id
+                            example: ETH
+                          decimal:
+                            type: integer
+                            description: 精度
+                            example: 18
+                          currentTime:
+                            type: integer
+                            description: 当前时间
+                            example: 1691500611
+                          expireTime:
+                            type: integer
+                            description: 有效时间
+                            example: 1691500231
+                          expireBlockHeight:
+                            type: integer
+                            description: 交易有效高度
+                            example: 6566009
+                          referBlockHeight:
+                            type: integer
+                            description: refer 高度
+                            example: 6566020
+                          from:
+                            type: string
+                            description: from地址
+                            example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                          fromTag:
+                            type: string
+                            description: from地址tag
+                            example: 12300
+                          to:
+                            type: string
+                            description: to地址
+                            example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                          toTag:
+                            type: string
+                            description: to地址tag
+                            example: 1001
+                          amount:
+                            type: string
+                            description: 金额：最小精度的整数值 例如：1230000000000000000
+                            example: 1230000000000000000
+                          fee:
+                            type: string
+                            description: 手续费
+                            example: 3000000
+                          feeAsset:
+                            type: string
+                            description: 手续费资产
+                            example: ETH
+                          feePrice:
+                            type: string
+                            description: 手续费Price
+                            example: 100
+                          feeStep:
+                            type: string
+                            description: 手续费Step
+                            example: 30000
+                          chainId:
+                            type: string
+                            description: 链id
+                            example: 2
+                          nonce:
+                            type: string
+                            description: 交易nonce
+                            example: 2
+                          vin:
+                            type: array
+                            description: utxo input, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  description: 交易id
+                                  example: 1
+                                hash:
+                                  type: string
+                                  description: 交易hash
+                                  example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+                                voutIndex:
+                                  type: string
+                                  description: 交易index,代表当前未花费交易所在位置
+                                  example: 1
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: BTC
+                          vout:
+                            type: array
+                            description: 交易output, 当币种是utxo类型币种时，才有此参数
+                            items:
+                              type: object
+                              properties:
+                                asset:
+                                  type: string
+                                  description: 交易资产
+                                  example: ETH
+                                address:
+                                  type: string
+                                  description: 交易地址
+                                  example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+                                amount:
+                                  type: string
+                                  description: 交易金额
+                                  example: 123000
+                          funName:
+                            type: string
+                            description: 主币：coin token：transfer
+                            example: coin
+                          params:
+                            type: array
+                            description: transfer 交易参数
+                            items:
+                              type: string
+                              example: ""
+                        description: 签名交易信息
+                      hdpath:
+                        type: string
+                        description: bip32、bip44的推导路径
+                        example: m/1/1/60/0
+                      cryptography:
+                        type: string
+                        description: ECDSA_SECP256K1，EDDSA_ED25519
+                        example: "ECDSA_SECP256K1"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/list_transactions:
+    post:
+      tags:
+        - 交易
+      summary: 交易列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/list_transactions/",
+              {
+                "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
+                "sinoId": "1,2",
+                "requestId": "433352715218629,433352715218629",
+                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "pageIndex": 1,
+                "pageSize": 10,
+                "startUpdateTime": "2022-02-02 00:00:00",
+                "endUpdateTime": "2022-03-02 00:00:00"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/list_transactions/", map[string]string{
+                "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
+                "sinoId": "1,2",
+                "requestId": "433352715218629,433352715218629",
+                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH",
+                "assetId": "USDC_ETH",
+                "pageIndex": 1,
+                "pageSize": 10,
+                "startUpdateTime": "2022-02-02 00:00:00",
+                "endUpdateTime": "2022-03-02 00:00:00"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: 链地址
+                  example: "0x4b67ec7fb5804dc645d584a715792f7ca76caace"
+                sinoIds:
+                  type: string
+                  description: 通过sinoIds查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，sinoid不能大于50个
+                  example: 1,2
+                requestIds:
+                  type: string
+                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，requestId不能大于50个
+                  example: 433352715218629,433352715218629
+                txHash:
+                  type: string
+                  description: 交易hash
+                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+                startUpdateTime:
+                  type: string
+                  description: 根据更新时间查询,开始时间 传了开始时间,开始结束也得带上（格式 "2022-02-02 00:00:00"）
+                  example: 2022-02-02 00:00:00
+                endUpdateTime:
+                  type: string
+                  description: 根据更新时间查询,结束时间  传了结束时间,开始时间也得带上（2022-02-02 00:00:00））
+                  example: 2022-03-02 00:00:00
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/transactions_by_request_ids:
+    post:
+      tags:
+        - 交易
+      summary: 根据requestIds查询交易列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/transactions_by_request_ids/",
+              {
+                "requestIds": "433352715218629,433352715218629"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/transactions_by_request_ids/", map[string]string{
+                "requestIds": "433352715218629,433352715218629"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestIds
+              type: object
+              properties:
+                requestIds:
+                  type: string
+                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，不能为空且不能大于50个
+                  example: 433352715218629,433352715218629
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    description: 交易记录列表
+                    items:
+                      $ref: '#/components/schemas/transactionRecord'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/transactions_by_sino_ids:
+    post:
+      tags:
+        - 交易
+      summary: 根据sinoIds查询交易列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/transactions_by_sino_ids/",
+              {
+                "sinoIds": "1,2,3,4"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/transactions_by_sino_ids/", map[string]string{
+                "sinoIds": "1,2,3,4"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - sinoIds
+              type: object
+              properties:
+                sinoIds:
+                  type: string
+                  description: 通过sinoId查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，不能为空且不能大于50个
+                  example: 1,2,3,4
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    description: 交易记录列表
+                    items:
+                      $ref: '#/components/schemas/transactionRecord'
+
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/transactions_by_tx_hash:
+    post:
+      tags:
+        - 交易
+      summary: 根据txHash查询交易列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/transactions_by_tx_hash/",
+              {
+                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/transactions_by_tx_hash/", map[string]string{
+                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - txHash
+                - chainSymbol
+              type: object
+              properties:
+                txHash:
+                  type: string
+                  description: 通过交易txHash，查询获取已确认交易记录列表
+                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    description: 交易记录列表
+                    items:
+                      $ref: '#/components/schemas/transactionRecord'
+
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/web3/sign_message:
+    post:
+      tags:
+        - 交易
+      summary: 按已知的规范签名消息（EIP-191、 EIP-712）
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/web3/sign_message/",
+              {
+                "requestId": "4242342,324234",
+                "chainSymbol": "ETH",
+                "hdPath": "m/1/1/60/0",
+                "signAlgorithm": "personal_sign",
+                "message": "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/web3/sign_message/", map[string]string{
+                "requestId": "4242342,324234",
+                "chainSymbol": "ETH",
+                "hdPath": "m/1/1/60/0",
+                "signAlgorithm": "personal_sign",
+                "message": "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - hdPath
+                - message
+                - requestId
+                - signAlgorithm
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: 4242342,324234
+                chainSymbol:
+                  type: string
+                  description: 链
+                  example: ETH
+                hdPath:
+                  type: string
+                  description: bip32、bip44的推导路径
+                  example: m/1/1/60/0
+                signAlgorithm:
+                  type: string
+                  description: '支持签名算法: （personal_sign、signTypedData、eth_signTypedData_v3、eth_signTypedData_v4）'
+                  example: personal_sign
+                message:
+                  type: string
+                  description: 待签名的字符串信息
+                  example: 232313c429aeda8bf786cf092224dddadbc0813f9f230b
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: integer
+                        description: sinoId
+                        example: 2
+                      messageHash:
+                        type: string
+                        description: 签名信息，待签名的消息hash
+                        example: 243545657745232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+
+components:
+  schemas:
+    transactionObject:
+      type: object
+      description: 交易信息
+      properties:
+        txHash:
+          type: string
+          description: 交易hash
+          example: "ee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
+        from:
+          type: string
+          description: from地址
+          example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+        fromTag:
+          type: string
+          description: from地址tag
+          example: "12300"
+        to:
+          type: string
+          description: to地址
+          example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+        toTag:
+          type: string
+          description: to地址tag
+          example: "1001"
+        amount:
+          type: string
+          description: 金额：最小精度的整数值 例如：1230000000000000000
+          example: "1230000000000000000"
+        asset:
+          type: string
+          description: 资产id
+          example: ETH
+        feeAsset:
+          type: string
+          description: 手续费资产
+          example: ETH
+        usedFee:
+          type: string
+          description: 真实消耗的手续费，最小精度的整数值
+          example: "21000000000000"
+        fee:
+          type: string
+          description: 构造交易时赋予的手续费
+          example: "30000000000000"
+        feePrice:
+          type: string
+          description: 手续费Price
+          example: "1000000000"
+        feeStep:
+          type: string
+          description: 手续费Step （在evm兼容链中即 gas）
+          example: "30000"
+        state:
+          type: integer
+          description: 交易状态  21-交易已签名待上链 2-交易上链中 4-广播失败 5-交易上链失败 6-广播网络超时 10-交易上链成功 11-交易上链回滚
+          example: 10
+        nonce:
+          type: string
+          description: 交易nonce
+          example: "2"
+        chainId:
+          type: string
+          description: 链id
+          example: "2"
+        timestamp:
+          type: integer
+          description: 交易时间
+          example: 1691500614
+        note:
+          type: string
+          description: 交易文本
+          example: ''
+        currentTime:
+          type: integer
+          description: 当前时间
+          example: 1691500611
+        expireTime:
+          type: integer
+          description: 有效时间
+          example: 1691500231
+        expireBlockHeight:
+          type: integer
+          description: 交易有效高度
+          example: 6566009
+        referBlockHeight:
+          type: integer
+          description: refer 高度
+          example: 6566020
+        vin:
+          type: array
+          description: utxo input, 当币种是utxo类型币种时，才有此参数
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 交易id
+                example: 1
+              hash:
+                type: string
+                description: 交易hash
+                example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+              voutIndex:
+                type: string
+                description: 交易index,代表当前未花费交易所在位置
+                example: "1"
+              address:
+                type: string
+                description: 交易地址
+                example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+              amount:
+                type: string
+                description: 交易金额
+                example: "123000"
+              asset:
+                type: string
+                description: 交易资产
+                example: BTC
+        vout:
+          type: array
+          description: 交易output, 当币种是utxo类型币种时，才有此参数
+          items:
+            type: object
+            properties:
+              asset:
+                type: string
+                description: 交易资产
+                example: BTC
+              address:
+                type: string
+                description: 交易地址
+                example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+              amount:
+                type: string
+                description: 交易金额
+                example: "123000"
+    transactionRecord:
+      type: object
+      description: 完整交易记录
+      properties:
+        sinoId:
+          type: string
+          description: Sinohope对交易的唯一标识
+          example: "2"
+        assetId:
+          type: string
+          description: 资产Id
+          example: ETH_ETH
+        assetName:
+          type: string
+          description: 资产名称
+          example: ETH
+        chainSymbol:
+          type: string
+          description: 链简称
+          example: ETH
+        chainName:
+          type: string
+          description: 链名称
+          example: Ethereum
+        txDirection:
+          type: integer
+          description: 交易方向类型 1充值 2提现
+          example: 1
+        txType:
+          type: integer
+          description: 交易类型。对于以太坊，可能的交易类型为：0 - legacy，1 - EIP2930，2 - EIP1559
+          example: 0
+        decimal:
+          type: integer
+          description: 精度
+          example: 18
+        coinDecimals:
+          type: integer
+          description: 链对应的主币的精度
+          example: 18
+        transaction:
+          $ref: '#/components/schemas/transactionObject'
+    addressInfo:
+      type: object
+      description: 地址信息
+      properties:
+        id:
+          type: string
+          description: 地址id
+          example: "11368"
+        address:
+          type: string
+          description: 链地址
+          example: "4b1613e2501b770463a12e397b34d9cac0d9497c"
+        hdPath:
+          type: string
+          description: 地址对应的path
+          example: "m/1/1/60/0"
+        encoding:
+          type: integer
+          description: |-
+            链地址
+            地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
+          example: 0
+        pubkey:
+          type: string
+          description: 公钥
+          example: "021855d461cf75ac6579d32a2af92d0dc26f0f0736ac766f8ad7894407ab360ffb"
+    
+    pageIndex:
+      type: integer
+      description: 当前页码，首页为 1，不传或传0均统一默认为首页（即0，1 效果相同）
+      example: 1
+    pageSize:
+      type: integer
+      description: 每页数据条数（不得小于1,不得大于50；默认 10）
+      example: 10

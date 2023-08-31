@@ -1,0 +1,315 @@
+---
+id: sinohope-full-custody-waas-api
+title: "Sinohope Full Custody WaaS API"
+description: "# 关于Sinohope Full Custody WaaS API"
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiDemoPanel/Export";
+
+<span className={"theme-doc-version-badge badge badge--secondary"}>Version: 0.0.1</span>
+
+# Sinohope Full Custody WaaS API
+
+
+
+# 关于Sinohope Full Custody WaaS API
+## 概述
+欢迎使用 Sinohope Full Custody WaaS（Wallet as a Service） API。
+
+Sinohope 平台是一站式的数字资产托管平台，同时支持自托管（基于MPC-TSS 技术）/全托管（基于 HSM 技术）产品，也支持以 API 的方式来使用相应的产品，满足广大客户的各类需求。
+
+简要介绍 Sinohope 产品优势：
+
+
+安全
+- 综合 Tier 1 MPC-TSS  技术服务提供商
+  基于全球最新 MPC-CMP 协议创新研发
+  多重灾备方案，多场景分片恢复机制
+- 完备的安全体系
+  软件与硬件结合双结合（MPC-TSS+TEE）
+  密码学和完备安全机制双保障
+
+经验
+- 十年数字资管经验
+  10年+ 全球 Top3 交易所资管经验
+  团队成员来自全球顶级高校与企业
+- 百亿资金托管经验
+  150亿+ USD 数字资产托管经验
+  数十亿笔交易处理经验
+
+资质：
+- 多监管区域持牌
+  隶属香港上市公司，代码：1611
+  持有香港4/9号牌/TCSP  牌照
+  获得 SOC 2 Type1 和  Type2  审计报告
+- 交易安全性
+  平台集成  AML/KYT  实时监控能力
+  交易目标黑白名单/交易复核/规则设置
+
+功能：
+- 易用且强大的产品功能
+  10秒创建钱包，功能易上手，Web2 体验
+  多角色/多层级/多节点审批流/自定义交易规则引擎
+  多种托管模式：协管/全托管/合规托管
+- 多应用场景解决方案
+  企业财务多层审批解决方案
+  钱包基础设施/支付解决方案/国库解决方案
+
+扩展：
+- 多种访问方式
+  APP + 网页版，无缝使用
+  API + SDK，应对客户多种开发需求
+- 面向 Web3 未来
+  DApp/DeFi/NFT 支持
+  链上资管/链上投融资 支持
+
+## 术语定义
+## sinoId
+对于涉及到MPC私钥分片的业务，包括开发者请求的交易及签名类业务（如发起交易、发起签名等），Sinohope均会给该业务产生一个唯一标识，即 sinoId。
+
+## chainSymbol的规则
+1、chainSymbol是链配置的唯一标识；
+
+2、区分测试网和正式网；
+
+3、使用大写字母命名。
+
+> 例如：
+> - 主网使用常见简称，如`ETH`, `BTC` 分别是 `Ethereum 主网`/ `Bitcoin主网`
+> - 对于有特定名字的测试网使用其测试网名字，如用`GOERLI` 表示`ETH Goerli 测试网`
+> - 对于无特定名字的测试网，使用`_TEST`加以区分，如 `BTC_TEST` 表示 `Bitcoin testnet3测试网`
+> - 注意：系统支持的链，以`/v1/waas/common/get_supported_chains`接口返回值为准
+
+## assetId的规则
+1、assetId是Asset配置表唯一标识；
+
+2、命名方式前币(coin)后链(chain)，中间以下划线分隔；
+
+3、使用大写字母命名。
+
+> 例如：USDT_GOERLI 是 ETH Goerli 测试网上的的一个 USDT 币种
+
+## 文档变更记录
+
+
+| Version | Log           | Date       | Modifier |
+| ---- | ------------- | ---------- | ------ |
+| v0.9.0 | first version | 2023-08-04 | Owen  |
+
+
+#  API 认证
+
+为了加强 API 安全，Sinohope 要求开发者对所调用的 API 请求进行椭圆曲线签名，Sinohope API 服务器将会根据收到的请求和签名进行有效性校验。
+
+
+流程如下：
+1. 开发者在本地自行生成公私钥对，生成方法见[DEMO](https://github.com/sinohope/sinohope-java-api)。
+
+2. 开发者在 Sinohope 平台上配置生成的公钥。
+
+3. 开发者在调用  API 时按照规则生成签名，附带到请求头中。
+
+4. Sinohope 平台将会校验签名有效性和请求的合法性
+
+注意事项：
+1. Sinohope POST接口仅支持JSON数据格式。
+
+
+## 请求头
+
+- `BIZ-API-KEY`: 您的公钥字符串
+- `BIZ-API-SIGNATURE`: 数据签名字符串，为 ECDSA签名结果按 `ASN.1 DER`格式化后的字节数组的 HEX编码字符串
+- `BIZ-API-NONCE`: 参与构成签名数据的 timestamp
+
+Sinohope将按照上述请求头及您的请求数据进行签名验证，从而验证您的请求合法性。
+
+
+## 签名构造
+
+
+待签名数据：
+
+| key | value |
+| --- | --- |
+| data | 请求参数所组成的字符串值，详见下文 `DATA` 部分的具体说明|
+| path | 请求URL的 `PATH` 部分，详见下文 `PATH` 部分的具体说明 |
+| timestamp | 访问 API时间戳，详见 `TIMESTAMP` 部分的具体说明 |
+| version | 固定值`1.0.0` 详见 `VERSION` 部分的具体说明|
+| ""（长度为 0 的字符串） | 公钥字符串 详见 `PUBLICKEY` 部分的具体说明 |
+
+字符串拼接规则：
+
+对于上述的键值对，按 key 的字母序升序排序后，将所有 `key` `value` 直接拼接起来（中间没有连接符，其中最后的 公钥字符串没有 key字段）形成最终的待签名数据字符串，**将待签名数据字符串按UTF8编码为字节数组**之后，使用您本地生成的私钥（privateKey），对数据使用私钥进行
+ECDSA 签名（具体算法为 `SHA256withECDSA`），签名结果按 `ASN.1 DER` 格式化并编码为 Hex 字符串, 即生成了用于向 API 服务器进行验证的最终签名 （可参考 Sinohope 例程：<https://github.com/sinohope/sinohope-java-api>）。
+
+各部分数据具体解释，见接下来的章节。
+
+## 各部分数据解释
+### DATA
+
+* 如果是`GET`请求：
+```html
+https://api.develop.sinohope.com/v1/test?key=key&value=value
+```
+则先将参数 key 按照字母排序，然后进行 url 参数化，即：
+```
+key=key
+value=value
+```
+因为 k 在字母表中的排序在 v 之前，所以 key 要放在 value 之前，然后使用 & 进行连接，即： `key=key&value=value`
+
+* 如果是`POST`请求：
+```java
+{
+  "key": "key",
+  "value": "value"
+}
+```
+则将body整体参数当做String字符串来处理。
+
+### PATH
+请求URL的PATH部分， 例如https://api.develop.sinohope.com/v1/test/ 为 `/v1/test/`
+
+### TIMESTAMP
+访问 API 时的 UNIX EPOCH 时间戳 (精确到毫秒)
+
+### VERSION
+固定值`1.0.0`
+
+### PUBLICKEY
+您本地获取的公钥，按 `X.509` 格式序列化后的字节数组再按 HEX 编码后的字符串。
+
+Java中获取公私钥代码示例 <https://github.com/sinohope/sinohope-java-api#generate-key-pair\>
+
+
+## 请求示例
+
+### GET请求：
+| Method | URL |
+| :--- | :--- |
+| GET | https://api.develop.sinohope.com/v1/test?key=key&value=value |
+
+参数：
+| Parameter | Value |
+| :--- | :--- |
+| key | key |
+| value | value |
+
+待签名数据为：
+```html
+datakey=key&value=valuepath/v1/testtimestamp1690959799750version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
+```
+
+### POST请求：
+| Method | URL |
+| :--- | :--- |
+| POST | https://api.develop.sinohope.com/v1/test |
+
+参数：
+```html
+{
+  "key": "key",
+  "value": "value"
+}
+```
+待签名数据为：
+```html
+data{"key":"key","value":"value"}path/v1/testtimestamp1690961714929version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
+```
+
+## 附加信息
+### DEMO 库
+<https://github.com/sinohope/sinohope-java-api>
+### 签名算法
+Sinohope 使用基于P-256曲线（又名prime256v1或secp256r1）和算法为SHA256withECDSA的 ECDSA 签名方案进行验证，上述 demo，如您在操作过程中遇到任何问题，请通过bd@newhuotech.com联系Sinohope工作人员协助您一起排查和解决。
+
+
+
+# 返回值说明
+## 统一返回值
+| 代码 | 说明 |
+| :-- |:---------------|
+| code | 状态返回代码（成功返回200） |
+| msg | 状态返回描述 |
+| data | 响应的数据 |
+| success | 请求是否成功（成功返回true，失败返回false） |
+
+# 常见错误码定义
+
+当Sinohope WaaS 服务发生错误的时候，会返回给客户端统一格式的数据
+
+
+- `200`: Successful response. Refer to each API for the detailed response data.
+- `400`: Return Bad Request.
+- `401`: Unauthorized. Either API details are missing or invalid
+- `403`: Forbidden - You do not have access to the requested resource.
+- `415`: Unsupported media type. You need to use application/json.
+- `500`: Exchange/Sinohope internal error.
+
+## 系统层面错误
+| 错误码 | 描述 |
+| :-- |:---------------|
+| 1001 | 未知异常，请联系 Sinohope 客服 |
+| 1002 | 重复的请求 |
+| 1004 | APIKey 错误 |
+| 1005 | 验签失败 |
+| 1006 | IP 调用频率受限 |
+
+## 参数层面错误
+| 错误码 | 描述 |
+| :-- |:---------------|
+| 2001 | 币种暂不支持 |
+| 2002 | 链暂不支持 |
+| 2003 | 输入地址无效 |
+| 2004 | 交易记录不存在 |
+| 2005 | 无权限 |
+| 2006 | 转账信息异常 （kyt校验不通过） |
+| 2007 | 矿工费过低 |
+| 2008 | To地址非内部地址 （转账保护） |
+| 2009 | 余额不足以支付转账数量和Gas费 |
+| 2010 | gas不足 （token转账） |
+| 2011 | 可用余额不足 （token转账） |
+
+## 业务层面错误
+| 错误码 | 描述 |
+| :-- |:---------------|
+| 4001 | 组交易失败 |
+| 4002 | 广播失败 |
+| 4003 | 不支持加速的币种 |
+| 4004 | 加速交易已上链或nonce已被占用 |
+| 4005 | 取消交易已上链或nonce已被占用 |
+| 4006 | TSSNode 未绑定 |
+| 4007 | TSSNode 未DKG |
+| 4008 | 同一金库不能够同时发起创建钱包操作 |
+| 4009 | 同一金库下钱包名称不能相同 |
+| 4010 | 创建钱包数量和自定义钱包list不一致 |
+| 4011 | 钱包数量限额 |
+
+# 数据字典
+## 交易手续费费率等级
+| 字典码 | 描述 |
+| :-- |:---------------|
+| LOW | 低 |
+| MIDDLE | 中 |
+| HIGH | 高 |
+
+## 交易状态
+| 字典码 | 描述 |
+| :-- |:---------------|
+| 21 | 已签名待上链 |
+| 2 | 交易上链中 |
+| 4 | 广播失败 |
+| 5 | 交易上链失败 |
+| 6 | 广播网络超时 |
+| 10 | 交易上链成功 |
+| 11 | 交易链上回滚 |
+
+
+

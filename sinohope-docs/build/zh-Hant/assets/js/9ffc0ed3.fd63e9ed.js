@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdemo=self.webpackChunkdemo||[]).push([[4762],{95238:e=>{e.exports=JSON.parse('{"label":"sinohope","permalink":"/zh-Hant/blog/tags/sinohope","allTagsPath":"/zh-Hant/blog/tags","count":1}')}}]);
