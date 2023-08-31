@@ -7,8 +7,10 @@ update:
 	cd ./sinohope-docs && rm -rf ./.git
 
 build:
-	cd sinohope-docs && make build
+	cd sinohope-docs
 	cp -r build/* ../docs/
 
 push:
-	git add . && git commit -m "add new" && git push origin main
+	git add . 
+	git commit -m "add new"
+	git push origin main
