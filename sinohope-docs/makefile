@@ -6,7 +6,9 @@ build:
 	npm run build
 
 push:
-	git add . && git commit -m "new docs" && git push origin main
+	git add . 
+	git commit -m "new docs" 
+	git push origin main
 
 i18n:
 	npm run write-translations -- --locale zh-Hant
