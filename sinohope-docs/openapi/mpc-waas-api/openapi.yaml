@@ -3340,7 +3340,7 @@ components:
     
     pageIndex:
       type: integer
-      description: 当前页码，首页为 1，不传或传0均统一默认为首页（即0，1 效果相同）
+      description: 当前页码，首页为 1。
       example: 1
     pageSize:
       type: integer

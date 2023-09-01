@@ -1,6 +1,6 @@
 # MPC WaaS 快速入门
 
-基于整体的[开放平台介绍](/docs/develop/get-started/quick-start.md)，本教程将主要介绍MPC WaaS API的集成和使用。
+基于整体的[开放平台介绍](/docs/develop/get-started/quick-start)，本教程将主要介绍MPC WaaS API的集成和使用。
 
 本教程主要涉及以下事项：
 - 部署并配置MPC Node

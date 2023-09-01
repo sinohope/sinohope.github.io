@@ -1,6 +1,6 @@
 # Full Custody WaaS 快速入门
 
-基于整体的[开放平台介绍](/docs/develop/get-started/quick-start.md)，本教程将主要介绍Full Custody WaaS API的集成和使用。
+基于整体的[开放平台介绍](/docs/develop/get-started/quick-start)，本教程将主要介绍Full Custody WaaS API的集成和使用。
 
 本教程主要涉及以下事项：
 - 创建金库
