@@ -1,5 +1,7 @@
 
-# Glossary
+# General
+
+## Glossary
 
 Roles: User U, Exchange E, Custodian Platform C.
 

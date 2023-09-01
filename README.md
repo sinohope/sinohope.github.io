@@ -1,6 +1,9 @@
 # sinohope.github.io
 
-serve as docs site of sinohopt.
+Serve as [docs site](https://docs.sinohope.com) .
+
+## Update
+use PR to request an update.
 
 ## Deploy
 ```bash

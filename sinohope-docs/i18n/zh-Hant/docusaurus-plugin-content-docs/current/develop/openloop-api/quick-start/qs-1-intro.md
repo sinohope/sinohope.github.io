@@ -1,5 +1,6 @@
+# 通用
 
-# Glossary
+## Glossary
 
 Roles: User U, Exchange E, Custodian Platform C.
 
