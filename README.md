@@ -2,11 +2,13 @@
 
 Serve as [docs site](https://docs.sinohope.com) .
 
-## Update
+# Usage
+
+## 1. Update
 
 ```bash
 make update
 ```
-## Request to update
+## 2. Request to update
 
-use PR to request an update.
+Initiate a [PR](https://github.com/sinohope/sinohope.github.io/compare) to request an update.
