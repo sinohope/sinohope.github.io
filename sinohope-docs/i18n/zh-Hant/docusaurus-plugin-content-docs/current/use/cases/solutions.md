@@ -1,91 +1,97 @@
 ---
 sidebar_position: 2
 ---
-# Solutions
+# 解决方案
 
-# Transactional Institution
+# 交易型机构
 
-## Hedge Fund 
-Solution: 
-Highly stable and low-latency trading execution service, supporting multi-level collaborative management and customized trading strategies, and providing a one-stop cryptographic financial and tax solution
-- OpenLoop connects the world's top exchanges and counterparties for secure, ultra-fast clearing and zero-confirmation deposits 
-- A refined role-based approval flow and rules engine that isolates governance transaction management responsibilities and avoids human error, internal malfeasance, and single point of risk 
-- Multi-agent/currency/range/caliber financial statement configuration, automatic GAAP accounting and cost pricing, to achieve automated financial and tax solutions
--  Powerful mobile service, allowing 24/7 anytime anywhere trading, supporting over 95% of daily high-frequency operations 
-- Introduction of top-level AML/KYT systems to automatically identify high-risk transfers, ensuring that your transactions comply with the latest regulatory requirements
+## 对冲基金
+解决方案：
+高度稳定和低延迟的交易执行服务，支持多层级协同管理和定制化交易策略，并提供一站式加密财税解决方案
+- OpenLoop连接全球顶级交易所和交易对手，实现安全、超快速的清结算和零确认存款
+- 基于角色定制精细的审批流和规则引擎，实现治理事务隔离管理职责，避免人为错误、内部作恶和单点风险
+- 多主体/币种/区间/口径的财务报表配置、自动GAAP会计处理和成本计价，实现自动化财税解决方案 
+- 强大的移动端服务，24/7 随时随地交易，支持 95% 以上日常高频操作
+- 引入顶级AML/KYT系统，自动识别高风险转账，保障您的交易符合最新的合规要求
+
+## OTC/经纪商
+解决方案：
+安全可靠的自托管解决方案及安全稳定的交易环境，并支持多方确认和快速交易验证，减少对手方风险
+- MPC 钱包最强大的软件和硬件防御来消除单点危害，为存储数字资产创建真正安全的环境
+- OpenLoop连接全球顶级交易所、交易对手和交易场所，满足多渠道资产平衡与结算
+- 安全高效的访问DeFi 协议服务，支持DeFi交易、借贷和流动性挖矿
+- 强大的交易策略和工作流程引擎，管理分布式团队的风险
+- 引入顶级AML/KYT，专业全面的风险管理系统，防止洗钱等违法操作
 
 
-## OTC/ Broker 
-Solution: 
-Secure and reliable self-custody solutions and secure and stable trading environment, and support multi-party confirmation and rapid transaction verification, reducing counterparty risk 
-MPC Wallet's most powerful software and hardware defenses to eliminate a single point of harm and create a truly secure environment for storing digital assets 
-OpenLoop connects the world's top exchanges, counterparties and trading venues for multi-channel asset balancing and settlement 
-Secure and efficient access to DeFi protocol services for DeFi trading, lending and liquidity mining 
-• Powerful trading strategy and workflow engine to manage risk in distributed teams 
-• Introduction of top AML/KYT, professional and comprehensive risk management system to prevent money laundering and other illegal operations
+## 做市商
+解决方案：
+集成SINOHOPE 钱包服务，极大提高做市商资金运营效率，显著优化了利差和资产负债表消耗
+- OpenLoop连接100+交易所、交易对手和交易场所、流动性合作伙伴，实现便捷交易、实时结算
+- 强大规则引擎，消除网络攻击、内部串通的风险，安全而高效进行业务开展
+- MPC-CMP共管私钥分片与协同签名技术，告别私钥丢失风险，保护资金免受黑客攻击和内部恶意行为的侵害
+- 强大的移动端服务，24/7 随时随地交易，支持 95% 以上日常高频操作
+- 支持市面主流链和代币、与大多数活跃的公链无缝集成，并且不断更新兼容新的链、代币、协议
 
+# 合规托管型
+
+## 投资基金
+解决方案：
+安全高效的自托管钱包以及行业领先的交付和支持服务，满足多样化业务需求并简化整体投资流程
+- MPC-CMP共管私钥分片与协同签名技术，告别私钥丢失风险，保护资金免受黑客攻击和内部恶意行为的侵害
+- 清晰可视的数字资产管理面板，享受高质量自托管钱包服务
+- 设置自动化交易授权工作流程，消除手动和亲自审批
+- 连接全球顶级交易所、领先的流动性提供商和机构交易对手，实现即时清结算、超快速、零确认存款
+- 实时高效财务对账服务，专业财务数据报表导出
+
+
+
+## 家族办公室
+解决方案：
+一套资产共管体系满足机构多方监管需求，安全、高效、透明的配置加密资产
+- MPC 热钱包、冷钱包利用最强大的软件和硬件防御来消除单点危害，为存储数字资产创建真正安全的环境
+- MPC+Safe去中心化平权共管资产，并具有灵活的治理和策略引擎来保护每笔交易
+- 可定制化审批流和规则引擎，多层分级灵活管理，确保审批流清晰，透明可追溯
+- 强大的移动端服务，24/7 随时随地交易，支持 95% 以上日常高频操作
+- 持有SOC2 Type 1和Type 2安全系统控制验证报告、FIPS 140-2 Level 3国际标准认证
+
+
+## 借贷机构
+解决方案：
+相比传统钱包，在更安全、灵活的钱包基础设施上开展您的借贷业务，支撑千万级别用户体量
+- OpenLoop连接全球顶级交易所、领先的流动性提供商和机构交易对手，促进机构交易运营并提高资本效率
+- 享受一站式多签共管钱包资产，并定制的用户和资产转移权限，有效监管团队金库，增强多方信任
+- 一套 MPC 私钥分片可以管理多达千万个独立钱包地址，无需反复备份助记词，轻松管理海量钱包
+- 批量管理存款地址白名单地址薄或测试转账地址，来保护每笔交易
+- 支持市面主流链和代币、与大多数活跃的公链无缝集成，并且不断更新兼容新的链、代币、协议
+
+
+# 服务集成型
+
+## CEX
+解决方案：
+为数字资产交易所提供一站式的解决方案，共筑多方信任的交易网络，打通面向自托管客户的交易通道
+- 搭载API&SDK，批量生成多链地址、发起交易、自动签名批准、资产和交易查询
+- 一套 MPC 私钥分片可以管理多达千万个独立钱包地址，无需反复备份助记词，轻松管理海量钱包
+- 提供 SaaS、私有云和自托管的部署选项，利用 MPC或HSM 进行密钥管理
+- Openloop场外托管与结算网络，降低对手方风险，吸引更多交易团队，获得更大交易量，同时满足监管要求
+- 支持市面主流链和代币、与大多数活跃的公链无缝集成，并且不断更新兼容新的链、代币、协议
  
-## Market maker 
-Solution: 
-The integrated SINOHOPE wallet service greatly improves the efficiency of market makers' fund operation, significantly optimizing the spread and balance sheet consumption 
-•OpenLoop connects 100+ exchanges, counterparties and trading venues, and thousands of liquidity partners for convenient trading and real-time settlement 
-• A powerful rules engine that eliminates the risk of cyber attacks, internal collusion, and conducts business safely and efficiently 
-• MSC-CMP co-manages private key sharding and collaborative signature technology to bid farewell to the risk of private key loss and protect funds from hacker attacks and internal malicious behavior 
-• Powerful mobile services, 24/7 anytime, anywhere trading, supporting more than 95% of daily high-frequency operations 
-• Supports mainstream chains and tokens, integrates seamlessly with most active public chains, and is constantly updated to be compatible with new chains, tokens, and protocols
 
-# Compliant Managed
-## Investment fund 
-Solution: 
-Secure and efficient self-managed wallets and industry-leading delivery and support services to meet diverse business needs and streamline the overall investment process 
-• MSC-CMP co-manages private key sharding and collaborative signature technology to bid farewell to the risk of private key loss and protect funds from hacker attacks and internal malicious behavior 
-• Clear and visible digital asset management panel to enjoy high-quality self-managed wallet services 
-• Set up automated trade authorization workflows that eliminate manual and in-person approvals 
-Connect the world's top exchanges, leading liquidity providers and institutional counterparties for instant clearing, ultra-fast, zero-confirmation deposits 
-• Real-time and efficient financial reconciliation services, professional financial data report export
-
-## Family Office 
-Solution: 
-A set of asset custody system that meets institutional multi-party regulatory requirements, safe, efficient, transparent allocation of cryptocurrency assets 
-• MPC hot wallets and cold wallets use the most powerful software and hardware defenses to eliminate single-point hazards, creating a truly secure environment for storing digital assets 
-• MPC+Safe decentralized co-management of assets with flexible governance and strategy engines to protect every transaction
- • Customizable approval flow and rule engine, multi-layered flexible management to ensure clear approval flow traceability 
-• Strong mobile service 24/7 anytime anywhere transactions supporting 95% of daily high-frequency operations • Hold SOC2 Type 1 and Type 2 security system control validation reports FIPS 140-2 Level 3 international standard certification
-
-## Lending Institution 
-Solution: 
-Compared to traditional wallets, conduct your lending business on a more secure flexible wallet infrastructure that supports millions of user accounts 
-• OpenLoop connects global top exchanges leading liquidity providers and institutional trading counterparties promoting institutional trading operations and improving capital efficiency
- • Enjoy one-stop multi-signed wallet asset management with customizable user and asset transfer permissions effectively regulating team treasury enhancing mutual trust
- • One MPC private key sharding can manage up to millions of independent wallet addresses without repeatedly backing up mnemonics easily managing a large number of wallets 
-• Batch manage white list addresses or test transfer addresses for deposit addresses to protect every transaction
- • Supports mainstream chains tokens in the market seamlessly integrated with most active public chains
-
-# Service Integration
- 
-## CEX 
-Solution: 
-Provide a one-stop solution for digital asset exchanges, build a multi-trust trading network, and open up the trading channel for self-custody customers 
-• Equipped with API&SDK, bulk generate multi-chain addresses, initiate transactions, automatic signature approval, asset and transaction queries 
-• A set of MPC private key sharding can manage up to tens of millions of independent wallet addresses, without repeatedly backing up mnemonics, easy to manage a large number of wallets 
-• SaaS, private cloud and self-hosted deployment options with MPC or HSM for key management 
-•Openloop's over-the-counter custody and settlement network reduces counterparty risk, attracts more trading teams, and achieves greater volumes while meeting regulatory requirements 
-• Supports mainstream chains and tokens, integrates seamlessly with most active public chains, and is constantly updated to be compatible with new chains, tokens, and protocols
+## Web3
+解决方案：
+无缝接入Web3 完整钱包基础设施，快速而经济的全面访问Web3应用程序
+- 支持DeFi、DAO、GameFi、元宇宙 等全面Web3访问，实施安全的交互交易，而无需了解协议的潜在复杂性
+- 部署 MPC Node，构建自动化业务，实现 DeFi 自动化套利、NFT 市值管理等
+- 为每个客户提供独立隔离钱包，来购买、出售和转移加密货币和 NFT，支撑千万级别用户体量
+- 合约 Owner 多签治理、Web3 资产多签管理，可达到安全、隐私、灵活的最佳平衡
+- 支持法定货币转换为加密货币，以访问Web3应用程序和游戏
 
 
-## Web3 
-Solution: 
-Seamless access to Web3 complete wallet infrastructure for fast and cost-effective full access to Web3 applications 
-• Support full Web3 access to DeFi, DAO, GameFi, Metacomes, etc., to implement secure interactive transactions without understanding the potential complexities of the protocol 
-• Deploy MPC Node, build automation services, and realize DeFi automation arbitrage, NFT market cap management, etc 
-• Provide a separate segregated wallet for each customer to buy, sell and transfer cryptocurrencies and NFTS, supporting tens of millions of users 
-• Contract Owner multi-signature governance and Web3 asset multi-signature management, which can achieve the best balance of security, privacy and flexibility 
-Supports conversion of fiat currencies to cryptocurrencies to access Web3 applications and games
-
-## Wallet payment service provider 
-Solution: 
-• Provide global payment services with 7*24 settlement, reducing transaction settlement time for merchants from days to minutes, maintaining 24/7/365 settlement competitiveness 
-• Flexible crypto payment services that support payments over a dozen stablecoin protocols 
-• Eliminate payment complexity and automatically convert fiat currencies to cryptocurrencies and securely transfer them to merchant wallets 
-• Support auditability, transparency, transaction monitoring and financial management to meet regulatory requirements 
-• Supports mainstream chains and tokens currently on the market, seamlessly integrates with most active public chains, and is constantly updated to be compatible with new chains, tokens, and protocols
+## 钱包支付服务商
+解决方案：
+提供 7*24结算的全球支付服务，将商家的交易结算时间从几天缩短到几分钟，保持 24/7/365 结算竞争力
+- 灵活加密支付服务，支持十几种稳定币协议上进行支付
+- 消除支付复杂性，自动将法定货币转换为加密货币，并安全地转移到商家钱包
+- 支持可审计性、透明度、交易监控和财务管理，满足监管要求
+- 支持目前市面上主流链和代币、与大多数活跃的公链无缝集成，并且不断更新兼容新的链、代币、协议

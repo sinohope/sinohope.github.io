@@ -1,21 +1,22 @@
 ---
 sidebar_position: "5"
 ---
-# ⛽ Transaction Acceleration and Cancellation
+# ⛽ 加速及取消交易
 
-During times of blockchain network congestion, transactions can remain in a pending state and might not complete. Some cryptocurrency transactions might even be temporarily halted during network congestion. If there's a high volume of transactions waiting to be confirmed on-chain, your transaction could be delayed for hours or even days.
+### **加速交易**
 
-Pending transactions can sometimes fail due to various reasons, including low gas fees. Although Ethereum transactions cannot be outright canceled, there are steps you can take to expedite the process. SINOHOPE provides transaction acceleration and cancellation options to address such scenarios:
+当区块链网络拥堵时，可能会出现交易一直处于Pending状态无法完成的情形，某些加密货币交易可能会在网络拥塞期间停止。如果上链交易量太大，您的交易可能会被搁置数小时甚至数天。
 
-**Transaction Acceleration:**
-
-Initiating a new transaction with the same "From" address, "To" address, token type, and quantity as the pending transaction can speed up the process. By default, you can adjust the Gas mode to "Fast," or even set a higher Gas value. Both transactions should use the same Nonce value, resulting in one successful transaction and the other one failing.
-
-![](<../images/assets/image (22).png>)
+由于未决的交易失败或较低的矿工费（Gas 费），有时会自行解决阻塞。虽然您实际上无法取消以太坊交易，但您可以采取一些措施来加快该过程。Sinohope提供了加速交易和取消交易来应对这种缺口：
 
 
-**Canceling a Transaction:**
 
-To cancel a transaction, you can initiate a new transaction with the same "From" address and "To" address, but set the amount of the token to 0. Set the Gas mode to "Fast" as well. Just like the previous methods, the cancellation transaction and the pending transaction should use the same Nonce value. This will result in one successful transaction (cancellation) and the other one failing (the pending transaction).
+（1）加速交易。将发起一笔新的交易，From地址、To地址，转账币种和数量与之前的交易一致，默认把Gas模式调整为快速模式，也可以自定义设置更高的Gas值，两笔交易使用相同的Nonce值，一笔成功另一笔一定失败。
 
-![](<../images/assets/image (49).png>)
+![](<../images/assets/image (16).png>)
+
+
+
+（2）取消交易。将发起一笔新的交易，rom地址、To地址，转账币种的数量调整为0，默认把Gas模式调整为快速模式。同样地，取消交易和之前的交易，两笔交易使用相同的Nonce值，一笔成功另一笔一定失败。
+
+![](<../images/assets/image (43).png>)

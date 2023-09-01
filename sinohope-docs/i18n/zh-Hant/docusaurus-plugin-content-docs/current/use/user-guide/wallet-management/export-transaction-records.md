@@ -1,19 +1,17 @@
 ---
 sidebar_position: "8"
 ---
-# 📝 Export Transaction Records
+# 📝 导出交易记录
 
-If you need to export all transaction records, you can achieve this through the SINOHOPE [Web Console](https://console.sinohope.com/user/login).
+1.如有导出全部交易记录的需求，可以通过Sinohope Web端的[Web Console](https://console.sinohope.com/user/login)实现。首先进入Sinohope官网，点击右上角登录，通过App扫码登录Sinohope Web版。
 
-1.Begin by visiting the SINOHOPEofficial website. Click on the "Login" option in the top-right corner and use the SINOHOPE app to scan the QR code to log in to the SINOHOPE Web version.
+![](<../images/assets/image (8).png>)
 
-![](<../images/assets/image (14).png>)
+2.进入Web Console后，依次选择【钱包】-【需要导出的公链】-【需要导出的内容】-【全部导出】
 
-2.After entering the Web Console, navigate to \[Wallet] - \[Desired Blockchain] - \[Content to Export] - \[Export All].
+![](<../images/assets/image (5).png>)
 
-![](<../images/assets/image (11).png>)
+3.最后选择【导出时间范围】-【确认提交】，即可完成导出，交易记录将以excel文件形式保存至本地。
 
-3.Finally, select the \[Export Time Range], confirm your submission, and complete the export process. The transaction records will be saved as an Excel file on your local device.
-
-![](<../images/assets/image (12).png>)
+![](<../images/assets/image (6).png>)
 

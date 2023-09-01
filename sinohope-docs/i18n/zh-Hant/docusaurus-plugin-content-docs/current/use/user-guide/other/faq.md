@@ -1,43 +1,47 @@
 ---
 sidebar_position: "5"
 ---
-# 🔧 FAQ
+# 🔧 常见问题 FAQ
 
-1.What is an MPC Wallet?&#x20;
+### 1.什么是MPC钱包？
 
-An MPC Wallet is built upon Multi-Party Computation (MPC) technology, enabling secure self-custody of digital assets. Compared to traditional centralized custodial digital wallets, an MPC Wallet offers heightened security, reliability, and gives users complete control over their private keys. The cryptographic solution adopted for MPC self-custody involves utilizing MPC-TSS technology (Threshold Signature Scheme based on Multi-Party Computation). This novel approach manages and uses blockchain account private keys. In the realm of blockchain, the private key is paramount, and traditional account private keys are singular, sensitive data prone to single-point failures. Leveraging MPC-TSS technology, private keys can be fragmented and held by multiple parties, enabling transaction signatures through multi-party signing protocols. The complete private key need not exist entirely in any one place at any given time.
+MPC钱包基于多方安全计算（MPC）技术，实现安全自主托管相较于传统的中心化托管数字钱包，MPC钱包具有更高的安全性和可靠性，并且用户对自己的私钥拥有完全的控制权。
 
-2.How does Self-custody ensure security?&#x20;
+MPC自托管业务所要采用的密码学解决方案。方案主要涉及采用MPC-TSS技术（基于多方安全计算的阈值签名技术），实现对区块链账号私钥的新型管理及使用模式。在区块链领域，私钥即一切，传统账号私钥都是单一私密数据，存在单点失效等问题。基于MPC-TSS技术，可以将私钥分成由多方分别持有的分片，通过多方签名协议实现对交易的签名，而完整私钥在任何时刻都无需完整存在于任何地方。
 
-Self-custody refers to users independently managing their digital wallets and safeguarding their private keys, instead of entrusting them to third parties. SINOHOPE employs Multi-Party Computation (MPC) technology, allowing secure management and transactions of digital assets without exposing the private key. We've chosen the 3-3 multi-signature scheme (also supporting t-n threshold signature settings), wherein the customer holds one private key shard, New Fire holds two private key shards (SGX + cloud storage), and all three parties collaboratively participate to complete the transaction signature. (Since only the user's shard can initiate transactions, the platform's two shards only perform verification signatures, ensuring the platform cannot access assets).&#x20;
+### 2.Self-custody 是如何做到安全的？
 
-Under this model, a complete private key is never centralized on a single device at any time, eliminating mnemonic phrases and defending against hacker attacks. Should one shard be lost, wallet recovery can swiftly occur through other shards. This empowers users with full asset management control while resolving trust concerns of asset co-management. Moreover, we employ multi-layer encrypted shard backups. In extreme situations, users can offline-export and recover the complete private key, mitigating risks of loss, leakage, attacks, or internal malevolence.
+Self-custody 是指用户自主管理自己的数字钱包，保管自己的私钥，而不是将私钥交由第三方托管。新火自托管平台通过使用多方计算（MPC）技术，在不暴露私钥的情况下，让用户仍然可以进行安全的数字资产管理和交易。
 
-3.What if I forget my wallet password?&#x20;
+我们选择3-3多方签名方案（也支持 t-n 阈值签名设置），其中客户持有1个私钥分片，新火保管2个私钥分片（sgx+云存储），三方共同参与才能完成交易签名（因只有用户持有的分片才能发起交易，平台的两个分片只能做验证签名，所以平台无法动用资产）。
 
-If you forget your wallet password, you can reset it by uninstalling and reinstalling the app, then applying for a new device login through the organization creator.
+这种模式下，一个完整的私钥在任何时候都不会集中在一台设备上，也没有助记词，黑客无法攻击。丢失其中一片私钥可以通过其他分片迅速恢复钱包，让用户完全掌握自己的资产管理权同时解决资产共管的信任问题。同时，我们将私钥分片多级加密备份，如丢失可由管理员协助恢复，遇到极端情况用户也可离线导出并恢复完整私钥，可规避私钥丢失、泄漏、被攻击、内部作恶风险。
 
-4.What if I forget my recovery key?
+### 3.钱包密码忘记怎么办？
 
-Organization creators (Owners) and administrators (Admins) mutually back up. If an admin forgets or loses the recovery key, the organization creator can delete the admin, then re-invite them to join the organization.
+如果您忘记了钱包密码，您可以通过卸载并重新安装APP，向组织创建者申请新设备登录的方式进行密码重置。
 
-If the organization creator forgets or loses the recovery key, they need to contact SINOHOPE customer service, provide verification information, and temporarily elevate one of the administrators to the organization creator role. The previous organization creator will be adjusted to an admin, and the new organization creator can delete the admin, re-invite them, and then elevate them to organization creator.
+### 4.恢复密钥忘记怎么办
 
-Note: To prevent single-point recovery key loss, please promptly invite organization administrators after creating the organization. If the organization lacks administrators and the recovery key is lost or forgotten, SINOHOPE cannot retrieve the recovery key.
+1、组织创建者（Owner） 和管理员（admin） 相互备份，管理员忘记或丢失恢复密钥，组织创建者可以把管理员删除后，重新邀请加入组织。
 
-5.What if organization creation takes a long time?&#x20;
+2、组织创建者忘记或丢失恢复密钥，组织创建者需要联系Sinohope 客服，提供验证信息，把组织中其中一个管理员临时升级为组织创建者角色 ，之前的组织创建者会调整成管理员，由新的组织创建者删除管理员后，重新邀请，然后再升级为组织创建者
 
-Creating an organization typically takes 5-10 seconds. If you encounter extended wait times during organization creation, it's often due to network congestion or technical issues. If switching networks doesn't resolve the issue, consider contacting SINOHOPE for assistance.
+注：为了避免恢复密钥单点丢失问题，在创建组织之后请及时邀请组织管理员，如果组织没有管理员，在丢失或忘记恢复密钥，Sinohope 也无法为您找回恢复密钥。
 
-6.What if organization creation fails?&#x20;
+### 5.创建组织等待时间长怎么办？
 
-If you face difficulties while creating an organization, it could be due to incorrect provided information or technical issues. In such cases, reach out to SINOHOPE for technical support team for assistance, ensuring accurate information is supplied.
+创建组织需要5-10S的时间，如果您创建组织的过程中等待时间过长，通常情况下，长时间等待可能是由于网络拥堵或其他技术问题导致的。切换网络依然无法创建组织时，您可以尝试联系联系Sinohope 寻求帮助。
 
-7.What if GA (Authenticator) is lost?&#x20;
+### 6.创建组织失败了怎么办？
 
-If your phone is lost during use, or if the Authenticator is unintentionally deleted, contact SINOHOPE to reset the GA verification code.
+如果您创建组织时遇到问题，可能是由于您提供的信息有误或者由于技术问题导致的。在这种情况下，您可以联系新火自托管平台的技术支持团队来获取帮助，并确保提供正确的信息。
 
-8.What if I can't log into the organization after deleting the app?&#x20;
+### 7.GA（Authenticator） 丢失怎么办？
 
-Since devices and the app are linked, after deleting the app or switching to a new device, you'll need to apply for new device login through your organization's superior. The superior will receive a message in the message center about the new device login. Once approved by the superior, you can rejoin the organization.
+如果在使用的过程中手机丢失，或者误删 Authenticator 时，您可以尝试联系Sinohope 进行GA验证码重置。
+
+### 8.删除App后无法登录组织？
+
+由于设备和App进行绑定，删除App 或者更换新的设备登录后，需向组织上级申请新设备登录，其上级会在消息中心中收到新设备登录的消息，经上级审批后，即可重新加入组织。
 

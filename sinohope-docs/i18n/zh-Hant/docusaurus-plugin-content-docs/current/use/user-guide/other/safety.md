@@ -1,13 +1,15 @@
 ---
 sidebar_position: "1"
 ---
-# 🛡 Security Center
+# 🛡 安全中心
 
-Security Center provides real-time security checks and account security management features.
+安全中心可以为您提供实时安全检测和账户安全管理功能。
 
-1. On the main interface of SINOHOPE, click \[Me] - \[Security Center] to access it.
-2. The system will automatically evaluate your current account security situation. Click \[View Detection Report] to see the detailed content.
-3. Activating more security management options will enhance your account security. It's recommended to regularly review the Security Center, follow the optimization suggestions from the detection report, and enhance your security measures accordingly.
+1.Sinohope主界面点击【我的】-【安全中心】即可进入
+
+2.系统将自动为您检测当前账户安全管理情况，点击【查看检测报告】可以查看详细内容
+
+3.激活更多安全管理选项有助于更好地保障您的账户安全，建议您定期查看安全中小，并依据检测报告优化建议增强安全防护。
 
 ![](<../images/assets/1691069984254.jpg>)
 

@@ -1,26 +1,22 @@
 ---
 sidebar_position: "2"
 ---
-# 📎 Inviting Members
+# 📎 邀请成员流程
 
-Within the self-custody platform, an organization can have multiple members, including different types. Members of different types possess varying permissions and responsibilities. The steps to join an organization are as follows:
+在自托管平台中，一个组织可以有多个成员，包括不同类型。不同类型的成员具有不同的权限和职责。加入组织的步骤如下：
 
-1.The Owner logs in and accesses the organization management page, then clicks the "Invite" button.
+1.Owner登录并进入组织管理页面,并点击“邀请成员按钮。
 
-<div align="left">
+![](<../images/assets/image (12).png>)
 
-![](<../images/assets/1691651239488 (3).jpg>)
+2.选择要添加的成员类型（不同类型成员可邀请成员不同，邀请者只能邀请低于自己等级的成员）
 
-</div>
+3.输入被邀请者的名称、邮箱地址，选择部门权限并点击“确定”。
 
-2.Choose the type of member you want to add (different member types can invite different types of members; the inviter can only invite members with a lower rank than their own).
+![](<../images/assets/image (25).png>)
 
-3.Enter the invitee's name, email address, select organization and department permissions, then click "Confirm".
+4.被邀请者将收到一封包含加入组织链接的消息。被邀请者需要点击链接并按照提示完成加入流程。
 
-![](<../images/assets/575fe50131879655c7f910a3104eb17.png>)
+![](<../images/assets/image (48).png>)
 
-4.The invitee will receive a message containing a link to join the organization. The invitee needs to click the link and follow the instructions to complete the joining process.
-
-![](<../images/assets/image (54).png>)
-
-5.The Owner can view the list of members who have joined the organization on the organization management page and can also manage the permissions and roles of members on this page.
+5.Owner可以在组织管理页面中查看已加入组织的成员列表，也可以在此页面上[管理成员的权限和角色。](modify-permission.md)

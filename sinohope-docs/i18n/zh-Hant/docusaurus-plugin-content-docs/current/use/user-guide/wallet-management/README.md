@@ -1,5 +1,5 @@
 ---
 sidebar_position: "3"
 ---
-# WALLET MANAGEMENT
+# 钱包管理
 

@@ -1,5 +1,5 @@
 ---
 sidebar_position: "2"
 ---
-# Organization Management
+# 组织管理
 
