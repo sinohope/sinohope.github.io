@@ -1,23 +1,41 @@
 # SINOHOPE DOCS
 
+Source repo for https://docs.sinohope.com
+
 ## Usage CLI
 
-* install
+* prepare
+```bash
+git clone git@github.com:sinohope/sinohope-docs.git
+cd sinohope-docs
+```
+
+* install tools
 ```bash
 npm install
 ```
 
-* preview
+* preview site
 ```bash
 npm run re-gen && npm run start
 ```
 
-* build
+* build static files
 ```bash
 npm run build
 ```
 
-## Deploy Main
+* serve static files localy
+```bash
+npm run serve
+```
+
+# Deploy
+
+## 1. build and push source
 ```bash
 make
 ```
+## 2. goto gh page repo
+
+Visit [gh-page repo](https://github.com/sinohope/sinohope.github.io) and follow the instructions
