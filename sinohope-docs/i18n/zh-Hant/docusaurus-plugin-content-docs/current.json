@@ -438,5 +438,21 @@
   "sidebar.mpcApiSidebar.doc.查询MPC node状态": {
     "message": "查询MPC node状态",
     "description": "The label for the doc item 查询MPC node状态 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询mpc-node状态"
+  },
+  "sidebar.userGuideSidebar.category.快速开始": {
+    "message": "快速开始",
+    "description": "The label for category 快速开始 in sidebar userGuideSidebar"
+  },
+  "sidebar.userGuideSidebar.category.组织管理": {
+    "message": "组织管理",
+    "description": "The label for category 组织管理 in sidebar userGuideSidebar"
+  },
+  "sidebar.userGuideSidebar.category.钱包管理": {
+    "message": "钱包管理",
+    "description": "The label for category 钱包管理 in sidebar userGuideSidebar"
+  },
+  "sidebar.userGuideSidebar.category.其它": {
+    "message": "其它",
+    "description": "The label for category 其它 in sidebar userGuideSidebar"
   }
 }

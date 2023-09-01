@@ -1,23 +1,18 @@
 ---
 sidebar_position: "6"
 ---
-# 🪧 名称修改
+# 🪧 Modifying Organization Name
 
-### 修改组织名称
+When necessary, the organization creator (Owner) can contact SINOHOPE customer service to request a change of the organization's name.
 
-在必要时，组织创建者（Owner） 可以联系Sinohope 客服人员进行组织名称修改\
+**Modifying Wallet Name:**
 
+1. On the wallet interface, select the wallet you wish to modify. Swipe left and click "Edit."
+2. Input the new wallet name and click "Save." Wallet names within the organization must be unique.
 
-### 修改钱包名称
+**Modifying Department Name:**
 
-1.在钱包界面选择要修改的钱包，左滑后点击编辑
-
-2.输入钱包新名称后点击保存，组织内钱包名称不可重复。
-
-### 修改部门名称
-
-1.在部门点击部门右侧修改符号，组织内部门名称不可重复
-
-2.输入部门新名称后点击保存
+1. Click on the department, then click the modify icon on the right side of the department name. Department names within the organization must be unique.
+2. Input the new department name and click "Save."
 
 ![](../images/assets/未命名文件\(111\).png)

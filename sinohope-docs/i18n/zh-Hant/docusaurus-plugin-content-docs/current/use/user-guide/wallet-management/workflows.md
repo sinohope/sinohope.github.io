@@ -1,12 +1,12 @@
 ---
 sidebar_position: "7"
 ---
-# 🎞 工作流
+# 🎞 Workflow
 
-Sinohope的转账、添加地址簿地址支持审批流功能，可以帮助团队中的不同成员共同管理数字资产。
+SINOHOPE offers an approval workflow feature for transfers and adding addresses to the address book. This functionality enables different members within a team to collaboratively manage digital assets.
 
-组织成员在提交专注和添加地址簿功能后，组织创建者、管理员和该部门的协管可以在工作流中看到审批信息。针对具体的审批流可以进行同意或者拒绝。
+When a member initiates a transfer or adds an address to the address book, the process enters an approval workflow. This allows organization creators, administrators, and co-admins of relevant departments to review and approve the request. This feature promotes collaborative asset management and enhances security within the organization.
 
 
 
-![](<../images/assets/image (69).png>)![](../images/assets/b90589eec6addf7a0934856fef478be.jpg)
+![](<../images/assets/image (75).png>)![](../images/assets/b90589eec6addf7a0934856fef478be.jpg)

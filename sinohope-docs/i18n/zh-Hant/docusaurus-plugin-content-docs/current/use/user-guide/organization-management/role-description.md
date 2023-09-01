@@ -1,20 +1,22 @@
 ---
 sidebar_position: "1"
 ---
-# 📪 成员角色说明
+# 📪 Member Role
 
-新火自托管平台为用户提供了具备不同权限等级的用户角色：
+SINOHOPE provides users with various user roles, each having different levels of permissions:
 
-1.Owner （组织创建人）：是创建组织的人员，可以添加 Admin 管理员,并拥有所有权限
+1. **Owner :** The person who creates the organization, can add Admins, and possesses all permissions.
+2. **Admin :** Has all permissions within the organization, can add, delete, and modify permissions for Co-admins and Colleagues.
+3. **Co-admin:** Holds higher-level permissions, can create wallets, invite, delete, and set member information. They have permissions to initiate approvals, approve actions, add Tokens, etc. However, they cannot create departments, organizations, backup private key shards, or set the minimum approval threshold.
+4. **Colleague :** Possesses lower-level permissions, can initiate approvals, view, add Tokens, and add addresses to the whitelist.
+5. Users can invite other users to join the organization, and the invited person's level must be lower than that of the inviter. The invitation process follows the steps outlined in the "Inviting Members."
 
-2.Admin （管理员）：拥有组织内所有权限，可以添加、删除、修改Co-Admin、Colleague的权限
+![](<../images/assets/1691649066110.jpg>)
 
-3.Co-admin （协管）：拥有较高的权限，可以创建钱包、邀请、删除、设置成员信息，拥有发起审批、审批、添加Token等权限，但不能创建部门、组织、备份私钥分片、设置审批最低人数。
+It's important to note that at the organizational level, Owners and Admins have a backup relationship, sharing the same permissions within the organization. If an Owner needs to change devices, they should contact the platform for identity verification before restoring the account on the new device. In case an Admin needs to change devices, verification will be conducted by the Owner.
 
-4.Colleague （成员）：拥有较低的权限，仅可以发起审批、查看、添加Token、添加白名单。
 
-5.需要注意的是，在组织层面Owner和Admin存在互相备份关系，拥有组织内的相同权限。如Owner需进行设备更换，需要联系平台进行身份验证后在新设备恢复账户。如Admin需要更换设备，将由Owner进行验证。
 
-![](<../images/assets/image (75).png>)
 
-6.用户可以邀请其它用户加入组织，被邀请人的等级必须低于邀请人，邀请流程参照[【邀请成员流程】](invite-members.md)
+
+\

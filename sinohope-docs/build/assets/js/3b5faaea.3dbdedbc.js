@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdemo=self.webpackChunkdemo||[]).push([[8834],{78912:o=>{o.exports=JSON.parse('{"title":"Openloop API","description":"openloop api","slug":"/category/openloop-api","permalink":"/docs/category/openloop-api","navigation":{"next":{"title":"Introduction","permalink":"/docs/develop/openloop-api/openloop-api"}}}')}}]);

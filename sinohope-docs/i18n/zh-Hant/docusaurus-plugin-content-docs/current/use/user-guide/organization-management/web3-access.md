@@ -3,38 +3,40 @@ sidebar_position: "7"
 ---
 # 💻 Web3 Access
 
-通过Web3 Access功能，可以访问链上应用。
+Through the Web3 Access feature, you can interact with blockchain-based applications.
 
-1.在主界面种选择【发现】可进入Web3 Access模块，Sinohope提供两种Dapp访问方式：
+1.  On the main interface, select the "Discover" option to enter the Web3 Access module. SINOHOPE offers two methods to access DApps:
 
-1）在【发现】页面选择需要访问的DApp
+    1）On the "Discover" page, choose the DApp to access.
 
-2）直接输入DApp链接进行访问
+    2）Enter the DApp linkfor access directly .
 
-需要注意的是，DApp不属于Sinohope，请您务必确认好其安全性和访问地址再进行访问。
+It's important to note that DApps are not part of SINOHOPE. Before accessing any DApp, please ensure their security and verify the access address to proceed safely.。
 
-![](<../images/assets/image (1).png>)
+![](<../images/assets/image (100).png>)
 
-2.进入DApp后，点击DApp内连接钱包的功能选项。Sinohope可通过metamask兼容的接口方式连接DApp，在钱包选择界面点击【Metamask】并完成授权后即可连接DApp。
-
-<div align="left">
-
-![](<../images/assets/image (87).png>)
-
-</div>
-
-3.如需切换钱包/网络，可以点击Sinohope右下角钱包地址进行操作。
+2.Once inside the DApp, click on the functionality option to connect your wallet within the DApp. SINOHOPE can connect to DApps through a Metamask-compatible interface. In the wallet selection interface, click on "Metamask" and complete the authorization process to establish a connection to the DApp.
 
 <div align="left">
 
-![](<../images/assets/image (88).png>)
+![](<../images/assets/image (101).png>)
 
 </div>
 
-4.Sinohope  DApp交易支持“自定义多人审批”，发起交易后会自动进入审批流程，完成阈值审批后即会发起执行。
+3.If you need to switch wallets or networks, you can click on the wallet address located in the bottom-right corner of SINOHOPE's interface to perform the desired actions.
 
 <div align="left">
 
-![](<../images/assets/image (91).png>)
+![](<../images/assets/image (106).png>)
 
 </div>
+
+4.In SINOHOPE's DApp transactions, there is support for "Custom Multi-Member Approval." After initiating a transaction, it will automatically enter an approval process. Once the threshold approval is completed, the transaction execution will be initiated.
+
+<div align="left">
+
+![](<../images/assets/image (107).png>)
+
+</div>
+
+![](<../images/assets/image (105).png>)

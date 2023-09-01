@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Sinohope WaaS API
   version: 0.9.1
-  description:
+  description: 
     $ref: description.md
 servers:
   - url: https://api.sinohope.com/

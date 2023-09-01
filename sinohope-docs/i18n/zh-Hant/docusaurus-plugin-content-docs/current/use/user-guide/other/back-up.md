@@ -1,26 +1,10 @@
 ---
 sidebar_position: "3"
 ---
-# 🔏 灾难备份
+# 🔏 Disaster Recovery
 
-### 灾难备份
+SINOHOPE has established a multi-level private key shard backup system to address potential disaster recovery scenarios:
 
-新火自托管平台建立了私钥分片多级备份系统，以应对潜在的灾难恢复问题：
-
-1）需要更换设备场景
-
-在组织层面组织创建者（Owner）和管理员（Admin）存在互相备份关系、同时用户账户与设备绑定。
-
-如组织创建者需进行设备更换，需要联系平台进行身份验证后在新设备恢复账户。
-
-如Admin需要更换设备，将由Owner进行验证，Owner可在消息中心查看Admin更换设备后的请求，点击同意后Admin将可以更换设备。
-
-同样地，部门层面的协管员及其他角色其它类型成员需要其上级进行验证，点击统一后方可进行。需要注意的是，涉及跨部门多角色成员更换新设备需要组织创建者或管理员同意。
-
-2）平台服务不可用场景
-
-新火自托管平台采用高强度安全加密+可信执行环境为平台协管私钥分片提供安全保障，在必要时用户可以通过离线工具获取托管在Sinohope的两个私钥分片并恢复完整私钥。
-
-3）极端场景
-
-新火自托管平台为用户提供了金融级在线异地多活分布式私钥分布存储系统，采取三级设备隔离和离线冷存储备份，并集成了专业第三方机构备份恢复服务，保障极端情况下用户私钥可恢复。
+1. **Device Replacement Scenario:** At the organizational level, organization creators (Owners) and administrators (Admins) have a mutual backup relationship, and user accounts are bound to devices. If the organization creator needs to replace their device, they should contact the platform for identity verification and account recovery on the new device. For Admins needing to replace their device, the Owner will need to verify the change. The Owner can review the Admin's device replacement request in the message center, and upon approval, the Admin can proceed with the device change. Similarly, co-admins and members of other types in the department require validation from their superiors before proceeding. It's important to note that involving multiple roles and departments in a device change requires approval from the organization creator or admin.
+2. **Platform Unavailability Scenario:** Sinhope employs robust security encryption and trusted execution environments to secure co-admin private key shards. If necessary, users can use offline tools to retrieve the two private key shards hosted on SINOHOPE and recover the complete private key.
+3. **Extreme Scenarios:** The platform offers users a financial-grade online, distributed, multi-active private key storage system. It employs three-tier device isolation, offline cold storage backups, and integrates professional third-party institution backup and recovery services to ensure that user private keys can be recovered even in extreme situations.

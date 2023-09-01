@@ -1,32 +1,32 @@
 ---
 sidebar_position: "1"
 ---
-# 🎨 资产管理
+# 🎨 Asset Management
 
-### **支持的公链、添加链**
+**Supported Blockchains and Adding Chains**
 
-自托管平台支持多种公链，如以太坊、比特币等，在创建组织时系统会完成预设公链的配置，以便于管理和使用不同的数字资产。
+The self-custody platform supports multiple blockchains such as Ethereum, Bitcoin, and more. When creating an organization, the system will complete the configuration for predefined blockchains, enabling efficient management and use of various digital assets.
 
-![](<../images/assets/image (70).png>)
+<div align="left">
 
-<figure><img src="https://newhuotech.larksuite.com/space/api/box/stream/download/asynccode/?
-code=MzIzYzM3NDlkNDgyZWIxOTg1NWVhNGUzYTRmNjZiMzVfcVJSUmJMZDhtaGs5TnVjMXFsQWNyQ1pESzFiVWJ1OHFfVG9rZW46U0QwUWJzSEllb282SzB4TFFMOHVPSG0wc1ZmXzE2ODM2NDM2MDA6MTY4MzY0NzIwMF9WNA" alt=""/><figcaption></figcaption></figure>
+![](<../images/assets/image (108).png>)
 
-### **币种管理**
+</div>
 
-除了支持主流数字货币如 BTC、ETH、USDT 等之外，自托管平台还支持通过搜索代币名称或合约地址的方式添加和管理自定义的代币和资产，以满足用户不同的需求，如无法找到您想添加的资产，请联系平台工作人员进行处理。
+**Coin Management**
 
-![](<../images/assets/image (85).png>)
+In addition to supporting major cryptocurrencies like BTC, ETH, USDT, and more, the self-custody platform also allows you to add and manage custom tokens and assets by searching for token names or contract addresses. This flexibility caters to diverse user needs. If you're unable to find the asset you want to add, please contact the platform staff for assistance.
 
-<figure><img src="https://newhuotech.larksuite.com/space/api/box/stream/download/asynccode/?
-code=MmFjMjQzNTg5ZjFhOWZkZGNhMzMzOWNhY2RmYjE0OTRfMTY1cWNXSGpXUjVKR0diUEk2NHh0TTZUa1BTRlQ2MzlfVG9rZW46Tzh3VmJ0Y2xwb0hqUUp4bEdiZXU2UVBOczdmXzE2ODM2NDM2MDA6MTY4MzY0NzIwMF9WNA" alt=""/><figcaption></figcaption></figure>
+<div align="left">
 
-### 可用资产说明
+![](<../images/assets/image (109).png>)
 
-用户的可用资产包括几种类型：
+</div>
 
-余额：用户链上余额
+**Explanation of Available Assets**
 
-在途：发起审批到上链前的资产统计
+A user's available assets consist of several types:
 
-冻结：仅限于UTXO模型，例如BTC，转账时临时占用的资产，在上一笔转账完后后，即可释放
+1. **Balance:** The user's balance on the blockchain.
+2. **In Transit:** Assets that are in the process of being approved and haven't yet been confirmed on the blockchain.
+3. **Frozen:** This applies mainly to UTXO-based blockchains like BTC. It refers to assets temporarily held for a transaction, which are released after the completion of the previous transaction.

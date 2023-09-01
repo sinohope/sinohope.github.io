@@ -1,17 +1,16 @@
 ---
 sidebar_position: "5"
 ---
-# ✈ 删除成员
+# ✈ Removing Members
 
-在业务需要时,Owner和Admin可以删除更低权限等级的成员:
+When necessary for business purposes, Owners and Admins can remove members with lower permission levels:
 
-1.登录到您的账户并进入成员管理组织页面。
+1.Log in to your account and access the member management organization page.
 
-2.在成员列表中，选择要删除的成员并点击右上角的删除按钮。
+2.In the list of members, select the member you want to remove and click the “Delete” button in the upper-right corner.
 
-![](<../images/assets/image (63).png>)
+![](<../images/assets/31cb72bd1981e8b5652101c6cfcc01c.jpg>)
 
-3.连续点击两次操作确认并输入6位密码即可完成成员删除
+3.Deleting a member can be completed by double-clicking the operation confirmation and entering a 6-digit password.
 
-![](<../images/assets/image (30).png>)
-
+![](<../images/assets/image (116).png>)

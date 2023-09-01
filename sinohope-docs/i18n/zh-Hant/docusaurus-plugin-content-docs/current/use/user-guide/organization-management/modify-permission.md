@@ -1,20 +1,17 @@
 ---
 sidebar_position: "4"
 ---
-# 🚆 修改权限
+# 🚆 Modifying Permissions
 
-组织的Owner/Admin可以对成员权限等级进行修改，具体步骤如下：
+The Owner/Admin of an organization can modify the permission levels of members. The specific steps are as follows:
 
-1.登录钱包，进入所管理的组织。
+1. Log in to the wallet and access the organization you manage.
+2. Locate the member whose permissions you want to change. Click to enter their profile page and select 【Edit】 in the upper-right corner.
+3. Modify the member's organization permission level and department permission level as needed, then click "Confirm".
 
-2.找到需要更改权限的成员，点击进入个人资料界面，点击右上角选择\[编辑]
+![](<../images/assets/821ae076e49174b2feac6646b9cde22.jpg>)
 
-3.根据需要更改该成员的组织权限级别和部门权限级别,并点击确认
+4.Member Receives Permission Change Notification and Confirms
 
-![](<../images/assets/image (76).png>)
+It's important to note that changes to permissions should be carried out in reasonable and necessary circumstances to ensure the security and stable operation of the organization. Additionally, it's crucial to ensure that all changes are authorized and confirmed by the affected member themselves or other relevant parties to avoid unnecessary disputes or risks.
 
-4.成员收到权限更改信息并确认
-
-需要注意的是，权限的更改应该在合理和必要的情况下进行，以保障组织的安全和稳定运营。同时，应该确保所有更改都得到了被更改成员本人或其他相关人员的授权和确认，以避免产生不必要的纷争或风险。
-
-![](<../images/assets/f218ba69efbdb997177d87dadcfee24 (1).jpg>)

@@ -1,6 +1,6 @@
 ---
 slug: welcome
-title: 欢迎使用 SINOHOPE 平台
+title: Welcome
 authors: [kevinhe]
 tags: [sinohope]
 ---

@@ -1,11 +1,11 @@
 ---
 sidebar_position: "3"
 ---
-# 🎫 地址簿
+# 🎫 Address Book
 
-为了更好地保障资产的安全，用户可以将一些信任的地址添加到地址簿名单中，以实现更加安全、快捷的转账。
+To enhance asset security, users can add trusted addresses to the address book. This allows for safer and quicker transfers to trusted contacts.
 
-![](<../images/assets/image (67).png>)
+![](<../images/assets/317d403b3fbe7769d678fb9ec009cc3.jpg>)
 
 <figure><img src="https://newhuotech.larksuite.com/space/api/box/stream/download/asynccode/?
 code=NWQyMGQxNmU3YjQ4YmVhYTQ1OThiNDRmYTM2NTU1OGNfMWpFR3lCdVI2TE5USWpvSVBsdmVHWDlRVjY5c2dWcDJfVG9rZW46QWUxTmJ3SWY1b0ZXNlR4bHNXSXVKRGhaczVlXzE2ODM2NDQzODE6MTY4MzY0Nzk4MV9WNA" alt=""/><figcaption></figcaption></figure>

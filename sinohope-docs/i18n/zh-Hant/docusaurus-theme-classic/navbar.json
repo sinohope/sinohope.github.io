@@ -74,5 +74,9 @@
   "item.label.Twitter": {
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
+  },
+  "item.label.Sinohope Lecture": {
+    "message": "Sinohope Lecture",
+    "description": "Navbar item with label Sinohope Lecture"
   }
 }

@@ -1,9 +1,9 @@
 ---
 sidebar_position: "1"
 ---
-# 💡 简介
+# 💡 Introduction
 
-新火科技致力于引领新一代安全托管产品的发展趋势，推出基于MPC的自托管钱包基础设施，让用户享受Web2.0的简便操作体验，降低用户操作门槛。同时，在安全性方面，用户可以完全掌控并能够恢复私钥，保障底层安全，有效避免黑客入侵、盗窃、黑地址转账等风险。我们将帮助用户安全连接交易所和丰富的Web3.0应用场景，实现资产的高效利用和运营。
+Sinohope Technology Holdings Limited ("SINOHOPE", Stock Code: [1611.HK](http://1611.hk)) is committed to leading the development trend of the next generation of secure and compliant custody products. We introduce a self-custody wallet infrastructure based on MPC (Multi-Party Computation), allowing users to enjoy the user-friendly experience of Web2.0 and reducing the barriers to user operations. Simultaneously, in terms of security, users have complete control over and the ability to recover private keys, ensuring fundamental security and effectively avoiding risks such as hacking, theft, and unauthorized transfers. We will assist users in securely connecting with exchanges and diverse Web3.0 application scenarios, enabling efficient utilization and management of assets.
 
-![](<../images/assets/image (37).png>)
+![](<../images/assets/image (4).png>)
 
