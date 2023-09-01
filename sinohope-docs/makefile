@@ -17,5 +17,7 @@ i18n:
 	mkdir -p i18n/zh-Hant/docusaurus-plugin-content-blog
 	cp -r blog/** i18n/zh-Hant/docusaurus-plugin-content-blog
 
+view: build
+	npm run start
 
-.PHONY: ALL build i18n
+.PHONY: ALL build i18n view

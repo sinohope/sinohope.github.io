@@ -11,7 +11,7 @@ Sinohope 采用3-3多签模式，客户持有一个私钥分片、Sinohope持有
 
 - MPC Node 1：Sinohope负责管理，该 Node 会一直在线。
 - MPC Node 2：Sinohope负责管理，该 Node 会一直在线。
-- MPC Node 3：客户负责管理，该 Node 仅在处理业务需要时在线。
+- MPC Node 3：客户负责管理，也应保持永远在线已实现自动化流程。
 
 ## 2. MPC Node部署实施
 
@@ -103,7 +103,7 @@ sinohope-mpc-node
 
 #### 2.2.2 初始化节点
 
-执行以下命令完成节点初始化：
+首次部署MPC Node时请在命令行执行以下命令，然后根据提示完成初始化：
 
 ```Bash
 sudo ./node.sh init
@@ -112,29 +112,20 @@ sudo ./node.sh init
 示例：
 
 ```Shell
-sudo ./node.sh init
-[sudo] password for ubuntu:   (ubuntu账户密码)
-? Type password (at least 8 characters): ********
-? Retype password: ********
-2023/08/18 10:18:46 node id: 
-sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0NzhlMjg0ZWNmNjE1YTUxMDE0Y2JlNGUyMjVhNWMyM2Y0OGQ2NjJhNWQ1MzNkNjVlNjkyMGYyYWZjNzEwMzdkM2RmNDExYWM0NGJmOGUyMmQ0ZGE1NjdmOWNlMTFmMjJhZWVkY2M4ZGNjZTkxNzY2ODhmNDMyMTVmYTYzYTFiMjA=
-2023/08/18 10:18:46 callback public key: 
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeOKE7PYVpRAUy+TiJaXCP0jWYqXV
-M9ZeaSDyr8cQN9PfQRrES/jiLU2lZ/nOEfIq7tzI3M6RdmiPQyFfpjobIA==
------END PUBLIC KEY-----
+./node.sh init
+checking update...
+mpc-node instance name: mpc-node, unseal server address: 127.0.0.1:10080
+af026c805a03aa7bd1915ba944dbb710019e6a5cdb543311c31a29db03c4be95
+waiting mpc-node to start...
+mpc-node started
+New password:
+Retype new password:
+{"data":{"node_id":"sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0MmFmNGY0Y2I5ZmM1MGFjMWUzNzIxMzM2Y2IyMmJmYzMzMDg4YjJmNGM4OTEyZjZhNDE4ZmNlY2JmZWFhMzIwMjNlMzg0MGE1YjBkODI3YWE5ODE1N2Y1MTE5Y2M2YTdiYzQ2NWNmN2EzNzc0MTkwNjdmYzc5ZGNjMjQ0YjgxZTU=","public_key":"-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKvT0y5/FCsHjchM2yyK/wzCIsvTI\nkS9qQY/Oy/6qMgI+OEClsNgnqpgVf1EZzGp7xGXPejd0GQZ/x53MJEuB5Q==\n-----END PUBLIC KEY-----\n"},"status":"ok"}
 ```
 
 说明：首先脚本会自动做一些环境的检查工作，如判断是否安装了Docker，判断用户的权限等。init命令的主要任务是初始化节点信息，包括：
 
 - 给 MPC 节点设置一个密码，这个密码用于保护您的私钥分片 及其他私密数据，**请您妥善保管，切勿泄漏，并且做好安全冗余备份**。节点启动时会要求输入该密码。
-  - 您可采用如下措施实现密码自动输入：打开config.toml配置文件，[storage]配置项中增加password字段：
-  - ```Shell
-    [storage]
-    db-file-path = "/tmp/mpc-node/asset.db"
-    unseal-server-address = "0.0.0.0:8080"
-    password = "FILL YOUR PASSWORD HERE"
-    ```
 - 创建node id， 每一个MPC Node都有一个唯一标识id，您将需要使用该 node id 将您的MPC 节点与您的 WaaS 组织账号做唯一关联。
 - 创建与callback-server通信时的ECDSA密钥对。
 
@@ -159,6 +150,22 @@ MPC Node 提供回调机制用于供您执行风险控制，这个回调服务�
 
 ```Bash
 ./node.sh start 
+```
+
+示例：
+
+```JSON
+./node.sh start
+checking update...
+mpc-node instance name: mpc-node, unseal server address: 127.0.0.1:10080
+4c90d02b5378651bda82c685d0bd5bcea8518ff5faad88debec5cbd599c23598
+waiting mpc-node to start...
+mpc-node started
+? Enter current password: 
+{
+  "data":"in-bkey success",    // 密码校验成功
+  "status":"ok"
+}
 ```
 
 服务启动运行后，回到web console MPC Node 配置界面，正常情况下稍等片刻即可看到 “key share 状态” 为“已生成”，同时界面上将展示您的组织的MPC 根公钥 信息。
@@ -192,29 +199,20 @@ sudo ./node.sh init
 示例：
 
 ```Shell
-sudo ./node.sh init
-[sudo] password for ubuntu:   (ubuntu账户密码)
-? Type password (at least 8 characters): ********
-? Retype password: ********
-2023/08/18 10:18:46 node id: 
-sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0NzhlMjg0ZWNmNjE1YTUxMDE0Y2JlNGUyMjVhNWMyM2Y0OGQ2NjJhNWQ1MzNkNjVlNjkyMGYyYWZjNzEwMzdkM2RmNDExYWM0NGJmOGUyMmQ0ZGE1NjdmOWNlMTFmMjJhZWVkY2M4ZGNjZTkxNzY2ODhmNDMyMTVmYTYzYTFiMjA=
-2023/08/18 10:18:46 callback public key: 
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeOKE7PYVpRAUy+TiJaXCP0jWYqXV
-M9ZeaSDyr8cQN9PfQRrES/jiLU2lZ/nOEfIq7tzI3M6RdmiPQyFfpjobIA==
------END PUBLIC KEY-----
+./node.sh init
+checking update...
+mpc-node instance name: mpc-node, unseal server address: 127.0.0.1:10080
+af026c805a03aa7bd1915ba944dbb710019e6a5cdb543311c31a29db03c4be95
+waiting mpc-node to start...
+mpc-node started
+New password:
+Retype new password:
+{"data":{"node_id":"sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0MmFmNGY0Y2I5ZmM1MGFjMWUzNzIxMzM2Y2IyMmJmYzMzMDg4YjJmNGM4OTEyZjZhNDE4ZmNlY2JmZWFhMzIwMjNlMzg0MGE1YjBkODI3YWE5ODE1N2Y1MTE5Y2M2YTdiYzQ2NWNmN2EzNzc0MTkwNjdmYzc5ZGNjMjQ0YjgxZTU=","public_key":"-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKvT0y5/FCsHjchM2yyK/wzCIsvTI\nkS9qQY/Oy/6qMgI+OEClsNgnqpgVf1EZzGp7xGXPejd0GQZ/x53MJEuB5Q==\n-----END PUBLIC KEY-----\n"},"status":"ok"}
 ```
 
 说明：首先脚本会自动做一些环境的检查工作，如判断是否安装了Docker，判断用户的控住权限等。init命令的主要任务是初始化账户信息，包括：
 
 - 给 MPC 节点设置一个密码，这个密码用于保护您的私钥分片 及其他私密数据，**请您妥善保管，切勿泄漏，并且做好安全冗余备份**。节点启动时会要求输入该密码。
-  - 您可采用如下措施实现密码自动输入：打开config.toml配置文件，[storage]配置项中增加password字段：
-  ```Shell
-    [storage]
-    db-file-path = "/tmp/mpc-node/asset.db"
-    unseal-server-address = "0.0.0.0:8080"
-    password = "FILL YOUR PASSWORD HERE"
-  ```
 - 创建node id， 每一个MPC Node都有一个唯一标识id，您将需要使用该 node id 将您的MPC 节点与您的 WaaS 组织账号做唯一关联。
 - 创建与callback-server通信时的ECDSA密钥对。
 
@@ -242,6 +240,8 @@ sudo ./node.sh start
 
 #### 查看node-id和callback公钥
 
+该命令可查看MPC Node ID和回调服务通信公钥，只有MPC Node处于运行状态中时才可以使用此命令。
+
 ```JSON
 ./node.sh info
 ```
@@ -249,33 +249,35 @@ sudo ./node.sh start
 示例：
 
 ```Shell
-./node.sh info
-? Enter password: ********
-2023/08/18 10:23:59 node id: 
-sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0NzhlMjg0ZWNmNjE1YTUxMDE0Y2JlNGUyMjVhNWMyM2Y0OGQ2NjJhNWQ1MzNkNjVlNjkyMGYyYWZjNzEwMzdkM2RmNDExYWM0NGJmOGUyMmQ0ZGE1NjdmOWNlMTFmMjJhZWVkY2M4ZGNjZTkxNzY2ODhmNDMyMTVmYTYzYTFiMjA=
-2023/08/18 10:23:59 callback public key: 
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeOKE7PYVpRAUy+TiJaXCP0jWYqXV
-M9ZeaSDyr8cQN9PfQRrES/jiLU2lZ/nOEfIq7tzI3M6RdmiPQyFfpjobIA==
------END PUBLIC KEY-----
+./node.sh info   
+checking update...
+{
+  "data": {
+    "node_id": "sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0MmFmNGY0Y2I5ZmM1MGFjMWUzNzIxMzM2Y2IyMmJmYzMzMDg4YjJmNGM4OTEyZjZhNDE4ZmNlY2JmZWFhMzIwMjNlMzg0MGE1YjBkODI3YWE5ODE1N2Y1MTE5Y2M2YTdiYzQ2NWNmN2EzNzc0MTkwNjdmYzc5ZGNjMjQ0YjgxZTU=",
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKvT0y5/FCsHjchM2yyK/wzCIsvTI\nkS9qQY/Oy/6qMgI+OEClsNgnqpgVf1EZzGp7xGXPejd0GQZ/x53MJEuB5Q==\n-----END PUBLIC KEY-----\n",
+    "state": "unsealed"
+  },
+  "status": "ok"
+}
 ```
 
 #### 修改密码
 
+该命令用于修改MPC Node密码，请确保MPC Node已经处于正常运行状态（完成MPC Node绑定，并且节点在线状态正常）：
+
 ```JSON
 ./node.sh reset
-./node.sh reset
-? Enter password: ********
-? Choose an action:  [Use arrows to move, type to filter]
-> Reset password
 ```
 
-说明：执行此命令后请根据提示信息选择修改密码。
+示例：
 
-#### 查看日志
-
-```Bash
-./node.sh log
+```JSON
+./node.sh reset
+checking update...
+? Enter current password: 
+New password:
+Retype new password:
+{"status": "ok", "data": "re-bkey success"}
 ```
 
 #### 停止服务
@@ -343,19 +345,20 @@ sleep-seconds = 60
 
 - 示例输出：
 
-```TOML
-./node.sh info
-? Enter password: ********
-2023/08/18 10:23:59 node id: 
-sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0NzhlMjg0ZWNmNjE1YTUxMDE0Y2JlNGUyMjVhNWMyM2Y0OGQ2NjJhNWQ1MzNkNjVlNjkyMGYyYWZjNzEwMzdkM2RmNDExYWM0NGJmOGUyMmQ0ZGE1NjdmOWNlMTFmMjJhZWVkY2M4ZGNjZTkxNzY2ODhmNDMyMTVmYTYzYTFiMjA=
-2023/08/18 10:23:59 callback public key: 
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeOKE7PYVpRAUy+TiJaXCP0jWYqXV
-M9ZeaSDyr8cQN9PfQRrES/jiLU2lZ/nOEfIq7tzI3M6RdmiPQyFfpjobIA==
------END PUBLIC KEY-----
+```Shell
+./node.sh info   
+checking update...
+{
+  "data": {
+    "node_id": "sinoMzA1OTMwMTMwNjA3MmE4NjQ4Y2UzZDAyMDEwNjA4MmE4NjQ4Y2UzZDAzMDEwNzAzNDIwMDA0MmFmNGY0Y2I5ZmM1MGFjMWUzNzIxMzM2Y2IyMmJmYzMzMDg4YjJmNGM4OTEyZjZhNDE4ZmNlY2JmZWFhMzIwMjNlMzg0MGE1YjBkODI3YWE5ODE1N2Y1MTE5Y2M2YTdiYzQ2NWNmN2EzNzc0MTkwNjdmYzc5ZGNjMjQ0YjgxZTU=",
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKvT0y5/FCsHjchM2yyK/wzCIsvTI\nkS9qQY/Oy/6qMgI+OEClsNgnqpgVf1EZzGp7xGXPejd0GQZ/x53MJEuB5Q==\n-----END PUBLIC KEY-----\n",
+    "state": "unsealed"
+  },
+  "status": "ok"
+}
 ```
 
-其中的 callback public key 即为 MPC Node 的 ECDSA 公钥。
+其中的 public key 即为 MPC Node 供回调服务使用的 ECDSA 公钥。
 
 ### 4.2 开发回调验证服务
 
@@ -462,7 +465,7 @@ type ResponseData struct {
 | callback_id    | string | 回调请求唯一ID                                               |
 | request_type   | string | 回调请求是字符串类型，有以下两种取值：keygen、sign           |
 | request_detail | struct | 回调请求详细信息，包括请求的一系列关键信息。不同的回调请求类型对应不同的 request_detail 结构；格式为 JSON 序列化后的字符串 |
-| extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；不同的回调请求类型对应不同的 extra_info 结构；格式为 JSON 序列化后的字符串 |
+| extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；格式为 JSON 序列化后的字符串 |
 
 - 当`request_type == keygen`时，`request_detail` 的结构定义如下：
 
@@ -472,39 +475,42 @@ type ResponseData struct {
 | party_ids    | []string | 参与生成私钥的节点ID集合                      |
 | cryptography | string   | 使用的签名算法。ecdsa-secp256k1/eddsa-ed25519 |
 
-`extra_info` 的结构定义如下：
+- 当 `request_type == sign` 时，`request_detail` 的结构定义如下：
+
+| 参数       | 类型   | 描述                                                   |
+| ---------- | ------ | ------------------------------------------------------ |
+| sign_type  | string | 待签名的交易类型：1、普通交易；2、EIP191/EIP712签名；3、RawData签名； |
+| public_key | string | 根公钥对应的public key                                 |
+| path       | string | bip32派生路径                                          |
+| message    | string | 待签名的消息                                           |
+| tx_info    | json   | 交易的详细信息                                         |
+
+其中，tx_info 的结构定义如下：
 
 | 参数        | 类型   | 描述                                                         |
 | ----------- | ------ | ------------------------------------------------------------ |
-| callback_id | string | MPC Node每次请求时生成的唯一ID                               |
-| sino_id     | string | Sinohope 内部 keygen 请求唯一 ID                             |
-| request_id  | string | 用户通过 WaaS 接口传入的请求 ID，如果请求非 WaaS 接口，Cobo 内部会自动生成 |
+| vaultId     | string | 金库id                                                       |
+| walletId    | string | 钱包id                                                       |
+| requestId   | string | 请求方交易的requestId                                        |
+| chainSymbol | string | 链标识                                                       |
+| assetId     | string | 资产id                                                       |
+| from        | string | from 地址                                                    |
+| to          | string | to地址                                                       |
+| toTag       | string | 交易的memo                                                   |
+| amount      | string | 金额                                                         |
+| fee         | string | 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费 |
+| fee_rate    | string | 手续费费率 1:快 2:中 3:慢                                    |
+| gasPrice    | string | gasprice                                                     |
+| gasLimit    | string | gaslimit                                                     |
+| inputdata   | string | 以太坊交易data                                               |
+| remark      | string | 备注：用于用户自己需要的一些备注信息                         |
 
-- 当 `request_type == sign` 时，`request_detail` 的结构定义如下：
+- extra_info 的结构定义如下：
 
-| 参数       | 类型     | 描述                 |
-| ---------- | -------- | -------------------- |
-| public_key | string   | 根公钥               |
-| party_id   | []string | 参与签名时的节点列表 |
-| path       | string   | 使用的bip32path列表  |
-| message    | string   | 待签名的消息         |
-
-`extra_info` 的结构定义如下：
-
-| 参数         | 类型   | 描述                                                         |
-| ------------ | ------ | ------------------------------------------------------------ |
-| sign_type    | string | 待签名的交易类型：1、普通交易；2、EIP191/EIP712消息签名；3、RawData签名；       |
-| public_key   | string | 根公钥对应的public key                                       |
-| path         | string | bip32派生路径                                                |
-| message      | string | 待签名的消息                                                 |
-| coin         | string | 资产名称                                                     |
-| decimal      | string | 币种精度                                                     |
-| from_address | string | 资产出账地址                                                 |
-| to_address   | string | 提币到账地址                                                 |
-| amount       | string | （非必需）交易数额，请注意，这里的数值包含小数位，例如 BTC decimal 为8位，则这里的 100000000 实际为 1 个 BTC |
-| fee          | string | （非必需）对于 BTC 交易，该字段表示每字节对应的手续费，单位为 satoshi |
-| gas_price    | string | （非必需）燃料价格，ETH 类型账号模型适用，单位为 GWei        |
-| gas_limit    | string | （非必需）燃料上限，ETH 类型账号模型适用                     |
+| 参数       | 类型   | 描述                                                         |
+| ---------- | ------ | ------------------------------------------------------------ |
+| sino_id    | string | Sinohope 内部对当前签名对应业务的唯一标识，该标识会在开发者调用诸如`create_transfer` 之类的waas API时在 response中提供。      |
+| request_id | string | 用户通过 WaaS 接口传入的请求 ID，如果请求非 WaaS 接口，Sinohope 内部会自动生成 |
 
 ##### 3、Response
 
@@ -524,16 +530,16 @@ data结构
 | action      | string | 本次请求的处理结果： Approve: 允许 Reject: 拒绝 Wait: 等待后重试 |
 | wait_time   | string | 当action为Wait时，此字段用于指示MPC Node需要等待的时间，单位为秒 |
 
-#### 4.2.3 rawdata_signature
+#### rawdata_signature
 
 该接口用于上报用户自定义的消息的签名结果，只有当sign业务的sign_type为`2`或`3`时且MPC Node签名成功后才会向回调服务上报原始的消息和签名结果。
 
 ##### 1、HTTP接口
 
 > path: /v1/rawdata_signature
-
+> 
 > method: post
-
+> 
 > body: JSON编码的数据
 
 ##### 2、 Request
@@ -542,6 +548,7 @@ data结构
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | 回调请求唯一ID                                               |
 | request_detail | struct | 回调请求详细信息，包括请求的一系列关键信息。不同的回调请求类型对应不同的 request_detail 结构；格式为 JSON 序列化后的字符串 |
+| extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；不同的回调请求类型对应不同的 extra_info 结构；格式为 JSON 序列化后的字符串 |
 
 request_defailt内容如下：
 
@@ -550,10 +557,20 @@ request_defailt内容如下：
 | message   | string | 原始待签名的消息 |
 | signature | string | 签名结果         |
 
+- extra_info 的结构定义如下：
+
+| 参数       | 类型   | 描述                                                         |
+| ---------- | ------ | ------------------------------------------------------------ |
+| sino_id    | string | Sinohope 内部对当前签名对应业务的唯一标识，该标识会在开发者调用诸如`create_transfer` 之类的waas API时在 response中提供。    |
+| request_id | string | 用户通过 WaaS 接口传入的请求 ID，如果请求非 WaaS 接口，Sinohope 内部会自动生成 |
+
 ##### 3、Response
 
 | 参数   | 类型   | 描述                                                         |
 | ------ | ------ | ------------------------------------------------------------ |
 | status | string | 状态码，当状态码为 0 时，表明回调服务器正常执行；当状态码为其他值时，表明回调服务器执行过程中出现了一些异常情况 |
-| error  | string | 错误信息；当 status 返回值不是 0 时，代表回调服务器内部出现的错误信息。 |
+| error  | string | 错误信息；当 status 返回值不是 0 时，代表回调服务器内部出现的错误信息；当 status 为 0，且风控结果为 REJECT 时，代表具体的风控拒绝信息。 |
 
+### 4.3 激活回调验证服务
+
+回调验证服务配置和启动后，需要调用./node.sh start重新启动MPC Node。
