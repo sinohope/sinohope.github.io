@@ -3,9 +3,10 @@
 Serve as [docs site](https://docs.sinohope.com) .
 
 ## Update
-use PR to request an update.
 
-## Deploy
 ```bash
-make
+make update
 ```
+## Request to update
+
+use PR to request an update.
