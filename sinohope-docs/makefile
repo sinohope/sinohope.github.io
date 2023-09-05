@@ -21,6 +21,6 @@ i18n:
 	cp -r blog/** i18n/zh-Hant/docusaurus-plugin-content-blog
 
 view: build
-	npm run start
+	npm run serve
 
 .PHONY: ALL build i18n view

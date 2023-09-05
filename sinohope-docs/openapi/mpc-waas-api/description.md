@@ -118,3 +118,4 @@
 | ---- | ------------- | ---------- | ------ |
 | v0.9.0 | first version | 2023-08-04 | Owen  |
 | v0.9.1 | add new sections,and fix some apis | 2023-08-22 | Owen  |
+| v0.9.2 | there are quite many changes about transaction informations, SO PLEASE JUST IGNORE THE OLD VERSIONS | 2023-09-05 | Owen  |
