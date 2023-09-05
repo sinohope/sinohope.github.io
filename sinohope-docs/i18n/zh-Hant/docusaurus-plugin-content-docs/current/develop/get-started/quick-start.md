@@ -35,10 +35,10 @@ Sinohope提供了基于HTTP的协议API，也将提供多种语言的SDK，方�
 JS、Golang 等开发语言的SDK 正在进行中，敬请期待。
 
 # Docs Index
-[General](http://localhost:3000/docs/develop/get-started/general)
+[General](/docs/develop/get-started/general)
 
-[Openloop-api](http://localhost:3000/docs/category/openloop-api)
+[Openloop-api](/docs/category/openloop-api)
 
-[Mpc-waas-api](http://localhost:3000/docs/category/mpc-waas-api)
+[Mpc-waas-api](/docs/category/mpc-waas-api)
 
-[Full-custody-waas-api](http://localhost:3000/docs/category/full-custody-waas-api)
+[Full-custody-waas-api](/docs/category/full-custody-waas-api)

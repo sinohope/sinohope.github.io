@@ -5,6 +5,9 @@ build:
 	npm run clean-all
 	npm run build
 
+update:
+	git pull origin main
+
 push:
 	git add . 
 	git commit -m "new docs" 
