@@ -302,7 +302,7 @@ Retype new password:
 
 MPC Node 启动后，会自动和 Sinohope 后台建立长链接，用于接收 Sinohope 后台下发的任务，默认情况下，MPC Node没有启用回调机制，MPC Node 会自动完成所有任务的执行；
 
-如果配置为启用回调机制，客服需要自己开发一个回调验证服务，用于验证Sinohope下发的任务是否合理，最终决定是否配合Sinohope完成签名。
+如果配置为启用回调机制，客户需要自己开发一个回调验证服务，用于验证Sinohope下发的任务是否合理，最终决定是否配合Sinohope完成签名。
 
 回调服务的开发，可参考Sinohope 提供的回调服务示例：[GitHub - sinohope/mpc-node-callback-demo](https://github.com/sinohope/mpc-node-callback-demo)
 
