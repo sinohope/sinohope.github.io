@@ -335,10 +335,6 @@ paths:
                   type: string
                   description: 钱包id
                   example: "413497079388421"
-                count:
-                  type: integer
-                  description: 创建多少个。默认值为 1，最大值 50。
-                  example: 1
                 chainSymbol:
                   type: string
                   description: 链名称 简称 链标识 具有唯一性
