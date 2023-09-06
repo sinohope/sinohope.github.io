@@ -170,7 +170,7 @@ mpc-node started
 
 服务启动运行后，回到web console MPC Node 配置界面，正常情况下稍等片刻即可看到 “key share 状态” 为“已生成”，同时界面上将展示您的组织的MPC 根公钥 信息。
 
-![img](./images/mpc-node.jpeg)
+![img](./images/mpc-node.png)
 
 
 #### 2.2.6 ❗️❗️重要：数据库备份
