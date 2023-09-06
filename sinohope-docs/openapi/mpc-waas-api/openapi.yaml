@@ -1825,7 +1825,7 @@ paths:
                 "fee_rate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
-                "inputdata":
+                "inputData":
             "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680",
                 "note": "用户交易信息备注"
               },
@@ -1847,7 +1847,7 @@ paths:
                 "fee_rate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
-                "inputdata":
+                "inputData":
             "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680",
                 "note": "用户交易信息备注"
             })
@@ -1912,7 +1912,7 @@ paths:
                   type: string
                   description: 交易gasLimit，燃料上限，ETH 账号模型适用
                   example: "60000"
-                inputdata:
+                inputData:
                   type: string
                   description: 以太坊交易data
                   example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"
@@ -2278,10 +2278,22 @@ paths:
                     type: string
                     example: ""
                   data:
-                    type: array
-                    description: 交易记录列表
-                    items:
-                      $ref: '#/components/schemas/transactionRecord'
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
                 description: ""
@@ -2338,11 +2350,22 @@ paths:
                     type: string
                     example: ""
                   data:
-                    type: array
-                    description: 交易记录列表
-                    items:
-                      $ref: '#/components/schemas/transactionRecord'
-
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
                 description: ""
@@ -2406,11 +2429,22 @@ paths:
                     type: string
                     example: ""
                   data:
-                    type: array
-                    description: 交易记录列表
-                    items:
-                      $ref: '#/components/schemas/transactionRecord'
-
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
                 description: ""
@@ -2584,7 +2618,7 @@ components:
           type: string
           description: 交易nonce
           example: "2"
-        inputdata:
+        inputData:
           type: string
           description: 以太坊交易data（此字段只对由create_transaction 接口发起的 "Web3Tx"交易有效）
           example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"

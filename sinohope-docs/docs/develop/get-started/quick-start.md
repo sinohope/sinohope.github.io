@@ -4,40 +4,38 @@ sidebar_position: 1
 
 # Quick Start
 
-本章节是一个快速使用教程，将帮助您快速了解并开始使用Sinohope提供的开发者服务。
+This chapter is a quick start tutorial that will help you quickly understand and start using the developer services provided by Sinohope.
 
-客户在Sinohope开通账户时，将允许分别开通“测试组织” 和 “正式组织”，分别代表测试环境和正式使用环境。
-测试环境只支持少量的测试链，供试用、集成测试等用途使用。本教程主要是在测试环境下使用。
+When customers registered an account on Sinohope, they will be allowed to own a "test organization" and a "formal organization" respectively, representing the test environment and the formal use environment. The test environment only supports a small number of test chains for trial use, integration testing and other purposes. This tutorial is mainly used in the test environment.
 
-本教程主要涉及以下事项：
-- 开通并登录账户
-- 组织和层级
-- 基于API&SDK开发集成
+This tutorial mainly involves the following:
+
+- Register and log in to an account
+- Organizations and hierarchies 
+- Development integration based on API&SDK
 
 
-### 开通并登录账户
+### Register and Log In to an Account
 
-要开始使用Sinohope 开发者服务，您需要联系[Sinohope](https://www.sinohope.com/)开通组织账户，之后在 [web console](https://console.sinohope.com/user/login) 界面基于邮箱注册您的个人账户并登录Sinohope为您开通的组织。
+To start using Sinohope developer services, you need to contact [Sinohope](https://www.sinohope.com/) to register an organizational account, and then register your personal account based on your email on the [web console](https://console.sinohope.com/user/login) and log in to the organization registered by Sinohope for you.
 
-### 组织和层级
+### Organizations and Hierarchies
 
-Sinohope 采用分层结构管理组织内的链地址，包括四个层级：根密钥、金库、钱包、各个链上的地址。
+Sinohope adopts a hierarchical structure to manage chain addresses within an organization, including four levels: root key, vault, wallet, and addresses on each chain.
 
-### 基于API&SDK开发集成
+### Development Integration Based on API&SDK
 
-Sinohope提供了基于HTTP的协议API，也将提供多种语言的SDK，方便开发者集成WaaS功能。SDK 主要提供以下功能：
+Sinohope provides APIs based on HTTP protocol, and will also provide SDKs in multiple languages, making it easy for developers to integrate WaaS functions. The SDK mainly provides the following functions:
 
-- 统一封装接口请求签名处理；
-- 封装API接口，方便开发者以方法调用的方式完成对API的请求。
+- Unified encapsulation of interface request signature processing;
+- The SDK encapsulates the API interfaces, enabling developers to make API requests by calling methods.
 
-当前提供的SDK：[java sdk](https://github.com/sinohope/sinohope-java-api)。
-
-JS、Golang 等开发语言的SDK 正在进行中，敬请期待。
+Currently provided SDKs: [java sdk](https://github.com/sinohope/sinohope-java-api), [golang sdk](https://github.com/sinohope/golang-sdk), [JS sdk](https://github.com/sinohope/js-sdk). 
 
 # Docs Index
 [General](./general)
 
-[Openloop-api](/docs/category/openloop-api)
+[Openloop-api](/docs/category/openloop-api) 
 
 [Mpc-waas-api](/docs/category/mpc-waas-api)
 

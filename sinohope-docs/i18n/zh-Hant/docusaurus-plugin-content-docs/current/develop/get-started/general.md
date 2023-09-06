@@ -24,7 +24,7 @@ sidebar_position: 2
 > - 注意：系统支持的链，以`/v1/waas/common/get_supported_chains`接口返回值为准
 
 ### assetId的规则
-1、assetId是Asset配置表唯一标识；
+1、assetId是资产（币种）的唯一标识；
 
 2、命名方式前币(coin)后链(chain)，中间以下划线分隔；
 

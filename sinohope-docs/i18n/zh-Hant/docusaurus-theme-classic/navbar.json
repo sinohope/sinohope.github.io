@@ -15,10 +15,6 @@
     "message": "Develop",
     "description": "Navbar item with label Develop"
   },
-  "item.label.Community": {
-    "message": "Community",
-    "description": "Navbar item with label Community"
-  },
   "item.label.GitHub": {
     "message": "GitHub",
     "description": "Navbar item with label GitHub"
@@ -26,10 +22,6 @@
   "item.label.Products&Solutions": {
     "message": "Products&Solutions",
     "description": "Navbar item with label Products&Solutions"
-  },
-  "item.label.BOOK DEMO": {
-    "message": "BOOK DEMO",
-    "description": "Navbar item with label BOOK DEMO"
   },
   "item.label.User Guide": {
     "message": "User Guide",
@@ -42,10 +34,6 @@
   "item.label.News": {
     "message": "News",
     "description": "Navbar item with label News"
-  },
-  "item.label.新火公开课": {
-    "message": "新火公开课",
-    "description": "Navbar item with label 新火公开课"
   },
   "item.label.Get Started": {
     "message": "Get Started",
@@ -62,18 +50,6 @@
   "item.label.Full Custody WaaS API": {
     "message": "Full Custody WaaS API",
     "description": "Navbar item with label Full Custody WaaS API"
-  },
-  "item.label.Feedback": {
-    "message": "Feedback",
-    "description": "Navbar item with label Feedback"
-  },
-  "item.label.Telegram": {
-    "message": "Telegram",
-    "description": "Navbar item with label Telegram"
-  },
-  "item.label.Twitter": {
-    "message": "Twitter",
-    "description": "Navbar item with label Twitter"
   },
   "item.label.Sinohope Lecture": {
     "message": "Sinohope Lecture",

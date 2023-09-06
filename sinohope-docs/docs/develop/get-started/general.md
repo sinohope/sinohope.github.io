@@ -3,170 +3,174 @@ sidebar_position: 2
 ---
 # General
 
-## 术语定义
+## Terminology
 ### sinoId
-对于涉及到MPC私钥分片的业务，包括开发者请求的交易及签名类业务（如发起交易、发起签名等），Sinohope均会给该业务产生一个唯一标识，即 sinoId。
 
-### requestId
-对于需要实现幂等处理的请求（如发起转账），请求方需要为API请求提供一个唯一标识，即 requestId。requestId 应实现全局唯一性，并确保对多次提交的同一个业务请求使用同一个requestId。**允许的最大长度为 120 个ASCII字符。**
-建议使用 UUID 或雪花算法生成 requestId。
-### chainSymbol的规则
-1、chainSymbol是链配置的唯一标识；
+For businesses involving MPC private key shares, including developer-requested transactions and signature-related operations (such as initiating transactions, initiating signatures, etc.), Sinohope will generate a unique identifier for each business, called sinoId.
 
-2、区分测试网和正式网；
+### requestId 
 
-3、使用大写字母命名。
+For requests that need to implement idempotency (such as initiating a transfer), the requester needs to provide a unique identifier for the API request, called `requestId`. The requestId should be globally unique and ensure that the same requestId is used for multiple submissions of the same business request. **The maximum allowed length is 120 ASCII characters.**
+It is recommended to use UUID or snowflake algorithm to generate a requestId.
 
-> 例如： 
-> - 主网使用常见简称，如`ETH`, `BTC` 分别是 `Ethereum 主网`/ `Bitcoin主网`
-> - 对于有特定名字的测试网使用其测试网名字，如用`GOERLI` 表示`ETH Goerli 测试网`
-> - 对于无特定名字的测试网，使用`_TEST`加以区分，如 `BTC_TEST` 表示 `Bitcoin testnet3测试网`
-> - 注意：系统支持的链，以`/v1/waas/common/get_supported_chains`接口返回值为准
+### Rules for chainSymbol
 
-### assetId的规则
-1、assetId是Asset配置表唯一标识；
+1. chainSymbol is the unique identifier for a blockchain;
+2. Distinguish between testnets and mainnets; 
+3. Use uppercase letters for naming.
 
-2、命名方式前币(coin)后链(chain)，中间以下划线分隔；
+> For example:
+> - Mainnets use common abbreviations, such as `ETH`, `BTC` for `Ethereum Mainnet`/`Bitcoin Mainnet` respectively
+> - For testnets with specific names, use their testnet names, such as `GOERLI` for `ETH Goerli Testnet`  
+> - For testnets without specific names, use `_TEST` to distinguish, such as `BTC_TEST` for `Bitcoin testnet3 Testnet`
+> - Note: The chains supported by the system are subject to the `/v1/waas/common/get_supported_chains` interface
 
-3、使用大写字母命名。
+### Rules for assetId
 
-> 例如：USDT_GOERLI 是 ETH Goerli 测试网上的的一个 USDT 币种
+1. assetId is the unique identifier for a asset;
+2. Named as coin first then chain, separated by underscores; 
+3. Use uppercase letters.
+
+> For example: `USDT_GOERLI` represents the USDT coin on the ETH Goerli testnet
 
 # API Signature
 
-##  API 认证
+## API Authentication
 
-为了加强 API 安全，Sinohope 要求开发者对所调用的 API 请求进行椭圆曲线签名，Sinohope API 服务器将会根据收到的请求和签名进行有效性校验。
+To strengthen API security, Sinohope requires developers to sign API requests with elliptic curve signatures. Sinohope API servers will verify the validity of requests and signatures.
 
+**If you do not use the SDK provided by Sinohope, or if there is no SDK available for the programming language you want to use, you will need to construct the interface request yourself. In this case, you will need to understand the implementation details of Sinohope API authentication. If you use the SDK for integration development, you can skip this section!**
 
-**若您未使用Sinohope提供的 SDK，或者暂无您要使用的开发语言的SDK，则您需要自行完成接口请求构造，此时，您将需要了解Sinohope API认证的实现细节。若您使用了SDK做集成开发，则本章节可跳过！**
-
-注意事项：
-1. Sinohope POST接口仅支持JSON数据格式。
-
-
-### 请求头
-
-- `BIZ-API-KEY`: 您的公钥字符串
-- `BIZ-API-SIGNATURE`: 数据签名字符串，为 ECDSA签名结果按 `ASN.1 DER`格式化后的字节数组的 HEX编码字符串
-- `BIZ-API-NONCE`: 参与构成签名数据的 timestamp
-
-Sinohope将按照上述请求头及您的请求数据进行签名验证，从而验证您的请求合法性。
+Notes:
+1. Sinohope POST interfaces only support JSON data format.
 
 
-### 签名构造
+### Request Headers
+
+- `BIZ-API-KEY`: Your public key string
+- `BIZ-API-SIGNATURE`: Data signature string, HEX encoded string of the byte array formatted according to `ASN.1 DER` after ECDSA signature 
+- `BIZ-API-NONCE`: timestamp involved in the composition of signed data
+
+Sinohope will verify your request validity by verifying your signature based on the above request headers and your request data.
 
 
-待签名数据：
+### Signature Construction
+
+
+Data to be signed:
 
 | key | value |
-| --- | --- |
-| data | 请求参数所组成的字符串值，详见下文 `DATA` 部分的具体说明|
-| path | 请求URL的 `PATH` 部分，详见下文 `PATH` 部分的具体说明 |
-| timestamp | 访问 API时间戳，详见 `TIMESTAMP` 部分的具体说明 |
-| version | 固定值`1.0.0` 详见 `VERSION` 部分的具体说明|
-| ""（长度为 0 的字符串） | 公钥字符串 详见 `PUBLICKEY` 部分的具体说明 |
+| --- | --- |  
+| data | String value composed of request parameters, see `DATA` section below for details |
+| path | `PATH` part of the request URL, see `PATH` section below for details |
+| timestamp | API access UNIX EPOCH timestamp (accurate to milliseconds), see `TIMESTAMP` section below for details | 
+| version | Fixed value `1.0.0`, see `VERSION` section below for details |
+| "" (empty string) | Public key string, see `PUBLICKEY` section below for details |
 
-字符串拼接规则：
+String concatenation rules:
 
-对于上述的键值对，按 key 的字母序升序排序后，将所有 `key` `value` 直接拼接起来（中间没有连接符，其中最后的 公钥字符串没有 key字段）形成最终的待签名数据字符串，**将待签名数据字符串按UTF8编码为字节数组**之后，使用您本地生成的私钥（privateKey），对数据使用私钥进行 
-ECDSA 签名（具体算法为 `SHA256withECDSA`），签名结果按 `ASN.1 DER` 格式化并编码为 Hex 字符串, 即生成了用于向 API 服务器进行验证的最终签名 （可参考 Sinohope 例程：<https://github.com/sinohope/sinohope-java-api>）。
+Sort the above key-value pairs in ascending order of the alphabet of the keys, then directly concatenate all `key` `value` (no delimiter between them, with the public key string having no key field) to form the final string to be signed, **encode the string to be signed as a byte array in UTF8**, and then use the private key (privateKey) generated locally to perform ECDSA signature on the data (the specific algorithm is `SHA256withECDSA`), output the signature using `ASN.1 DER` format, and then encode the byte array to a HEX string, then you will get the final signature string (see Sinohope demo: <https://github.com/sinohope/sinohope-java-api>).
 
-各部分数据具体解释，见接下来的章节。
+See the following sections for detailed explanations of each part of the data.
 
-### 各部分数据解释
+### Explanations of Each Part of Data
 #### DATA
 
-* 如果是`GET`请求：
-```html
+* For `GET` request:
+```html 
 https://api.develop.sinohope.com/v1/test?key=key&value=value
 ```
-则先将参数 key 按照字母排序，然后进行 url 参数化，即：
+
+First sort the parameters by key alphabetically, then url encode them, i.e.:
+
 ```
 key=key
 value=value
 ```
-因为 k 在字母表中的排序在 v 之前，所以 key 要放在 value 之前，然后使用 & 进行连接，即： `key=key&value=value`
+Since k comes before v alphabetically, key should be placed before value, then connect them with &, i.e.: `key=key&value=value`
 
-* 如果是`POST`请求：
+* For `POST` request:
 ```java
 {
   "key": "key",
   "value": "value"
 }
 ```
-则将body整体参数当做String字符串来处理。
+Treat the entire body parameter as a String.
 
 #### PATH
-请求URL的PATH部分， 例如https://api.develop.sinohope.com/v1/test/ 为 `/v1/test/`
+The PATH part of the request URL, e.g. `/v1/test/` for https://api.develop.sinohope.com/v1/test/
 
 #### TIMESTAMP
-访问 API 时的 UNIX EPOCH 时间戳 (精确到毫秒)
+UNIX EPOCH timestamp (accurate to milliseconds) when accessing API  
 
 #### VERSION
-固定值`1.0.0`
+Fixed value `1.0.0`
 
 #### PUBLICKEY
-您本地获取的公钥，按 `X.509` 格式序列化后的字节数组再按 HEX 编码后的字符串。
+Your locally acquired public key, HEX encoded string after serializing to bytes array according to `X.509` format.
 
-Java中获取公私钥代码示例 <https://github.com/sinohope/sinohope-java-api#generate-key-pair>
+Java code example for generating public and private keys: <https://github.com/sinohope/sinohope-java-api#generate-key-pair>
 
 
-### 请求示例
+### Request Example
 
-本示例使用如下密钥对：
+This example uses the following key pair:
 
 - publicKey: `3056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d`
 - privateKey: `30818d020100301006072a8648ce3d020106052b8104000a04763074020101042049888755bcb8bead7efd451426692cebd00c2aba9fad62a6f753343085a7c060a00706052b8104000aa14403420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d`
 
-#### GET请求：
+#### GET Request:
 | Method | URL |
 | :--- | :--- |
 | GET | https://api.develop.sinohope.com/v1/test?key=key&value=value |
 
-参数：
+Parameters:
+
 | Parameter | Value |
 | :--- | :--- |
 | key | key |
 | value | value |
 
-假设时间戳为 `1692614885094`，则待签名数据为：
+Assuming timestamp is `1692614885094`, data to be signed is:
 ```html
 datakey=key&value=valuepath/v1/testtimestamp1692614885094version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
 ```
 
-使用示例的私钥，对上述数据签名，一个可能的结果为：
+Signing the above data with the example private key, one possible result is: 
 ```text
 304402205db4c34ade2295f81bc2aa1be535a75cf4557dd9ad079d6804f2bc06c06c94ff0220380b75060f7a1abac6625a99cb684aaecc3135f99fc97333d1f99bccad6724d4
 ```
 
-使用示例的公钥、待签数据，应该能验证上述签名结果为“有效”。
+The above signature result should be verifiable as "valid" using the example public key and data to be signed.
 
-#### POST请求：
+#### POST Request:
 | Method | URL |
 | :--- | :--- |
 | POST | https://api.develop.sinohope.com/v1/test |
 
-参数：
+Parameters: 
 ```html
 {
   "key": "key",
   "value": "value"
-}
+} 
 ```
-假设时间戳为 `1692614885153`，则待签名数据为：
-```html
+Assuming timestamp is `1692614885153`, data to be signed is:
+```html  
 data{"key":"key","value":"value"}path/v1/testtimestamp1692614885153version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
 ```
 
-使用示例的私钥，对上述数据签名，一个可能的结果为：
+Signing the above data with the example private key, one possible result is:
 ```text
 30440220439fb1cb1860d7621ab37db48a7c29ee488c182c7bddd25276b2bc97a35560190220764a04dee91b1d9fcf784c5ae24ab0c19443b2823adfa4ef06e0b63ed4563cf9
 ```
 
-使用示例的公钥、待签数据，应该能验证上述签名结果为“有效”。
-### 附加信息
-#### DEMO 库
+The above signature result should be verifiable as "valid" using the example public key and data to be signed.
+
+### Additional Information
+#### DEMO Library
 <https://github.com/sinohope/sinohope-java-api>
-#### 签名算法
-Sinohope 使用基于P-256曲线（又名prime256v1或secp256r1）和算法为SHA256withECDSA的 ECDSA 签名方案进行验证，见上述 demo，如您在操作过程中遇到任何问题，请通过bd@newhuotech.com联系Sinohope工作人员协助您一起排查和解决。
+
+#### Signature Algorithm
+Sinohope uses the ECDSA signature scheme based on the P-256 curve (also known as prime256v1 or secp256r1) and SHA256withECDSA algorithm for verification, see the demo above. If you encounter any problems during operation, please contact Sinohope staff at bd@newhuotech.com to assist you in troubleshooting and resolving them together.

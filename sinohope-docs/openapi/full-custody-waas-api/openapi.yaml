@@ -5,405 +5,188 @@ info:
   description:
     $ref: description.md
 servers:
-  - url: /
+  - url: https://api-sandbox.sinohope.com/
 tags:
-  - name: 通用
+  - name: Common APIs
     description: 通用
-  - name: 账户&地址
+  - name: Account&address APIs
     description: 创建、管理、查询钱包账户与地址信息
-  - name: 交易
+  - name: Transaction APIs
     description: 创建及查询交易信息，创建离线签名
 paths:
-  /v1/waas/custody/transaction/list_transactions:
+  /v1/waas/common/get_supported_coins:
     post:
       tags:
-        - 交易
-      summary: 交易列表
+        - Common APIs
+      operationId: "/v1/waas/common/get_supported_coins"
+      summary: 查询链支持的币种列表
       requestBody:
         content:
           application/json:
             schema:
               required:
-                - address
                 - chainSymbol
               type: object
               properties:
-                pageIndex:
-                  type: integer
-                  description: 当前页码，首页为0,默认0
-                pageSize:
-                  type: integer
-                  description: |-
-                    *
-                    每页数据条数（不得小于1,不得大于50）
-                address:
-                  type: string
-                  description: 链地址
-                  default: 0x4b67ec7fb5804dc645d584a715792f7ca76caace
-                sinoIds:
-                  type: string
-                  description: sinoId生成的交易id
-                  default: 1,2
-                requestIds:
-                  type: string
-                  description: 请求方交易的requestId
-                  default: 433352715218629,433352715218629
-                txHash:
-                  type: string
-                  description: 交易hash
-                  default: 4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16
-                walletId:
-                  type: string
-                  description: 钱包的唯一标识
                 chainSymbol:
                   type: string
-                  description: 链标识
-                  default: ETH
-                assetId:
-                  type: string
-                  description: 资产id
-                  default: USDC_ETH
-                createStartTime:
-                  type: string
-                  description: |-
-                    交易在SinoHope创建的时间 开始
-                    格式 "2022-02-02 00:00:00"
-                createEndTime:
-                  type: string
-                  description: |-
-                    交易在SinoHope创建的时间 结束
-                    格式 "2022-02-02 00:00:00"
-                updateStartTime:
-                  type: string
-                  description: |-
-                    交易在SinoHope最后一次更新的时间 开始
-                    格式 "2022-02-02 00:00:00"
-                updateEndTime:
-                  type: string
-                  description: |-
-                    交易在SinoHope最后一次更新的时间 结束
-                    格式 "2022-02-02 00:00:00"
-                direction:
-                  type: integer
-                  description: 出入金类型：0入金 1出金
-                type:
-                  type: integer
-                  description: 0充值 1提币 2交易
-                onChain:
-                  type: integer
-                  description: 是否强制上链 0否 1是
+                  description: 链名称 简称 链标识 具有唯一性
+                  example: "ETH"
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
-              schema:
-                type: object
-                properties:
-                  pageIndex:
-                    type: integer
-                    description: ""
-                  pageSize:
-                    type: integer
-                    description: ""
-                  totalSize:
-                    type: integer
-                    description: ""
-                  list:
-                    type: array
-                    description: ""
-                    items:
-                      type: object
-                      properties:
-                        sinoId:
-                          type: integer
-                          description: sinoId
-                        assetId:
-                          type: string
-                          description: 资产Id
-                        assetName:
-                          type: string
-                          description: 资产名称
-                        chainName:
-                          type: string
-                          description: 链名称
-                        transactionType:
-                          type: string
-                          description: 交易类型 1充值 2提现
-                        decimal:
-                          type: integer
-                          description: 精度
-                        transaction:
-                          type: object
-                          properties:
-                            amount:
-                              type: string
-                              description: 金额：最小精度的整数值 例如：1230000000000000000
-                            absAmount:
-                              type: string
-                              description: 交易金额
-                            fromAddress:
-                              type: string
-                              description: from地址
-                            toAddress:
-                              type: string
-                              description: to地址
-                            type:
-                              type: integer
-                              description: 交易类型 0充值 1提币 2交易
-                            state:
-                              type: integer
-                              description: 交易状态
-                            note:
-                              type: string
-                              description: 交易文本
-                            txHash:
-                              type: string
-                              description: 交易hash
-                            memo:
-                              type: string
-                              description: Memo信息
-                            vout_n:
-                              type: string
-                              description: UTXO公链的index
-                            direction:
-                              type: integer
-                              description: 0入金 1出金
-                            onChain:
-                              type: integer
-                              description: 是否强制上链 0否 1是
-                            safeThreshold:
-                              type: integer
-                              description: 安全确认次数
-                            comfirmedThreshold:
-                              type: integer
-                              description: 当前确认次数
-                            createTimestamp:
-                              type: string
-                              description: 交易创建时间
-                            updateTimestamp:
-                              type: string
-                              description: 交易更新时间
-                            feeCoin:
-                              type: string
-                              description: 提币费计费币种
-                            gaslimit:
-                              type: string
-                              description: 燃气数量限制
-                            gasprice:
-                              type: string
-                              description: 燃气价格
-                            feeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            absFeeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            withdrawFee:
-                              type: string
-                              description: 由SinoHope统一处理gas费，以协议约定为准
-                          description: 交易
-                        chainSymbol:
-                          type: string
-                          description: 链简称
-                        coinDecimals:
-                          type: integer
-                          description: 链对应的主币的精度
-                        decimals:
-                          type: integer
-                          description: 当前资产的精度
-                        updateTime:
-                          type: string
-                          description: |-
-                            更新时间
-                            格式 "2022-02-02 00:00:00"
-                description: ""
-      x-codegen-request-body-name: root
-  /v1/waas/custody/transaction/cancel_transaction:
-    post:
-      tags:
-        - 交易
-      summary: 交易取消
-      requestBody:
-        content:
-          application/json:
-            schema:
-              required:
-                - assetId
-                - chainSymbol
-                - requestId
-              type: object
-              properties:
-                requestId:
-                  type: string
-                  description: 请求方的requestId
-                  default: 64534,24342
-                chainSymbol:
-                  type: string
-                  description: 链标识
-                  default: ETH
-                assetId:
-                  type: string
-                  description: 资产id
-                  default: USDC_ETH
-        required: false
-      responses:
-        200:
-          description: successful operation
-          content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
+                    required:
+                      - assetDecimal
+                      - assetId
+                      - assetName
                     type: object
                     properties:
-                      requestId:
+                      assetName:
                         type: string
-                        description: 提币请求id
-                      sinoId:
+                        description: 币种全名称
+                        example: "ETH"
+                      assetId:
+                        type: string
+                        description: 币标识 具有唯一性
+                        example: "ETH_ETH"
+                      assetDecimal:
                         type: integer
-                        description: SinoHope的订单唯一标识
-                      network:
-                        type: string
-                        description: 网络
-                      txType:
-                        type: string
-                        description: 交易类型
-                      hasToBeSigned:
-                        type: string
-                        description: 签名前信息
-                      data:
-                        type: object
-                        properties:
-                          asset:
-                            type: string
-                            description: 资产id
-                          decimal:
-                            type: integer
-                            description: 精度
-                          currentTime:
-                            type: integer
-                            description: 当前时间
-                          expireTime:
-                            type: integer
-                            description: 有效时间
-                          expireBlockHeight:
-                            type: integer
-                            description: 交易有效高度
-                          referBlockHeight:
-                            type: integer
-                            description: refer 高度
-                          from:
-                            type: string
-                            description: from地址
-                          fromTag:
-                            type: string
-                            description: from地址tag
-                          to:
-                            type: string
-                            description: to地址
-                          toTag:
-                            type: string
-                            description: to地址tag
-                          amount:
-                            type: string
-                            description: 金额：最小精度的整数值 例如：1230000000000000000
-                          fee:
-                            type: string
-                            description: 手续费
-                          txType:
-                            type: integer
-                            description: 交易类型
-                          feeAsset:
-                            type: string
-                            description: 手续费资产
-                          feePrice:
-                            type: string
-                            description: 手续费Price
-                          feeStep:
-                            type: string
-                            description: 手续费Step
-                          chainId:
-                            type: string
-                            description: 链id
-                          nonce:
-                            type: string
-                            description: 交易nonce
-                          vin:
-                            type: array
-                            description: utxo input
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                  description: 交易id
-                                hash:
-                                  type: string
-                                  description: 交易hash
-                                voutIndex:
-                                  type: string
-                                  description: 交易index
-                                address:
-                                  type: string
-                                  description: 交易地址
-                                amount:
-                                  type: string
-                                  description: 交易金额
-                                asset:
-                                  type: string
-                                  description: 交易资产
-                          vout:
-                            type: array
-                            description: 交易output
-                            items:
-                              type: object
-                              properties:
-                                asset:
-                                  type: string
-                                  description: 交易资产
-                                address:
-                                  type: string
-                                  description: 交易地址
-                                amount:
-                                  type: string
-                                  description: 交易金额
-                          funName:
-                            type: string
-                            description: ""
-                          params:
-                            type: array
-                            description: ""
-                            items:
-                              type: string
-                        description: 签名交易信息
-                      suffixPath:
-                        type: string
-                        description: hdpath
-                      cryptography:
-                        type: string
-                        description: ""
-                    description: ""
+                        description: 币种精度
+                        example: 18
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
+      x-codegen-request-body-name: root
+  /v1/waas/common/get_supported_chains:
+    post:
+      tags:
+        - Common APIs
+      operationId: "/v1/waas/common/get_supported_chains"
+      summary: 查询系统支持链
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
                     type: string
-                    description: ""
-                description: ""
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      required:
+                        - chainName
+                        - chainSymbol
+                      type: object
+                      properties:
+                        chainName:
+                          type: string
+                          description: 链全名
+                          example: "Near"
+                        chainSymbol:
+                          type: string
+                          description: 链名称 简称 链标识 具有唯一性
+                          example: "NEAR"
+                  success:
+                    type: boolean
+  /v1/waas/common/get_vaults:
+    post:
+      tags:
+        - Common APIs
+      operationId: "/v1/waas/common/get_vaults"
+      summary: 金库列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/common/get_vaults/",
+              {},
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/common/get_vaults/", map[string]string{})
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: empty object
+              type: object
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        businessType:
+                          type: integer
+                          description: 业务类型：0：自托管 2：waas 3:全托管
+                          example: 2
+                        vaultInfoOfOpenApiList:
+                          type: array
+                          description: 金库信息
+                          items:
+                            type: object
+                            properties:
+                              vaultId:
+                                type: string
+                                description: 金库id
+                                example: "450632968208222"
+                              vaultName:
+                                type: string
+                                description: 金库名称
+                                example: "测试金库"
+                              createTime:
+                                type: string
+                                description: 创建时间，格式yyyy-MM-dd HH:mm:ss
+                                example: "2023-08-16 16:04:49"
+                              authorityType:
+                                type: string
+                                description: 权限分类：0 所有，1 查询，2 操作，3 提现，4 任意交易 描述：apiKey绑定金库所属权限，该字段参数存在多权限组合形式出现，逗号分隔。例如："1,3"
+                                example: "1"
+                  success:
+                    type: boolean
       x-codegen-request-body-name: root
   /v1/waas/custody/create_wallets:
     post:
       tags:
-        - 账户&地址
+        - Account&address APIs
+      operationId: "/v1/waas/custody/create_wallets"
       summary: 创建钱包
       description: /v1/waas/custody/wallet/create_wallets
       requestBody:
@@ -412,9 +195,22 @@ paths:
             schema:
               type: object
               properties:
+                requestId:
+                  type: string
+                  description: 请求唯一值
+                  example: "413497079388421"
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "413497079382911"
+                collectionType:
+                  type: integer
+                  description: 归集类型：0非归集，1归集
+                  example: 0
                 count:
                   type: integer
                   description: 创建多少个 默认值为 1
+                  example: 1
                 walletInfos:
                   type: array
                   description: |-
@@ -429,596 +225,348 @@ paths:
                           钱包名称
                           为空的话用默认值: wallet+随机值
                           不为空时：部门下钱包名称不能给重复
-                      advancedEnabled:
-                        type: integer
-                        description: |-
-                          高级功能开关 (关：0，开：1)
-                          <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                        example: "wallet1"
+
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
                     type: array
-                    description: ""
                     items:
                       type: object
                       properties:
                         walletId:
                           type: string
                           description: 钱包id
-                        walletName:
+                          example: "413497079388421"
+                        wallName:
                           type: string
                           description: 钱包名称
-                        advancedEnabled:
-                          type: integer
-                          description: 高级功能开关 (关：0，开：1)
+                          example: "wallet1"
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
       x-codegen-request-body-name: root
-  /v1/waas/custody/transaction/create_transfer:
+  /v1/waas/custody/is_valid_address:
     post:
       tags:
-        - 交易
-      summary: 发起提币交易
+        - Account&address APIs
+      operationId: "/v1/waas/custody/is_valid_address"
+      summary: 检查币种地址是否正确
       requestBody:
         content:
           application/json:
             schema:
               required:
-                - amount
+                - address
                 - assetId
+              type: object
+              properties:
+                assetId:
+                  type: string
+                  description: 币种代号 币标识 具有唯一性
+                  example: "USDT_ETH"
+                address:
+                  type: string
+                  description: 地址
+                  example: "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      isValid:
+                        type: boolean
+                        description: 检查结果
+                        example: true
+                  success:
+                    type: boolean
+      x-codegen-request-body-name: root
+  /v1/waas/custody/wallet/generate_chain_addresses:
+    post:
+      tags:
+        - Account&address APIs
+      operationId: "/v1/waas/custody/wallet/generate_chain_addresses"
+      summary: 生成链地址
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
                 - chainSymbol
-                - fee
-                - from
-                - gasLimit
-                - gasPrice
+                - walletId
                 - requestId
-                - to
               type: object
               properties:
                 requestId:
                   type: string
-                  description: 请求方交易的requestId
-                  default: "2132134"
+                  description: 业务唯一值
+                  example: "413497079388421"
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
                 walletId:
                   type: string
                   description: 钱包id
-                  default: "52321312"
+                  example: "413497079388421"
+                count:
+                  type: integer
+                  description: 创建多少个。默认值为 1，最大值 50。
+                  example: 1
                 chainSymbol:
                   type: string
-                  description: 链标识
-                  default: ETH
-                assetId:
-                  type: string
-                  description: 资产id
-                  default: USDC_ETH
-                from:
-                  type: string
-                  description: from 地址
-                  default: 0xc429aeda8bf786cf092224dddadbc0813f9f230b
-                fromTag:
-                  type: string
-                  description: from memo
-                  default: "32143"
-                to:
-                  type: string
-                  description: to地址
-                  default: 0x546A62c54F50D57D30478C8C275360f20239A23E
-                toTag:
-                  type: string
-                  description: to memo
-                  default: "32143"
-                amount:
-                  type: string
-                  description: 金额
-                  default: "1200000000000000"
-                fee:
-                  type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
-                  default: "1000000"
-                gasPrice:
-                  type: string
-                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
-                  default: "13250000"
-                gasLimit:
-                  type: string
-                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
-                  default: "21000"
-                remark:
-                  type: string
-                  description: 备注：用于用户自己需要的一些备注信息
-                  default: 用户交易信息备注
-                forceOnChain:
-                  type: integer
-                  description: 默认0（to地址为内部地址不上链），1表示上链
+                  description: 链名称 简称 链标识 具有唯一性
+                  example: "ETH"
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
-                    type: object
-                    properties:
-                      sinoId:
-                        type: integer
-                        description: sinoId
-                      network:
-                        type: string
-                        description: 网络
-                      txType:
-                        type: string
-                        description: 交易类型
-                      hasToBeSigned:
-                        type: string
-                        description: 签名前信息
-                      data:
-                        type: object
-                        properties:
-                          asset:
-                            type: string
-                            description: 资产id
-                          decimal:
-                            type: integer
-                            description: 精度
-                          currentTime:
-                            type: integer
-                            description: 当前时间
-                          expireTime:
-                            type: integer
-                            description: 有效时间
-                          expireBlockHeight:
-                            type: integer
-                            description: 交易有效高度
-                          referBlockHeight:
-                            type: integer
-                            description: refer 高度
-                          from:
-                            type: string
-                            description: from地址
-                          fromTag:
-                            type: string
-                            description: from地址tag
-                          to:
-                            type: string
-                            description: to地址
-                          toTag:
-                            type: string
-                            description: to地址tag
-                          amount:
-                            type: string
-                            description: 金额：最小精度的整数值 例如：1230000000000000000
-                          fee:
-                            type: string
-                            description: 手续费
-                          txType:
-                            type: integer
-                            description: 交易类型
-                          feeAsset:
-                            type: string
-                            description: 手续费资产
-                          feePrice:
-                            type: string
-                            description: 手续费Price
-                          feeStep:
-                            type: string
-                            description: 手续费Step
-                          chainId:
-                            type: string
-                            description: 链id
-                          nonce:
-                            type: string
-                            description: 交易nonce
-                          vin:
-                            type: array
-                            description: utxo input
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                  description: 交易id
-                                hash:
-                                  type: string
-                                  description: 交易hash
-                                voutIndex:
-                                  type: string
-                                  description: 交易index
-                                address:
-                                  type: string
-                                  description: 交易地址
-                                amount:
-                                  type: string
-                                  description: 交易金额
-                                asset:
-                                  type: string
-                                  description: 交易资产
-                          vout:
-                            type: array
-                            description: 交易output
-                            items:
-                              type: object
-                              properties:
-                                asset:
-                                  type: string
-                                  description: 交易资产
-                                address:
-                                  type: string
-                                  description: 交易地址
-                                amount:
-                                  type: string
-                                  description: 交易金额
-                          funName:
-                            type: string
-                            description: ""
-                          params:
-                            type: array
-                            description: ""
-                            items:
-                              type: string
-                        description: 签名交易信息
-                      suffixPath:
-                        type: string
-                        description: hdpath
-                      cryptography:
-                        type: string
-                        description: ""
-                    description: ""
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/addressInfo'
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
-                description: ""
       x-codegen-request-body-name: root
   /v1/waas/custody/wallet/list_addresses:
     post:
       tags:
-        - 账户&地址
-      summary: 批量查询指定钱包下的地址
+        - Account&address APIs
+      operationId: "/v1/waas/custody/wallet/list_addresses"
+      summary: 查询链地址
       requestBody:
         content:
           application/json:
             schema:
               required:
+                - vaultId
                 - chainSymbol
                 - walletId
               type: object
               properties:
-                pageIndex:
-                  type: integer
-                  description: 当前页码，首页为0,默认0
-                pageSize:
-                  type: integer
-                  description: |-
-                    *
-                    每页数据条数（不得小于1,不得大于50）
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
                 walletId:
                   type: string
                   description: 钱包id
-                  default: "413497079388421"
+                  example: "413497079388421"
                 chainSymbol:
                   type: string
                   description: 链名称 简称 链标识
-                  default: ETH
+                  example: "ETH"
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
                     type: object
                     properties:
                       pageIndex:
                         type: integer
-                        description: ""
+                        example: 1
                       pageSize:
                         type: integer
-                        description: ""
+                        example: 10
                       totalSize:
                         type: integer
-                        description: ""
+                        example: 4
                       list:
                         type: array
-                        description: ""
                         items:
-                          required:
-                            - address
-                            - encoding
-                          type: object
-                          properties:
-                            address:
-                              type: string
-                              description: 链地址
-                            encoding:
-                              type: integer
-                              description: |-
-                                链地址
-                                地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
-                    description: ""
+                          $ref: '#/components/schemas/addressInfo'
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/custody/wallet/transfer_address_book:
     post:
       tags:
-        - 账户&地址
+        - Account&address APIs
+      operationId: "/v1/waas/custody/wallet/transfer_address_book"
       summary: 查询地址簿
       requestBody:
         content:
           application/json:
             schema:
               required:
+                - vaultId
                 - chainSymbol
               type: object
               properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
                 chainSymbol:
                   type: string
                   description: 链名称 简称 链标识 具有唯一性
-                  default: ETH
-                assetId:
-                  type: string
-                  description: 资产id
+                  example: "ETH"
                 pageIndex:
-                  type: integer
-                  description: 当前页码，首页为0,默认0
+                  $ref: '#/components/schemas/pageIndex'
                 pageSize:
-                  type: integer
-                  description: |-
-                    *
-                    每页数据条数（不得小于1,不得大于50）
+                  $ref: '#/components/schemas/pageSize'
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
                     type: object
                     properties:
                       pageIndex:
                         type: integer
-                        description: ""
+                        example: 1
                       pageSize:
                         type: integer
-                        description: ""
+                        example: 10
                       totalSize:
                         type: integer
-                        description: ""
+                        example: 10
                       list:
                         type: array
-                        description: ""
                         items:
                           type: object
                           properties:
                             address:
                               type: string
                               description: 地址
-                    description: ""
+                              example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
-                description: ""
       x-codegen-request-body-name: root
-  /v1/common/get_supported_coins:
-    post:
-      tags:
-        - 通用
-      summary: 查询某条链下支持的币种
-      requestBody:
-        content:
-          application/json:
-            schema:
-              required:
-                - chainSymbol
-              type: object
-              properties:
-                chainSymbol:
-                  type: string
-                  description: 链名称 简称 链标识 具有唯一性
-                  default: ETH
-        required: false
-      responses:
-        200:
-          description: successful operation
-          content:
-            '*/*':
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    description: ""
-                  msg:
-                    type: string
-                    description: ""
-                  data:
-                    type: array
-                    description: ""
-                    items:
-                      required:
-                        - chainName
-                        - chainSymbol
-                      type: object
-                      properties:
-                        chainName:
-                          type: string
-                          description: 链全名
-                        chainSymbol:
-                          type: string
-                          description: 链名称 简称 链标识 具有唯一性
-                  success:
-                    type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
-      x-codegen-request-body-name: root
-  /v1/common/get_supported_chains:
-    post:
-      tags:
-        - 通用
-      summary: 查询系统支持的链
-      responses:
-        200:
-          description: successful operation
-          content:
-            '*/*':
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    description: ""
-                  msg:
-                    type: string
-                    description: ""
-                  data:
-                    type: array
-                    description: ""
-                    items:
-                      required:
-                        - chainName
-                        - chainSymbol
-                      type: object
-                      properties:
-                        chainName:
-                          type: string
-                          description: 链全名
-                        chainSymbol:
-                          type: string
-                          description: 链名称 简称 链标识 具有唯一性
-                  success:
-                    type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
   /v1/waas/custody/wallet/list_wallets:
     post:
       tags:
-        - 账户&地址
+        - Account&address APIs
+      operationId: "/v1/waas/custody/wallet/list_wallets"
       summary: 查询钱包列表
       requestBody:
         content:
           application/json:
             schema:
+              required:
+                - vaultId
               type: object
               properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
                 pageIndex:
-                  type: integer
-                  description: 当前页码，首页为0,默认0
+                  $ref: '#/components/schemas/pageIndex'
                 pageSize:
-                  type: integer
-                  description: |-
-                    *
-                    每页数据条数（不得小于1,不得大于50）
+                  $ref: '#/components/schemas/pageSize'
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
                     type: object
                     properties:
                       pageIndex:
                         type: integer
-                        description: ""
+                        example: 1
                       pageSize:
                         type: integer
-                        description: ""
+                        example: 10
                       totalSize:
                         type: integer
-                        description: ""
+                        example: 0
                       list:
                         type: array
-                        description: ""
                         items:
                           type: object
                           properties:
                             walletId:
                               type: string
                               description: 钱包id
+                              example: "413497079388421"
                             walletName:
                               type: string
                               description: 钱包名称
-                            advancedEnabled:
-                              type: integer
-                              description: 高级功能开关 (关：0，开：1)
-                    description: ""
+                              example: "wallet1"
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/custody/wallet/get_wallet_balance:
     post:
       tags:
-        - 账户&地址
+        - Account&address APIs
+      operationId: "/v1/waas/custody/wallet/get_wallet_balance"
       summary: 查询钱包对账余额
       requestBody:
         content:
@@ -1035,18 +583,19 @@ paths:
                 vaultId:
                   type: string
                   description: 金库id
-                  default: "313497079388428"
+                  example: "313497079388428"
                 walletId:
                   type: string
                   description: 钱包id
-                  default: "413497079388421"
+                  example: "413497079388421"
                 assetId:
                   type: string
                   description: 钱包id
-                  default: "513497079388426"
+                  example: "ETH_ETH"
                 date:
                   type: string
                   description: 日期 2023-08-11
+                  example: "2023-08-11"
         required: false
       responses:
         200:
@@ -1070,41 +619,44 @@ paths:
                       - decimal
                     type: object
                     properties:
-                      coinSymbol:
+                      assetSymbol:
                         type: string
                         description: token
-                      coinName:
+                        example: "eth"
+                      assetName:
                         type: string
                         description: token全称
+                        example: "eth"
                       chainSymbol:
                         type: string
                         description: 链名称 简称 链标识
+                        example: "ETH"
                       assetId:
                         type: string
                         description: 币名称 简称 币标识
-                      balance:
+                        example: "ETH_ETH"
+                      freeBalance:
                         type: string
                         description: |-
                           金额
                           <p>比如1个eth,精度18位, 这里就是 10^18 Wei,   1,000,000,000,000,000,000 <p/>
-                      absBalance:
-                        type: string
-                        description: 已上账的总金额，等于balance/decimal
-                      absAvailableBalance:
-                        type: string
-                        description: 可用金额
-                      absBlockedBalance:
+                        example: "102211"
+                      blockedBalance:
                         type: string
                         description: KYT冻结金额
-                      absPendingBalance:
+                        example: "1"
+                      pendingBalance:
                         type: string
                         description: 在途交易金额
+                        example: "1"
                       decimal:
                         type: integer
                         description: 币种精度
+                        example: 8
                       confirmingThreshold:
                         type: integer
                         description: 安全确认次数
+                        example: 20
                     description: ""
                   success:
                     type: boolean
@@ -1113,11 +665,246 @@ paths:
                     type: string
                     description: ""
       x-codegen-request-body-name: root
+  /v1/waas/custody/transaction/create_transfer:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/create_transfer"
+      summary: 发起转账交易
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+                - walletId
+                - amount
+                - assetId
+                - chainSymbol
+                - from
+                - requestId
+                - to
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                walletId:
+                  type: string
+                  description: 钱包id
+                  example: "456042601079301"
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+                from:
+                  type: string
+                  description: from 地址
+                  example: "0xc429aeda8bf786cf092224dddadbc0813f9f230b"
+                to:
+                  type: string
+                  description: to地址
+                  example: "0x546A62c54F50D57D30478C8C275360f20239A23E"
+                toTag:
+                  type: string
+                  description: memo
+                  example: "32143"
+                amount:
+                  type: string
+                  description: 金额
+                  example: "1200000000000000"
+                fee:
+                  type: string
+                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  example: "60000000000000"
+                fee_rate:
+                  type: string
+                  description: 手续费费率 1:快 2:中 3:慢
+                  example: "1"
+                gasPrice:
+                  type: string
+                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  example: "1000000000"
+                gasLimit:
+                  type: string
+                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  example: "60000"
+                note:
+                  type: string
+                  description: 备注：用于用户自己需要的一些备注信息
+                  example: 用户交易信息备注
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: "#/components/schemas/transactionRecord"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/custody/transaction/cancel_transaction:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/cancel_transaction"
+      summary: 交易取消
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - requestId
+                - sinoId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求的唯一标识
+                  example: 64534
+                sinoId:
+                  type: string
+                  description: 要取消的交易对应的sinoId
+                  example: 1
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: "#/components/schemas/transactionRecord"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/custody/transaction/list_transactions:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/list_transactions"
+      summary: 交易列表
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: 链地址
+                  example: "0x4b67ec7fb5804dc645d584a715792f7ca76caace"
+                sinoIds:
+                  type: string
+                  description: 通过sinoIds查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，sinoid不能大于50个
+                  example: 1,2
+                requestIds:
+                  type: string
+                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，requestId不能大于50个
+                  example: 433352715218629,433352715218629
+                txHash:
+                  type: string
+                  description: 交易hash
+                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: ETH
+                assetId:
+                  type: string
+                  description: 资产id
+                  example: USDC_ETH
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+                startUpdateTime:
+                  type: string
+                  description: 根据更新时间查询,开始时间 传了开始时间,开始结束也得带上（格式 "2022-02-02 00:00:00"）
+                  example: 2022-02-02 00:00:00
+                endUpdateTime:
+                  type: string
+                  description: 根据更新时间查询,结束时间  传了结束时间,开始时间也得带上（2022-02-02 00:00:00））
+                  example: 2022-03-02 00:00:00
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
   /v1/waas/custody/transaction/transactions_by_request_ids:
     post:
       tags:
-        - 交易
-      summary: 根据request_id查询交易列表
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/transactions_by_request_ids"
+      summary: 根据requestIds查询交易列表
       requestBody:
         content:
           application/json:
@@ -1128,143 +915,49 @@ paths:
               properties:
                 requestIds:
                   type: string
-                  description: 通过requestId查询获取已确认交易记录列表，requestId以逗号分割，不能为空且不能大于50个
-                  default: 433352715218629,433352715218629
+                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，不能为空且不能大于50个
+                  example: 433352715218629,433352715218629
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
-                    type: array
-                    description: ""
-                    items:
-                      type: object
-                      properties:
-                        sinoId:
-                          type: integer
-                          description: sinoId
-                        assetId:
-                          type: string
-                          description: 资产Id
-                        assetName:
-                          type: string
-                          description: 资产名称
-                        chainName:
-                          type: string
-                          description: 链名称
-                        transactionType:
-                          type: string
-                          description: 交易类型 1充值 2提现
-                        decimal:
-                          type: integer
-                          description: 精度
-                        transaction:
-                          type: object
-                          properties:
-                            amount:
-                              type: string
-                              description: 金额：最小精度的整数值 例如：1230000000000000000
-                            absAmount:
-                              type: string
-                              description: 交易金额
-                            fromAddress:
-                              type: string
-                              description: from地址
-                            toAddress:
-                              type: string
-                              description: to地址
-                            type:
-                              type: integer
-                              description: 交易类型 0充值 1提币 2交易
-                            state:
-                              type: integer
-                              description: 交易状态
-                            note:
-                              type: string
-                              description: 交易文本
-                            txHash:
-                              type: string
-                              description: 交易hash
-                            memo:
-                              type: string
-                              description: Memo信息
-                            vout_n:
-                              type: string
-                              description: UTXO公链的index
-                            direction:
-                              type: integer
-                              description: 0入金 1出金
-                            onChain:
-                              type: integer
-                              description: 是否强制上链 0否 1是
-                            safeThreshold:
-                              type: integer
-                              description: 安全确认次数
-                            comfirmedThreshold:
-                              type: integer
-                              description: 当前确认次数
-                            createTimestamp:
-                              type: string
-                              description: 交易创建时间
-                            updateTimestamp:
-                              type: string
-                              description: 交易更新时间
-                            feeCoin:
-                              type: string
-                              description: 提币费计费币种
-                            gaslimit:
-                              type: string
-                              description: 燃气数量限制
-                            gasprice:
-                              type: string
-                              description: 燃气价格
-                            feeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            absFeeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            withdrawFee:
-                              type: string
-                              description: 由SinoHope统一处理gas费，以协议约定为准
-                          description: 交易
-                        chainSymbol:
-                          type: string
-                          description: 链简称
-                        coinDecimals:
-                          type: integer
-                          description: 链对应的主币的精度
-                        decimals:
-                          type: integer
-                          description: 当前资产的精度
-                        updateTime:
-                          type: string
-                          description: |-
-                            更新时间
-                            格式 "2022-02-02 00:00:00"
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/custody/transaction/transactions_by_sinoIds:
+  /v1/waas/custody/transaction/transactions_by_sino_ids:
     post:
       tags:
-        - 交易
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/transactions_by_sino_ids"
       summary: 根据sinoIds查询交易列表
       requestBody:
         content:
@@ -1277,405 +970,288 @@ paths:
                 sinoIds:
                   type: string
                   description: 通过sinoId查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，不能为空且不能大于50个
-                  default: 1,2,3,4
+                  example: 1,2,3,4
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
+                    example: ""
                   data:
-                    type: array
-                    description: ""
-                    items:
-                      type: object
-                      properties:
-                        sinoId:
-                          type: integer
-                          description: sinoId
-                        assetId:
-                          type: string
-                          description: 资产Id
-                        assetName:
-                          type: string
-                          description: 资产名称
-                        chainName:
-                          type: string
-                          description: 链名称
-                        transactionType:
-                          type: string
-                          description: 交易类型 1充值 2提现
-                        decimal:
-                          type: integer
-                          description: 精度
-                        transaction:
-                          type: object
-                          properties:
-                            amount:
-                              type: string
-                              description: 金额：最小精度的整数值 例如：1230000000000000000
-                            absAmount:
-                              type: string
-                              description: 交易金额
-                            fromAddress:
-                              type: string
-                              description: from地址
-                            toAddress:
-                              type: string
-                              description: to地址
-                            type:
-                              type: integer
-                              description: 交易类型 0充值 1提币 2交易
-                            state:
-                              type: integer
-                              description: 交易状态
-                            note:
-                              type: string
-                              description: 交易文本
-                            txHash:
-                              type: string
-                              description: 交易hash
-                            memo:
-                              type: string
-                              description: Memo信息
-                            vout_n:
-                              type: string
-                              description: UTXO公链的index
-                            direction:
-                              type: integer
-                              description: 0入金 1出金
-                            onChain:
-                              type: integer
-                              description: 是否强制上链 0否 1是
-                            safeThreshold:
-                              type: integer
-                              description: 安全确认次数
-                            comfirmedThreshold:
-                              type: integer
-                              description: 当前确认次数
-                            createTimestamp:
-                              type: string
-                              description: 交易创建时间
-                            updateTimestamp:
-                              type: string
-                              description: 交易更新时间
-                            feeCoin:
-                              type: string
-                              description: 提币费计费币种
-                            gaslimit:
-                              type: string
-                              description: 燃气数量限制
-                            gasprice:
-                              type: string
-                              description: 燃气价格
-                            feeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            absFeeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            withdrawFee:
-                              type: string
-                              description: 由SinoHope统一处理gas费，以协议约定为准
-                          description: 交易
-                        chainSymbol:
-                          type: string
-                          description: 链简称
-                        coinDecimals:
-                          type: integer
-                          description: 链对应的主币的精度
-                        decimals:
-                          type: integer
-                          description: 当前资产的精度
-                        updateTime:
-                          type: string
-                          description: |-
-                            更新时间
-                            格式 "2022-02-02 00:00:00"
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
                 description: ""
       x-codegen-request-body-name: root
   /v1/waas/custody/transaction/transactions_by_tx_hash:
     post:
       tags:
-        - 交易
+        - Transaction APIs
+      operationId: "/v1/waas/custody/transaction/transactions_by_tx_hash"
       summary: 根据txHash查询交易列表
       requestBody:
         content:
           application/json:
             schema:
               required:
-                - chainSymbol
                 - txHash
+                - chainSymbol
               type: object
               properties:
                 txHash:
                   type: string
                   description: 通过交易txHash，查询获取已确认交易记录列表
-                  default: 4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16
+                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
                   description: 链标识
-                  default: ETH
+                  example: ETH
         required: false
       responses:
         200:
           description: successful operation
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
                 properties:
                   code:
                     type: integer
-                    description: ""
+                    example: 200
                   msg:
                     type: string
-                    description: ""
-                  data:
-                    type: array
-                    description: ""
-                    items:
-                      type: object
-                      properties:
-                        sinoId:
-                          type: integer
-                          description: sinoId
-                        assetId:
-                          type: string
-                          description: 资产Id
-                        assetName:
-                          type: string
-                          description: 资产名称
-                        chainName:
-                          type: string
-                          description: 链名称
-                        transactionType:
-                          type: string
-                          description: 交易类型 1充值 2提现
-                        decimal:
-                          type: integer
-                          description: 精度
-                        transaction:
-                          type: object
-                          properties:
-                            amount:
-                              type: string
-                              description: 金额：最小精度的整数值 例如：1230000000000000000
-                            absAmount:
-                              type: string
-                              description: 交易金额
-                            fromAddress:
-                              type: string
-                              description: from地址
-                            toAddress:
-                              type: string
-                              description: to地址
-                            type:
-                              type: integer
-                              description: 交易类型 0充值 1提币 2交易
-                            state:
-                              type: integer
-                              description: 交易状态
-                            note:
-                              type: string
-                              description: 交易文本
-                            txHash:
-                              type: string
-                              description: 交易hash
-                            memo:
-                              type: string
-                              description: Memo信息
-                            vout_n:
-                              type: string
-                              description: UTXO公链的index
-                            direction:
-                              type: integer
-                              description: 0入金 1出金
-                            onChain:
-                              type: integer
-                              description: 是否强制上链 0否 1是
-                            safeThreshold:
-                              type: integer
-                              description: 安全确认次数
-                            comfirmedThreshold:
-                              type: integer
-                              description: 当前确认次数
-                            createTimestamp:
-                              type: string
-                              description: 交易创建时间
-                            updateTimestamp:
-                              type: string
-                              description: 交易更新时间
-                            feeCoin:
-                              type: string
-                              description: 提币费计费币种
-                            gaslimit:
-                              type: string
-                              description: 燃气数量限制
-                            gasprice:
-                              type: string
-                              description: 燃气价格
-                            feeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            absFeeAmount:
-                              type: string
-                              description: 实际消耗的gas费
-                            withdrawFee:
-                              type: string
-                              description: 由SinoHope统一处理gas费，以协议约定为准
-                          description: 交易
-                        chainSymbol:
-                          type: string
-                          description: 链简称
-                        coinDecimals:
-                          type: integer
-                          description: 链对应的主币的精度
-                        decimals:
-                          type: integer
-                          description: 当前资产的精度
-                        updateTime:
-                          type: string
-                          description: |-
-                            更新时间
-                            格式 "2022-02-02 00:00:00"
-                  success:
-                    type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
-                description: ""
-      x-codegen-request-body-name: root
-  /v1/waas/custody/is_valid_address:
-    post:
-      tags:
-        - 账户&地址
-      summary: 检查币种地址是否正确
-      requestBody:
-        content:
-          application/json:
-            schema:
-              required:
-                - address
-                - assetId
-              type: object
-              properties:
-                assetId:
-                  type: string
-                  description: 币种代号 币标识 具有唯一性
-                  default: USDT_ETH
-                address:
-                  type: string
-                  description: 地址
-                  default: 0x67d0F791D950CdC25Ac44bA249328022f4df93b6
-        required: false
-      responses:
-        200:
-          description: successful operation
-          content:
-            '*/*':
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    description: ""
-                  msg:
-                    type: string
-                    description: ""
+                    example: ""
                   data:
                     type: object
                     properties:
-                      isValid:
-                        type: boolean
-                        description: 检查结果
-                    description: ""
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: 交易记录列表
+                        items:
+                          $ref: '#/components/schemas/transactionRecord'
                   success:
                     type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
+                description: ""
       x-codegen-request-body-name: root
-  /v1/waas/custody/wallet/generate_chain_addresses:
-    post:
-      tags:
-        - 账户&地址
-      summary: 生成链地址
-      requestBody:
-        content:
-          application/json:
-            schema:
-              required:
-                - chainSymbol
-                - walletId
-              type: object
-              properties:
-                walletId:
-                  type: string
-                  description: 钱包id
-                  default: "413497079388421"
-                count:
-                  type: integer
-                  description: 创建多少个,不传默认为1
-                chainSymbol:
-                  type: string
-                  description: 链名称 简称 链标识 具有唯一性
-                  default: ETH
-        required: false
-      responses:
-        200:
-          description: successful operation
-          content:
-            '*/*':
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    description: ""
-                  msg:
-                    type: string
-                    description: ""
-                  data:
-                    type: array
-                    description: ""
-                    items:
-                      required:
-                        - address
-                        - encoding
-                      type: object
-                      properties:
-                        address:
-                          type: string
-                          description: 链地址
-                        encoding:
-                          type: integer
-                          description: |-
-                            链地址
-                            地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
-                  success:
-                    type: boolean
-                    description: ""
-                  requestId:
-                    type: string
-                    description: ""
-      x-codegen-request-body-name: root
-components: {}
+
+components:
+  schemas:
+    transactionObject:
+      type: object
+      description: 交易信息
+      properties:
+        txHash:
+          type: string
+          description: 交易hash
+          example: "ee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
+        actionType:
+          type: string
+          description: 用户发起交易请求的类型，"Transfer" - 通过create_transfer接口发起的转账交易；"Web3Tx" - 通过 create_transaction 接口发起的交易，一般应是合约交易。 对于充值交易，为空。
+          example: "Transfer"
+        from:
+          type: string
+          description: from地址
+          example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+        fromTag:
+          type: string
+          description: from地址tag
+          example: "12300"
+        to:
+          type: string
+          description: to地址
+          example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+        toTag:
+          type: string
+          description: to地址tag
+          example: "1001"
+        amount:
+          type: string
+          description: 金额：最小精度的整数值 例如：1230000000000000000
+          example: "1230000000000000000"
+        assetId:
+          type: string
+          description: 资产id
+          example: "ETH_ETH"
+        decimal:
+          type: integer
+          description: 资产精度
+          example: 18
+        contractAddress:
+          type: string
+          description: 对于ERC20/ERC721 等资产，资产对应的Token合约地址
+          example: ""
+        feeAsset:
+          type: string
+          description: 手续费资产
+          example: "ETH_ETH"
+        feeAssetDecimal:
+          type: integer
+          description: 手续费资产精度
+          example: 18
+        usedFee:
+          type: string
+          description: 真实消耗的手续费，最小精度的整数值
+          example: "21000000000000"
+        fee:
+          type: string
+          description: 构造交易时赋予的手续费
+          example: "30000000000000"
+        gasPrice:
+          type: string
+          description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+          example: "1000000000"
+        gasLimit:
+          type: string
+          description: 交易gasLimit，燃料上限，ETH 账号模型适用
+          example: "60000"
+        nonce:
+          type: string
+          description: 交易nonce
+          example: "2"
+        inputData:
+          type: string
+          description: 以太坊交易data（此字段只对由create_transaction 接口发起的 "Web3Tx"交易有效）
+          example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"
+        expireTime:
+          type: integer
+          description: 有效时间
+          example: 1691500231
+        expireBlockHeight:
+          type: integer
+          description: 交易有效高度
+          example: 6566009
+        referBlockHeight:
+          type: integer
+          description: refer 高度
+          example: 6566020
+        vin:
+          type: array
+          description: utxo input, 当币种是utxo类型币种时，才有此参数
+          items:
+            type: object
+            properties:
+              hash:
+                type: string
+                description: 交易hash
+                example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+              voutIndex:
+                type: string
+                description: 交易index,代表当前未花费交易所在位置
+                example: "1"
+              address:
+                type: string
+                description: 交易地址
+                example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+              amount:
+                type: string
+                description: 交易金额
+                example: "123000"
+        vout:
+          type: array
+          description: 交易output, 当币种是utxo类型币种时，才有此参数
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                description: 交易地址
+                example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+              amount:
+                type: string
+                description: 交易金额
+                example: "123000"
+    transactionRecord:
+      type: object
+      description: 完整交易记录
+      properties:
+        sinoId:
+          type: string
+          description: Sinohope对交易的唯一标识
+          example: "456417158498373"
+        requestId:
+          type: string
+          description: 请求方对业务请求的唯一标识
+          example: "3423434"
+        replacedSinoId:
+          type: string
+          description: 通过交易加速/取消接口替换旧交易时，被替换的交易的sinoId
+          example: "456417158498300"
+        chainSymbol:
+          type: string
+          description: 链唯一标识
+          example: ETH
+        txDirection:
+          type: integer
+          description: 交易方向类型：0 提现（系统内地址作为from地址发起的交易），1充值 
+          example: 1
+        state:
+          type: integer
+          description: 交易状态： 0-交易审批中 1-交易审批成功 2-交易上链中 4-广播失败 5-交易上链失败 6-广播网络超时 10-交易上链成功 11-交易链上回滚 12-交易待审批 13-交易审批驳 
+          example: 10
+        transaction:
+          $ref: '#/components/schemas/transactionObject'
+        note:
+          type: string
+          description: 用户对交易的说明信息，备注
+          example: ''
+    addressInfo:
+      type: object
+      description: 地址信息
+      properties:
+        id:
+          type: string
+          description: 地址id
+          example: "11368"
+        address:
+          type: string
+          description: 链地址
+          example: "4b1613e2501b770463a12e397b34d9cac0d9497c"
+        encoding:
+          type: integer
+          description: |-
+            链地址
+            地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
+          example: 0
+
+    pageIndex:
+      type: integer
+      description: 当前页码，首页为 1。
+      example: 1
+    pageSize:
+      type: integer
+      description: 每页数据条数（不得小于1,不得大于50；默认 10）
+      example: 10
 

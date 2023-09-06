@@ -70,35 +70,24 @@ Sinohope 采用3-3多签模式，客户持有一个私钥分片、Sinohope持有
 
 #### 2.2.1 获取并验证安装包
 
-- 请联系SINOHOPE的工作人员，获取软件包“sinohope-mpc-node.tar.gz” 及其 sha256 哈希值。
-- 将软件包上传至您的部署环境的目标目录，在终端执行以下命令，对比软件包的hash值，确认软件包的正确性。
+- 软件包（主要是管理脚本及配置文件）通过开源项目进行发布，下载地址：[sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases)。
+- Releases 页面将包含主要内容的 sha256 值，请将内容下载到目标位置后，校验哈希值的一致性。
 
-```Bash
-shasum -a 256 sinohope-mpc-node.tar.gz
-```
-
-- 解压后确认内部数据
-
-```Bash
-tar -zxzf sinohope-mpc-node.tar.gz
-```
-
-- 软件包解压后文件结构如下：
-
+所需的初始文件如下：
 ```Bash
 sinohope-mpc-node
-├── config.toml （销售人员给到的配置文件中包含了与mpc-proxy通信的安全信息，勿泄漏）
-└── node.sh （控脚本，用于初始化和启动MPC Node服务）
+├── config.toml （配置文件）
+└── node.sh （管理脚本）
 ```
 
 - MPC Node初始化成功后，会自动创建asset.db文件和logs目录：
 
 ```JSON
 sinohope-mpc-node
-├── config.toml （SINOHOPE工作人员给到的配置文件中包含了与mpc-proxy通信的安全信息，勿泄漏）
-├── node.sh （控脚本，用于初始化和启动MPC Node服务）
+├── config.toml
+├── node.sh
 ├── asset.db (本地产生的重要数据都存储在这里，备份与恢复就是恢复数据)
-└── logs (日志文件)
+└── logs (日志文件目录)
 ```
 
 #### 2.2.2 初始化节点
@@ -125,7 +114,7 @@ Retype new password:
 
 说明：首先脚本会自动做一些环境的检查工作，如判断是否安装了Docker，判断用户的权限等。init命令的主要任务是初始化节点信息，包括：
 
-- 给 MPC 节点设置一个密码，这个密码用于保护您的私钥分片 及其他私密数据，**请您妥善保管，切勿泄漏，并且做好安全冗余备份**。节点启动时会要求输入该密码。
+- 给 MPC 节点设置一个强密码（须包含大写字母、小写字母、数字、特殊字符，长度12位以上），这个密码用于保护您的私钥分片 及其他私密数据，**请您妥善保管，切勿泄漏，并且做好安全冗余备份**。节点启动时会要求输入该密码。
 - 创建node id， 每一个MPC Node都有一个唯一标识id，您将需要使用该 node id 将您的MPC 节点与您的 WaaS 组织账号做唯一关联。
 - 创建与callback-server通信时的ECDSA密钥对。
 

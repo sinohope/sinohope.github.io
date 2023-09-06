@@ -25,14 +25,12 @@ Sinohope 采用分层结构管理组织内的链地址，包括四个层级：�
 
 ### 基于API&SDK开发集成
 
-Sinohope提供了基于HTTP的协议API，也将提供多种语言的SDK，方便开发者集成WaaS功能。SDK 主要提供以下功能：
+Sinohope提供了基于HTTP协议的API，也将提供多种语言的SDK，方便开发者集成WaaS功能。SDK 主要提供以下功能：
 
 - 统一封装接口请求签名处理；
 - 封装API接口，方便开发者以方法调用的方式完成对API的请求。
 
-当前提供的SDK：[java sdk](https://github.com/sinohope/sinohope-java-api)。
-
-JS、Golang 等开发语言的SDK 正在进行中，敬请期待。
+当前提供的SDK：[java sdk](https://github.com/sinohope/sinohope-java-api)，[golang sdk](https://github.com/sinohope/golang-sdk)，[JS sdk](https://github.com/sinohope/js-sdk)。
 
 # Docs Index
 [General](/docs/develop/get-started/general)

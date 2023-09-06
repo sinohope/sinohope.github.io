@@ -3,82 +3,6 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.develop": {
-    "message": "develop",
-    "description": "The label for category develop in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.full-custody-waas-api": {
-    "message": "full-custody-waas-api",
-    "description": "The label for category full-custody-waas-api in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.get-started": {
-    "message": "get-started",
-    "description": "The label for category get-started in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.mpc-waas-api": {
-    "message": "mpc-waas-api",
-    "description": "The label for category mpc-waas-api in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.openloop-api": {
-    "message": "openloop-api",
-    "description": "The label for category openloop-api in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.learn": {
-    "message": "learn",
-    "description": "The label for category learn in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.index": {
-    "message": "index",
-    "description": "The label for category index in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.use": {
-    "message": "use",
-    "description": "The label for category use in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.user-guide": {
-    "message": "user-guide",
-    "description": "The label for category user-guide in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Quick Start": {
-    "message": "Quick Start",
-    "description": "The label for category Quick Start in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Organization Management": {
-    "message": "Organization Management",
-    "description": "The label for category Organization Management in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.WALLET MANAGEMENT": {
-    "message": "WALLET MANAGEMENT",
-    "description": "The label for category WALLET MANAGEMENT in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.OTHER": {
-    "message": "OTHER",
-    "description": "The label for category OTHER in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.UPDATES": {
-    "message": "UPDATES",
-    "description": "The label for category UPDATES in sidebar tutorialSidebar"
-  },
-  "sidebar.userGuideSidebar.category.Quick Start": {
-    "message": "Quick Start",
-    "description": "The label for category Quick Start in sidebar userGuideSidebar"
-  },
-  "sidebar.userGuideSidebar.category.Organization Management": {
-    "message": "Organization Management",
-    "description": "The label for category Organization Management in sidebar userGuideSidebar"
-  },
-  "sidebar.userGuideSidebar.category.WALLET MANAGEMENT": {
-    "message": "WALLET MANAGEMENT",
-    "description": "The label for category WALLET MANAGEMENT in sidebar userGuideSidebar"
-  },
-  "sidebar.userGuideSidebar.category.OTHER": {
-    "message": "OTHER",
-    "description": "The label for category OTHER in sidebar userGuideSidebar"
-  },
-  "sidebar.userGuideSidebar.category.UPDATES": {
-    "message": "UPDATES",
-    "description": "The label for category UPDATES in sidebar userGuideSidebar"
-  },
   "sidebar.openLoopApiSidebar.category.Openloop API": {
     "message": "Openloop API",
     "description": "The label for category Openloop API in sidebar openLoopApiSidebar"
@@ -219,77 +143,45 @@
     "message": "Full Custody WaaS API",
     "description": "The generated-index page description for category Full Custody WaaS API in sidebar fullCustodyApiSidebar"
   },
-  "sidebar.fullCustodyApiSidebar.category.通用": {
-    "message": "通用",
-    "description": "The label for category 通用 in sidebar fullCustodyApiSidebar"
-  },
-  "sidebar.fullCustodyApiSidebar.category.账户&地址": {
-    "message": "账户&地址",
-    "description": "The label for category 账户&地址 in sidebar fullCustodyApiSidebar"
-  },
-  "sidebar.fullCustodyApiSidebar.category.交易": {
-    "message": "交易",
-    "description": "The label for category 交易 in sidebar fullCustodyApiSidebar"
-  },
-  "sidebar.fullCustodyApiSidebar.doc.查询某条链下支持的币种": {
-    "message": "查询某条链下支持的币种",
-    "description": "The label for the doc item 查询某条链下支持的币种 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/查询某条链下支持的币种"
-  },
-  "sidebar.fullCustodyApiSidebar.doc.查询系统支持的链": {
-    "message": "查询系统支持的链",
-    "description": "The label for the doc item 查询系统支持的链 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/查询系统支持的链"
-  },
   "sidebar.fullCustodyApiSidebar.doc.创建钱包": {
     "message": "创建钱包",
-    "description": "The label for the doc item 创建钱包 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/创建钱包"
-  },
-  "sidebar.fullCustodyApiSidebar.doc.批量查询指定钱包下的地址": {
-    "message": "批量查询指定钱包下的地址",
-    "description": "The label for the doc item 批量查询指定钱包下的地址 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/批量查询指定钱包下的地址"
+    "description": "The label for the doc item 创建钱包 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-create-wallets"
   },
   "sidebar.fullCustodyApiSidebar.doc.查询地址簿": {
     "message": "查询地址簿",
-    "description": "The label for the doc item 查询地址簿 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/查询地址簿"
+    "description": "The label for the doc item 查询地址簿 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-wallet-transfer-address-book"
   },
   "sidebar.fullCustodyApiSidebar.doc.查询钱包列表": {
     "message": "查询钱包列表",
-    "description": "The label for the doc item 查询钱包列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/查询钱包列表"
+    "description": "The label for the doc item 查询钱包列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-wallet-list-wallets"
   },
   "sidebar.fullCustodyApiSidebar.doc.查询钱包对账余额": {
     "message": "查询钱包对账余额",
-    "description": "The label for the doc item 查询钱包对账余额 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/查询钱包对账余额"
+    "description": "The label for the doc item 查询钱包对账余额 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-wallet-get-wallet-balance"
   },
   "sidebar.fullCustodyApiSidebar.doc.检查币种地址是否正确": {
     "message": "检查币种地址是否正确",
-    "description": "The label for the doc item 检查币种地址是否正确 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/检查币种地址是否正确"
+    "description": "The label for the doc item 检查币种地址是否正确 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-is-valid-address"
   },
   "sidebar.fullCustodyApiSidebar.doc.生成链地址": {
     "message": "生成链地址",
-    "description": "The label for the doc item 生成链地址 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/生成链地址"
+    "description": "The label for the doc item 生成链地址 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-wallet-generate-chain-addresses"
   },
   "sidebar.fullCustodyApiSidebar.doc.交易列表": {
     "message": "交易列表",
-    "description": "The label for the doc item 交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/交易列表"
+    "description": "The label for the doc item 交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-list-transactions"
   },
   "sidebar.fullCustodyApiSidebar.doc.交易取消": {
     "message": "交易取消",
-    "description": "The label for the doc item 交易取消 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/交易取消"
-  },
-  "sidebar.fullCustodyApiSidebar.doc.发起提币交易": {
-    "message": "发起提币交易",
-    "description": "The label for the doc item 发起提币交易 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/发起提币交易"
-  },
-  "sidebar.fullCustodyApiSidebar.doc.根据request_id查询交易列表": {
-    "message": "根据request_id查询交易列表",
-    "description": "The label for the doc item 根据request_id查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/根据request-id查询交易列表"
+    "description": "The label for the doc item 交易取消 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-cancel-transaction"
   },
   "sidebar.fullCustodyApiSidebar.doc.根据sinoIds查询交易列表": {
     "message": "根据sinoIds查询交易列表",
-    "description": "The label for the doc item 根据sinoIds查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/根据sino-ids查询交易列表"
+    "description": "The label for the doc item 根据sinoIds查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-transactions-by-sino-ids"
   },
   "sidebar.fullCustodyApiSidebar.doc.根据txHash查询交易列表": {
     "message": "根据txHash查询交易列表",
-    "description": "The label for the doc item 根据txHash查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/根据tx-hash查询交易列表"
+    "description": "The label for the doc item 根据txHash查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-transactions-by-tx-hash"
   },
   "sidebar.mpcApiSidebar.category.MPC WaaS API": {
     "message": "MPC WaaS API",
@@ -303,141 +195,113 @@
     "message": "MPC WaaS API",
     "description": "The generated-index page description for category MPC WaaS API in sidebar mpcApiSidebar"
   },
-  "sidebar.mpcApiSidebar.category.回调API": {
-    "message": "回调API",
-    "description": "The label for category 回调API in sidebar mpcApiSidebar"
-  },
-  "sidebar.mpcApiSidebar.category.通用接口": {
-    "message": "通用接口",
-    "description": "The label for category 通用接口 in sidebar mpcApiSidebar"
-  },
-  "sidebar.mpcApiSidebar.category.账户&地址": {
-    "message": "账户&地址",
-    "description": "The label for category 账户&地址 in sidebar mpcApiSidebar"
-  },
-  "sidebar.mpcApiSidebar.category.交易": {
-    "message": "交易",
-    "description": "The label for category 交易 in sidebar mpcApiSidebar"
-  },
-  "sidebar.mpcApiSidebar.category.高级": {
-    "message": "高级",
-    "description": "The label for category 高级 in sidebar mpcApiSidebar"
-  },
-  "sidebar.mpcApiSidebar.category.MPC Node": {
-    "message": "MPC Node",
-    "description": "The label for category MPC Node in sidebar mpcApiSidebar"
-  },
   "sidebar.mpcApiSidebar.doc.交易通知": {
     "message": "交易通知",
-    "description": "The label for the doc item 交易通知 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/交易通知"
+    "description": "The label for the doc item 交易通知 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-call-back-transaction-notify"
   },
   "sidebar.mpcApiSidebar.doc.提现二次确认": {
     "message": "提现二次确认",
-    "description": "The label for the doc item 提现二次确认 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/提现二次确认"
+    "description": "The label for the doc item 提现二次确认 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-call-back-withdrawal-confirm"
   },
   "sidebar.mpcApiSidebar.doc.查询系统支持链": {
     "message": "查询系统支持链",
-    "description": "The label for the doc item 查询系统支持链 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询系统支持链"
+    "description": "The label for the doc item 查询系统支持链 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-common-get-supported-chains"
   },
   "sidebar.mpcApiSidebar.doc.查询链支持的币种列表": {
     "message": "查询链支持的币种列表",
-    "description": "The label for the doc item 查询链支持的币种列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询链支持的币种列表"
+    "description": "The label for the doc item 查询链支持的币种列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-common-get-supported-coins"
   },
   "sidebar.mpcApiSidebar.doc.金库列表": {
     "message": "金库列表",
-    "description": "The label for the doc item 金库列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/金库列表"
+    "description": "The label for the doc item 金库列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-common-get-vaults"
   },
   "sidebar.mpcApiSidebar.doc.创建钱包": {
     "message": "创建钱包",
-    "description": "The label for the doc item 创建钱包 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/创建钱包"
+    "description": "The label for the doc item 创建钱包 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-create-wallets"
   },
   "sidebar.mpcApiSidebar.doc.查询链地址": {
     "message": "查询链地址",
-    "description": "The label for the doc item 查询链地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询链地址"
+    "description": "The label for the doc item 查询链地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-list-addresses"
   },
   "sidebar.mpcApiSidebar.doc.生成链地址": {
     "message": "生成链地址",
-    "description": "The label for the doc item 生成链地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/生成链地址"
+    "description": "The label for the doc item 生成链地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-generate-chain-addresses"
   },
   "sidebar.mpcApiSidebar.doc.查询钱包列表": {
     "message": "查询钱包列表",
-    "description": "The label for the doc item 查询钱包列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询钱包列表"
+    "description": "The label for the doc item 查询钱包列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-list-wallets"
   },
   "sidebar.mpcApiSidebar.doc.查询指定钱包下已添加地址的链及其首个地址信息": {
     "message": "查询指定钱包下已添加地址的链及其首个地址信息",
-    "description": "The label for the doc item 查询指定钱包下已添加地址的链及其首个地址信息 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询指定钱包下已添加地址的链及其首个地址信息"
+    "description": "The label for the doc item 查询指定钱包下已添加地址的链及其首个地址信息 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-list-added-chains"
   },
   "sidebar.mpcApiSidebar.doc.查询地址余额信息": {
     "message": "查询地址余额信息",
-    "description": "The label for the doc item 查询地址余额信息 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询地址余额信息"
+    "description": "The label for the doc item 查询地址余额信息 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-get-address-balance"
   },
   "sidebar.mpcApiSidebar.doc.检查币种地址是否正确": {
     "message": "检查币种地址是否正确",
-    "description": "The label for the doc item 检查币种地址是否正确 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/检查币种地址是否正确"
+    "description": "The label for the doc item 检查币种地址是否正确 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-is-valid-address"
   },
   "sidebar.mpcApiSidebar.doc.当前金库设置开关以后,支持转账的地址簿": {
     "message": "当前金库设置开关以后,支持转账的地址簿",
-    "description": "The label for the doc item 当前金库设置开关以后,支持转账的地址簿 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/当前金库设置开关以后-支持转账的地址簿"
+    "description": "The label for the doc item 当前金库设置开关以后,支持转账的地址簿 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-transfer-address-book"
   },
   "sidebar.mpcApiSidebar.doc.查询当前金库是否设置了风控开关": {
     "message": "查询当前金库是否设置了风控开关",
-    "description": "The label for the doc item 查询当前金库是否设置了风控开关 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询当前金库是否设置了风控开关"
+    "description": "The label for the doc item 查询当前金库是否设置了风控开关 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-transfer-risk-control-switch"
   },
   "sidebar.mpcApiSidebar.doc.发起转账交易": {
     "message": "发起转账交易",
-    "description": "The label for the doc item 发起转账交易 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/发起转账交易"
+    "description": "The label for the doc item 发起转账交易 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-create-transfer"
   },
   "sidebar.mpcApiSidebar.doc.发起任意交易": {
     "message": "发起任意交易",
-    "description": "The label for the doc item 发起任意交易 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/发起任意交易"
+    "description": "The label for the doc item 发起任意交易 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-create-transaction"
   },
   "sidebar.mpcApiSidebar.doc.交易加速": {
     "message": "交易加速",
-    "description": "The label for the doc item 交易加速 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/交易加速"
-  },
-  "sidebar.mpcApiSidebar.doc.交易取消，该方法只支持类eth系列交易取消": {
-    "message": "交易取消，该方法只支持类eth系列交易取消",
-    "description": "The label for the doc item 交易取消，该方法只支持类eth系列交易取消 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/交易取消，该方法只支持类eth系列交易取消"
+    "description": "The label for the doc item 交易加速 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-speedup-transaction"
   },
   "sidebar.mpcApiSidebar.doc.交易列表": {
     "message": "交易列表",
-    "description": "The label for the doc item 交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/交易列表"
+    "description": "The label for the doc item 交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-list-transactions"
   },
   "sidebar.mpcApiSidebar.doc.根据requestIds查询交易列表": {
     "message": "根据requestIds查询交易列表",
-    "description": "The label for the doc item 根据requestIds查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/根据request-ids查询交易列表"
+    "description": "The label for the doc item 根据requestIds查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-transactions-by-request-ids"
   },
   "sidebar.mpcApiSidebar.doc.根据sinoIds查询交易列表": {
     "message": "根据sinoIds查询交易列表",
-    "description": "The label for the doc item 根据sinoIds查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/根据sino-ids查询交易列表"
+    "description": "The label for the doc item 根据sinoIds查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-transactions-by-sino-ids"
   },
   "sidebar.mpcApiSidebar.doc.根据txHash查询交易列表": {
     "message": "根据txHash查询交易列表",
-    "description": "The label for the doc item 根据txHash查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/根据tx-hash查询交易列表"
+    "description": "The label for the doc item 根据txHash查询交易列表 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-transactions-by-tx-hash"
   },
   "sidebar.mpcApiSidebar.doc.按已知的规范签名消息（EIP-191、 EIP-712）": {
     "message": "按已知的规范签名消息（EIP-191、 EIP-712）",
-    "description": "The label for the doc item 按已知的规范签名消息（EIP-191、 EIP-712） in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/按已知的规范签名消息（eip-191-、-eip-712-）"
+    "description": "The label for the doc item 按已知的规范签名消息（EIP-191、 EIP-712） in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-web-3-sign-message"
   },
   "sidebar.mpcApiSidebar.doc.原始数据签名": {
     "message": "原始数据签名",
-    "description": "The label for the doc item 原始数据签名 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/原始数据签名"
+    "description": "The label for the doc item 原始数据签名 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-advance-sign-raw-data"
   },
   "sidebar.mpcApiSidebar.doc.根据指定的路径创建地址": {
     "message": "根据指定的路径创建地址",
-    "description": "The label for the doc item 根据指定的路径创建地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/根据指定的路径创建地址"
+    "description": "The label for the doc item 根据指定的路径创建地址 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-advance-gen-address-by-path"
   },
   "sidebar.mpcApiSidebar.doc.更新钱包属性（高级功能开启、关闭）": {
     "message": "更新钱包属性（高级功能开启、关闭）",
-    "description": "The label for the doc item 更新钱包属性（高级功能开启、关闭） in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/更新钱包属性（高级功能开启、关闭）"
+    "description": "The label for the doc item 更新钱包属性（高级功能开启、关闭） in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-wallet-advance-update-wallet"
   },
   "sidebar.mpcApiSidebar.doc.查询mpc协议执行记录": {
     "message": "查询mpc协议执行记录",
-    "description": "The label for the doc item 查询mpc协议执行记录 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询mpc协议执行记录"
+    "description": "The label for the doc item 查询mpc协议执行记录 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-mpcnode-list-mpc-requests"
   },
   "sidebar.mpcApiSidebar.doc.查询MPC node状态": {
     "message": "查询MPC node状态",
-    "description": "The label for the doc item 查询MPC node状态 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/查询mpc-node状态"
+    "description": "The label for the doc item 查询MPC node状态 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-mpcnode-status"
   },
   "sidebar.userGuideSidebar.category.快速开始": {
     "message": "快速开始",
@@ -454,5 +318,69 @@
   "sidebar.userGuideSidebar.category.其它": {
     "message": "其它",
     "description": "The label for category 其它 in sidebar userGuideSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.Callback APIs": {
+    "message": "Callback APIs",
+    "description": "The label for category Callback APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.Common APIs": {
+    "message": "Common APIs",
+    "description": "The label for category Common APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.Account&address APIs": {
+    "message": "Account&address APIs",
+    "description": "The label for category Account&address APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.Transaction APIs": {
+    "message": "Transaction APIs",
+    "description": "The label for category Transaction APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.Advanced APIs": {
+    "message": "Advanced APIs",
+    "description": "The label for category Advanced APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.category.MPC Node APIs": {
+    "message": "MPC Node APIs",
+    "description": "The label for category MPC Node APIs in sidebar mpcApiSidebar"
+  },
+  "sidebar.mpcApiSidebar.doc.交易取消": {
+    "message": "交易取消",
+    "description": "The label for the doc item 交易取消 in sidebar mpcApiSidebar, linking to the doc develop/mpc-waas-api/v-1-waas-mpc-transaction-cancel-transaction"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.查询链支持的币种列表": {
+    "message": "查询链支持的币种列表",
+    "description": "The label for the doc item 查询链支持的币种列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-common-get-supported-coins"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.查询系统支持链": {
+    "message": "查询系统支持链",
+    "description": "The label for the doc item 查询系统支持链 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-common-get-supported-chains"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.金库列表": {
+    "message": "金库列表",
+    "description": "The label for the doc item 金库列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-common-get-vaults"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.查询链地址": {
+    "message": "查询链地址",
+    "description": "The label for the doc item 查询链地址 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-wallet-list-addresses"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.发起转账交易": {
+    "message": "发起转账交易",
+    "description": "The label for the doc item 发起转账交易 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-create-transfer"
+  },
+  "sidebar.fullCustodyApiSidebar.doc.根据requestIds查询交易列表": {
+    "message": "根据requestIds查询交易列表",
+    "description": "The label for the doc item 根据requestIds查询交易列表 in sidebar fullCustodyApiSidebar, linking to the doc develop/full-custody-waas-api/v-1-waas-custody-transaction-transactions-by-request-ids"
+  },
+  "sidebar.fullCustodyApiSidebar.category.Common APIs": {
+    "message": "Common APIs",
+    "description": "The label for category Common APIs in sidebar fullCustodyApiSidebar"
+  },
+  "sidebar.fullCustodyApiSidebar.category.Account&address APIs": {
+    "message": "Account&address APIs",
+    "description": "The label for category Account&address APIs in sidebar fullCustodyApiSidebar"
+  },
+  "sidebar.fullCustodyApiSidebar.category.Transaction APIs": {
+    "message": "Transaction APIs",
+    "description": "The label for category Transaction APIs in sidebar fullCustodyApiSidebar"
   }
 }
