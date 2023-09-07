@@ -1,7 +1,7 @@
 ---
 id: sinohope-waas-api
 title: "Sinohope WaaS API"
-description: "# 参数及返回值通用说明"
+description: "# Common Descriptions of Parameters and Return Values"
 sidebar_label: Introduction
 sidebar_position: 0
 hide_title: true
@@ -19,16 +19,18 @@ import Export from "@theme/ApiDemoPanel/Export";
 
 
 
-# 参数及返回值通用说明
-## 统一的返回值结构
-| 代码 | 说明 |
-| :-- |:---------------|
-| code | 状态返回代码（成功返回200） |
-| msg | 状态返回描述 |
-| data | 响应的数据 |
-| success | 请求是否成功（成功返回true，失败返回false） |
+# Common Descriptions of Parameters and Return Values 
 
-## 常见错误码定义
+## Unified Return Value Structure
+
+| Name | Description | 
+| :-- | :-- |
+| code | Status code (200 for success) |
+| msg | Status description |
+| data | Response data |
+| success | Whether the request succeeded (true for success, false for failure) |
+
+## Common Error Code Definitions
 
 When an error occurs in Sinohope WaaS services, uniformly formatted data will be returned to the client:
 
@@ -39,7 +41,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 - `415`: Unsupported media type. You need to use application/json. 
 - `500`: Sinohope internal error.
 
-### 系统层面错误
+### System Level Errors
 
 | Error Code | Description |
 | :-- | :-- |
@@ -58,7 +60,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 1014 | Unsupported request type (only GET and POST supported) |
 | 1015 | Missing signature parameter |
 
-### 参数层面错误
+### Parameter Level Errors
 
 | Error Code | Description |
 | :-- | :-- |
@@ -78,14 +80,11 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2097 | Invalid pageIndex, require pageIndex >=1 |  
 | 2098 | Invalid pageSize, require pageSize <=50 and >=1 |
 | 2099 | Missing required parameter |
-| 2100 | pageSize must be greater than 0 |
 | 2101 | Specified wallet does not exist |
 | 2102 | Specified asset does not exist |
 | 2103 | Specified chainSymbol does not exist |
 | 2104 | Specified vault does not exist |
-| 2105 | Page size exceeds maximum limit (50) |
 | 2106 | The maximum number of single chain address subscriptions exceeds the limit (50) |
-| 2107 | pageIndex minimum is 1 |
 | 2108 | Parameter type error |
 | 2109 | advancedEnabled must be 0 or 1 |
 | 2110 | algorithmType must be 0 or 1 |
@@ -97,9 +96,10 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2116 | Wallet and organization information do not match |
 | 2117 | Wallet and vault information do not match |
 | 2118 | Vault and organization information do not match |
+| 2119 | Current chain does not support self-transfer |
 
 
-### 业务层面错误
+### Business Level Errors
 
 | Error Code | Description |  
 | :-- | :-- |
@@ -115,34 +115,36 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 4010 | The value of the count parameter does not match the length of walletInfos array |
 | 4011 | Wallet quantity limit |
 
+## Data Dictionary 
 
-## 数据字典
-### 交易手续费费率等级
-| 字典码 | 描述 |
-| :-- |:---------------|
-| LOW | 低 |
-| MIDDLE | 中 |
-| HIGH | 高 |
+### Transaction Fee Rate Levels
 
-### 交易状态
-| 字典码 | 描述 |
-| :-- |:---------------|
-| 0 | 交易待二次确认 |
-| 1 | 交易待签名 |
-| 2 | 交易上链中 |
-| 4 | 广播失败 |
-| 5 | 交易上链失败 |
-| 6 | 广播网络超时 |
-| 10 | 交易上链成功 |
-| 11 | 交易链上回滚 |
-| 13 | 交易拒绝 |
+| Code | Description |
+| :-- | :-- |
+| LOW | Low |
+| MIDDLE | Medium |
+| HIGH | High |
+
+### Transaction Status  
+
+| Code | Description |
+| :-- | :-- |
+| 0 | Transaction pending on secondary confirmation |
+| 1 | Transaction pending on signature |
+| 2 | Transaction pending | 
+| 4 | Broadcast failed |
+| 5 | Transaction failed on blockchain |
+| 6 | Broadcast timeout |
+| 10 | Transaction success |
+| 11 | Transaction has been rollback |
+| 13 | Transaction has rejected |
 
 
-## 文档变更记录
+## Changelog
 
-| Version | Log           | Date       | Modifier |
-| ---- | ------------- | ---------- | ------ |
-| v0.9.0 | first version | 2023-08-04 | Owen  |
-| v0.9.1 | add new sections,and fix some apis | 2023-08-22 | Owen  |
-| v0.9.2 | there are quite many changes about transaction informations, SO PLEASE JUST IGNORE THE OLD VERSIONS | 2023-09-05 | Owen  |
+| Version | Log | Date | Modifier |
+|-|-|-|-|
+| v0.9.0 | First version | 2023-08-04 | Owen |
+| v0.9.1 | Added new sections, fixed some APIs | 2023-08-22 | Owen |  
+| v0.9.2 | Quite many changes about transaction information, SO PLEASE JUST IGNORE THE OLD VERSIONS | 2023-09-05 | Owen |
 
