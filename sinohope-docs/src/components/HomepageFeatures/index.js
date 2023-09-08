@@ -6,7 +6,7 @@ import Link from '@docusaurus/Link';
 const FeatureList = [
   {
     title: 'For Users',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/user-guide.svg').default,
     description: (
       <>
         <div className={styles.buttons}>
@@ -26,7 +26,7 @@ const FeatureList = [
   },
   {
     title: 'For Learners',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/leaner-info.svg').default,
     description: (
       <>
         <div className={styles.buttons}>
@@ -52,7 +52,7 @@ const FeatureList = [
   },
   {
     title: 'For Developers',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/developer-site.svg').default,
     description: (
       <>
        <div className={styles.buttons}>
