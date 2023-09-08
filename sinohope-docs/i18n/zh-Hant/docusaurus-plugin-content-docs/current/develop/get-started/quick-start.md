@@ -40,3 +40,6 @@ Sinohope提供了基于HTTP协议的API，也将提供多种语言的SDK，方�
 [Mpc-waas-api](/docs/category/mpc-waas-api)
 
 [Full-custody-waas-api](/docs/category/full-custody-waas-api)
+
+# Developer Group
+![tg](./img/telegram-developer.jpg)

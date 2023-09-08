@@ -176,7 +176,7 @@ const config = {
                 href: 'https://twitter.com/SinohopeGroup',
               },
               {
-                label: 'Telegram',
+                label: '👨‍💻 💬 👨‍💻',
                 href: 'https://t.me/SINOHOPE_DEV',
               },
             ],
@@ -189,7 +189,7 @@ const config = {
                 to: '/blog',
               },
               {
-                label: 'Feedback',
+                label: 'Feedback@GitHub',
                 href: 'https://github.com/sinohope/feedback',
               },
             ],

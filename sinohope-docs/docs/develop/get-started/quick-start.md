@@ -40,3 +40,6 @@ Currently provided SDKs: [java sdk](https://github.com/sinohope/sinohope-java-ap
 [Mpc-waas-api](/docs/category/mpc-waas-api)
 
 [Full-custody-waas-api](/docs/category/full-custody-waas-api)
+
+# Developer Group
+![tg](./img/telegram-developer.jpg)
