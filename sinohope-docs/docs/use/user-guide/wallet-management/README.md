@@ -1,5 +1,5 @@
 ---
 sidebar_position: "3"
 ---
-# WALLET MANAGEMENT
+# Self-custody Wallet Management
 

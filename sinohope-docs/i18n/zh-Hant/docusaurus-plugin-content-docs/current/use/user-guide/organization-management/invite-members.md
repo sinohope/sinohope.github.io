@@ -3,6 +3,8 @@ sidebar_position: "2"
 ---
 # 📎 邀请成员流程
 
+## （1）MPC钱包邀请成员
+
 在自托管平台中，一个组织可以有多个成员，包括不同类型。不同类型的成员具有不同的权限和职责。加入组织的步骤如下：
 
 1.Owner登录并进入组织管理页面,并点击“邀请成员按钮。
@@ -20,3 +22,9 @@ sidebar_position: "2"
 ![](<../images/assets/image (48).png>)
 
 5.Owner可以在组织管理页面中查看已加入组织的成员列表，也可以在此页面上[管理成员的权限和角色。](modify-permission.md)
+
+## （2）WaaS邀请成员
+
+1.WaaS邀请成员需要在Web端进行，登陆后依次点击【WaaS钱包】-【团队管理】-【邀请】即可进入邀请流程
+
+![](../images/assets/invite-member-waas.png)

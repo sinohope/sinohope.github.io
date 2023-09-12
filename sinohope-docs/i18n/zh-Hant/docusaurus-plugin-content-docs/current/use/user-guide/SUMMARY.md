@@ -13,14 +13,14 @@ sidebar_position: "0"
 
 * [📪 成员角色说明](organization-management/role-description.md)
 * [📎 邀请成员流程](organization-management/invite-members.md)
-* [🎯 新增部门&钱包](organization-management/add-department-and-wallet.md)
 * [🚆 修改权限](organization-management/modify-permission.md)
 * [✈ 删除成员](organization-management/delete-a-member.md)
 * [⚓ 审批阈值设定](organization-management/approval-threshold.md)
 * [💻 Web3 Access](organization-management/web3-access.md)
 
-## 钱包管理
+## 自托管钱包管理
 
+* [🎯 新增部门&钱包](wallet-management/add-department-and-wallet.md)
 * [🎨 资产管理](wallet-management/asset-management.md)
 * [🖥 转账及收款](wallet-management/transfers-and-receive.md)
 * [🎫 地址簿](wallet-management/address-book.md)
@@ -29,6 +29,13 @@ sidebar_position: "0"
 * [🪧 名称修改](wallet-management/name-modification.md)
 * [🎞 工作流](wallet-management/workflows.md)
 * [📝 导出交易记录](wallet-management/export-transaction-records.md)
+
+## WaaS
+
+* [⛓ 创建金库](waas/add-vault.md)
+* [🔑 创建API Key](waas/apikey.md)
+* [🔳 白名单](waas/whitelist.md)
+* [🗯 高级功能](waas/advanced.md)
 
 ## 其它
 

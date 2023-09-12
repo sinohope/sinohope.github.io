@@ -3,6 +3,8 @@ sidebar_position: "2"
 ---
 # 📎 Inviting Members
 
+(1) **MPC wallet invites members**
+
 Within the self-custody platform, an organization can have multiple members, including different types. Members of different types possess varying permissions and responsibilities. The steps to join an organization are as follows:
 
 1.The Owner logs in and accesses the organization management page, then clicks the "Invite" button.
@@ -24,3 +26,9 @@ Within the self-custody platform, an organization can have multiple members, inc
 ![](<../images/assets/image (54).png>)
 
 5.The Owner can view the list of members who have joined the organization on the organization management page and can also manage the permissions and roles of members on this page.
+
+**(2) WaaS invites members**
+
+WaaS members need to be invited on the Web. After logging in, click \[WaaS Wallet] - \[Team Management] - \[Invite] to enter the invitation process.
+
+![](<../images/assets/invite-member-waas.png>)

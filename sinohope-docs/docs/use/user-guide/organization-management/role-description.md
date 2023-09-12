@@ -5,6 +5,13 @@ sidebar_position: "1"
 
 SINOHOPE provides users with various user roles, each having different levels of permissions:
 
+**(1) WaaS**
+
+1. Administrator: Manage WaaS users, wallets, risk control rules, and API configurations
+2. Observer: View only
+
+**(2) MPC wallet**
+
 1. **Owner :** The person who creates the organization, can add Admins, and possesses all permissions.
 2. **Admin :** Has all permissions within the organization, can add, delete, and modify permissions for Co-admins and Colleagues.
 3. **Co-admin:** Holds higher-level permissions, can create wallets, invite, delete, and set member information. They have permissions to initiate approvals, approve actions, add Tokens, etc. However, they cannot create departments, organizations, backup private key shards, or set the minimum approval threshold.
@@ -16,7 +23,3 @@ SINOHOPE provides users with various user roles, each having different levels of
 It's important to note that at the organizational level, Owners and Admins have a backup relationship, sharing the same permissions within the organization. If an Owner needs to change devices, they should contact the platform for identity verification before restoring the account on the new device. In case an Admin needs to change devices, verification will be conducted by the Owner.
 
 
-
-
-
-\

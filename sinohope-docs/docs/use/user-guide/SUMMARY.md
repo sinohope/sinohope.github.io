@@ -13,14 +13,14 @@ sidebar_position: "0"
 
 * [📪 Member Role](organization-management/role-description.md)
 * [📎 Inviting Members](organization-management/invite-members.md)
-* [🎯 Adding Departments & Wallets](organization-management/add-department-and-wallet.md)
 * [🚆 Modifying Permissions](organization-management/modify-permission.md)
 * [✈ Removing Members](organization-management/delete-a-member.md)
 * [⚓ Setting Approval Threshold](organization-management/approval-threshold.md)
 * [💻 Web3 Access](organization-management/web3-access.md)
 
-## WALLET MANAGEMENT
+## Self-custody Wallet Management
 
+* [🎯 Adding Departments & Wallets](wallet-management/add-department-and-wallet.md)
 * [🎨 Asset Management](wallet-management/asset-management.md)
 * [🖥 Transfers & Receive](wallet-management/transfers-and-receive.md)
 * [🎫 Address Book](wallet-management/address-book.md)
@@ -29,6 +29,13 @@ sidebar_position: "0"
 * [🪧 Modifying Organization Name](wallet-management/name-modification.md)
 * [🎞 Workflow](wallet-management/workflows.md)
 * [📝 Export Transaction Records](wallet-management/export-transaction-records.md)
+
+## WaaS
+
+* [⛓ New Vault](waas/add-vault.md)
+* [🔑 API Key](waas/apikey.md)
+* [🔳 Whitelist](waas/whitelist.md)
+* [🗯 Advanced Function](waas/advanced.md)
 
 ## OTHER
 
