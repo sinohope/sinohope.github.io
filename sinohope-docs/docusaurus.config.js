@@ -94,7 +94,7 @@ const config = {
                 type: 'docSidebar',
                 sidebarId: 'newsSidebar',
                 label: 'News',
-                to: '/docs/learn/news/',
+                to: '/docs/learn/news',
               },
               {
                 label: 'Blog',
