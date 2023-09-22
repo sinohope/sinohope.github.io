@@ -72,6 +72,8 @@ Sinohope将按照上述请求头及您的请求数据进行签名验证，从而
 对于上述的键值对，按 key 的字母序升序排序后，将所有 `key` `value` 直接拼接起来（中间没有连接符，其中最后的 公钥字符串没有 key字段）形成最终的待签名数据字符串，**将待签名数据字符串按UTF8编码为字节数组**之后，使用您本地生成的私钥（privateKey），对数据使用私钥进行 
 ECDSA 签名（具体算法为 `SHA256withECDSA`），签名结果按 `ASN.1 DER` 格式化并编码为 Hex 字符串, 即生成了用于向 API 服务器进行验证的最终签名 （可参考 Sinohope 例程：<https://github.com/sinohope/sinohope-java-api>）。
 
+**注意事项**：拼接的字符串中，`key`对应的字符串是必不可少的。对于无请求参数的接口，拼接出来的字符串将会以字符串 `datapath` 开头。
+
 各部分数据具体解释，见接下来的章节。
 
 ### 各部分数据解释
@@ -96,6 +98,8 @@ value=value
 }
 ```
 则将body整体参数当做String字符串来处理。
+
+**对于无请求参数的接口，不应提供body，因此拼接的字符串中将只有`data`，其后紧跟 `path`。**
 
 #### PATH
 请求URL的PATH部分， 例如https://api.develop.sinohope.com/v1/test/ 为 `/v1/test/`
@@ -165,8 +169,19 @@ data{"key":"key","value":"value"}path/v1/testtimestamp1692614885153version1.0.03
 ```
 
 使用示例的公钥、待签数据，应该能验证上述签名结果为“有效”。
-### 附加信息
-#### DEMO 库
-<https://github.com/sinohope/sinohope-java-api>
-#### 签名算法
+
+#### 无需请求参数的POST请求的待签名数据示例
+
+无需请求参数的POST请求的待签名数据，将是如下形式：
+```text
+datapath/v1/waas/common/get_vaultstimestamp1692614885153version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
+```
+
+## 附加信息
+### 开发联调工具
+
+对于暂未提供 SDK 的一些开发语言，Sinohope也提供了密钥生成、签名、验签 相关的一些代码片段和示例，您可到github仓库 [sinohope-waas-code-demo](https://github.com/sinohope/sinohope-waas-code-demo) 查询。
+其中，在 `golang` 目录下提供了一个示例服务，其可以作为一个回调示例服务，同时可用来做接口请求验签联调。
+
+### 签名算法
 Sinohope 使用基于P-256曲线（又名prime256v1或secp256r1）和算法为SHA256withECDSA的 ECDSA 签名方案进行验证，见上述 demo，如您在操作过程中遇到任何问题，请通过bd@newhuotech.com联系Sinohope工作人员协助您一起排查和解决。

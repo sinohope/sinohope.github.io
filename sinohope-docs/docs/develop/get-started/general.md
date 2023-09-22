@@ -71,6 +71,8 @@ String concatenation rules:
 
 Sort the above key-value pairs in ascending order of the alphabet of the keys, then directly concatenate all `key` `value` (no delimiter between them, with the public key string having no key field) to form the final string to be signed, **encode the string to be signed as a byte array in UTF8**, and then use the private key (privateKey) generated locally to perform ECDSA signature on the data (the specific algorithm is `SHA256withECDSA`), output the signature using `ASN.1 DER` format, and then encode the byte array to a HEX string, then you will get the final signature string (see Sinohope demo: <https://github.com/sinohope/sinohope-java-api>).
 
+**Note**: In the concatenated string, the string corresponding to key is essential. For interfaces without request parameters, the concatenated string will start with the string `datapath`.
+
 See the following sections for detailed explanations of each part of the data.
 
 ### Explanations of Each Part of Data
@@ -97,6 +99,8 @@ Since k comes before v alphabetically, key should be placed before value, then c
 }
 ```
 Treat the entire body parameter as a String.
+
+For interfaces without request parameters, no request body should be provided, so the concatenated string will only have `data`, followed immediately by `path`.
 
 #### PATH
 The PATH part of the request URL, e.g. `/v1/test/` for https://api.develop.sinohope.com/v1/test/
@@ -167,6 +171,13 @@ Signing the above data with the example private key, one possible result is:
 ```
 
 The above signature result should be verifiable as "valid" using the example public key and data to be signed.
+
+#### Example of data to be signed for a POST request without request parameters
+
+
+```text
+datapath/v1/waas/common/get_vaultstimestamp1692614885153version1.0.03056301006072a8648ce3d020106052b8104000a03420004d8caf9385ee3f28df77eab42a0da4b8dc9462a8ad39dbb224c2802cc377df9dc09ac23d04748b40c2897d91bbd7fe859476c6f6fe9b2aa82607e8a48f9b7ac0d
+```
 
 ### Additional Information
 #### DEMO Library

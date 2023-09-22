@@ -29,60 +29,6 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/transaction/notify"
       summary: 交易通知
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/call_back/transaction/notify/",
-              {
-                "requestType": 1,
-                "requestId": "413497079388421",
-                "requestDetail": "{
-                  "txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ",
-                  "nonce":"nonce",
-                  "blockHash":"块hash",
-                  "blockHeight":"块高度",
-                  "confirmed_number":6,
-                  "walletId": "52321312",
-                  "chainSymbol": "ETH",
-                  "assetId": "USDC_ETH",
-                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                  "toTag": "32143",
-                  "amount": "1200000000000000",
-                  "fee": "1000000",
-                  "gasPrice": "13250000",
-                  "gasLimit": "21000"
-                }"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/call_back/transaction/notify/", map[string]string{
-                "requestType": 1,
-                "requestId": "413497079388421",
-                "requestDetail": "{
-                  "txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ",
-                  "nonce":"nonce",
-                  "blockHash":"块hash",
-                  "blockHeight":"块高度",
-                  "confirmed_number":6,
-                  "walletId": "52321312",
-                  "chainSymbol": "ETH",
-                  "assetId": "USDC_ETH",
-                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                  "toTag": "32143",
-                  "amount": "1200000000000000",
-                  "fee": "1000000",
-                  "gasPrice": "13250000",
-                  "gasLimit": "21000"
-                }"
-            }) 
       description: 交易上链成功后，推送确认数变化
       requestBody:
         content:
@@ -96,25 +42,120 @@ paths:
               properties:
                 requestType:
                   type: integer
-                  description: 回调请求类型 (充值：1，提现：2)
+                  description: 回调请求类型 (0-提现；1-充值)
                   example: 1
                 requestId:
                   type: string
                   description: 请求的唯一id,多次调用不变
                   example: "413497079388421"
                 requestDetail:
-                  type: string
-                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON
-                    字符串
-                  example: {"txHash":"my7EznNDoHwCyLZiXV3PDxzoGhHiuY3Btc5Rof9FDnZzXTpxpqxXzdiujNBUigbEjgiDPiSWqj1p3eY1bJ3WNdZ","nonce":"nonce",
-                            "blockHash":"块hash","blockHeight":"块高度","confirmed_number":6,"walletId":"52321312","chainSymbol":"ETH",
-                            "assetId":"USDC_ETH",
-                            "from":"0xc429aeda8bf786cf092224dddadbc0813f9f230b","to":"0x546A62c54F50D57D30478C8C275360f20239A23E","toTag":"32143",
-                            "amount":"1200000000000000","fee":"1000000","gasPrice":"13250000","gasLimit":"21000"}
+                  required:
+                    - txHash
+                    - blockHash
+                    - confirmNumber
+                    - long
+                    - chainSymbol
+                    - assetId
+                    - type
+                    - from
+                    - to
+                    - amount
+                    - decimal
+                    - fee
+                    - feeAsset
+                    - feeAssetDecimal
+                    - usedFee
+                    - state
+                  type: object
+                  description: 回调请求的详细信息；格式为序列化的 JSON字符串，当前包含如下参数内容
+                  properties:
+                    sinoId:
+                      type: string
+                      description: 交易流水号，转账时会返回，充值固定返0
+                      example: "456417158498373"
+                    txHash:
+                      type: string
+                      description: 交易hash，链上数据
+                      example: "0xee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
+                    confirmNumber:
+                      type: integer
+                      description: 确认数，当前固定给0
+                      example: 0
+                    walletId:
+                      type: integer
+                      description: 钱包id
+                      example: "456541901231941"
+                    chainSymbol:
+                      type: string
+                      description: 链唯一标识
+                      example: ETH
+                    assetId:
+                      type: string
+                      description: asset唯一标识
+                      example: "ETH_ETH"
+                    type:
+                      type: integer
+                      description: 交易类型：0-提现；1-充值
+                      example: 0
+                    note:
+                      type: string
+                      description: 提现交易创建时填写值，充值交易无
+                      example: "user notes"
+                    nonce:
+                      type: integer
+                      description: 交易类型为0（提现）时，返回；当交易类型为1（充值）时，返回为0
+                      example: 2
+                    from:
+                      type: string
+                      description: from地址
+                      example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                    to:
+                      type: string
+                      description: to地址
+                      example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                    toTag:
+                      type: string
+                      description: 提现交易创建时传入值，充值交易为null
+                      example: "1001"
+                    amount:
+                      type: string
+                      description: 金额
+                      example: "1230000000000000000"
+                    decimal:
+                      type: integer
+                      description: 精度
+                      example: 18
+                    fee:
+                      type: string
+                      description: 对于提现交易，构造交易时确定的手续费
+                      example: "30000000000000"
+                    feeAsset:
+                      type: string
+                      description: 手续费代币标识
+                      example: "ETH_ETH"
+                    feeAssetDecimal:
+                      type: integer
+                      description: 手续费代币唯精度
+                      example: 18
+                    usedFee:
+                      type: string
+                      description: 实际使用的手续费
+                      example: "21000000000000"
+                    gasPrice:
+                      type: string
+                      description: ethlike会有值，非ethlike给0
+                      example: "1000000000"
+                    gasLimit:
+                      type: string
+                      description: ethlike会有值，非ethlike给0
+                      example: "60000"
+                    state:
+                      type: integer
+                      description: 10-交易上链成功
+                      example: 10
                 extraInfo:
                   type: string
-                  description: 与回调请求相关的其他信息；每种类型的回调请求对应于不同的extra_info结构；格式为序列化 JSON
-                    字符串
+                  description: 与回调请求相关的其他信息；当前暂无明确信息
         required: false
       responses:
         200:
@@ -144,49 +185,7 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/withdrawal/confirm"
       summary: 提现二次确认
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/call_back/transaction/notify/",
-              {
-                "requestId": "413497079388421",
-                "requestDetail": "{
-                  "walletId": "52321312",
-                  "chainSymbol": "ETH",
-                  "assetId": "USDC_ETH",
-                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                  "toTag": "32143",
-                  "amount": "1200000000000000",
-                  "fee": "1000000",
-                  "gasPrice": "13250000",
-                  "gasLimit": "21000"
-                }"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/call_back/transaction/notify/", map[string]string{
-                "requestId": "413497079388421",
-                "requestDetail": "{
-                  "walletId": "52321312",
-                  "chainSymbol": "ETH",
-                  "assetId": "USDC_ETH",
-                  "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                  "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                  "toTag": "32143",
-                  "amount": "1200000000000000",
-                  "fee": "1000000",
-                  "gasPrice": "13250000",
-                  "gasLimit": "21000"
-                }"
-            })
-      description: 当sinohope收到提现请求时，会向商户制定的url发送确认请求
+      description: 当sinohope收到提现请求时，会向商户指定的url发送确认请求
       requestBody:
         content:
           application/json:
@@ -201,16 +200,76 @@ paths:
                   description: 请求的唯一id,多次调用不变
                   example: "413497079388421"
                 requestDetail:
-                  type: string
-                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON
-                    字符串
-                  example: { "walletId": "52321312","chainSymbol": "ETH","assetId": "USDC_ETH",
-                             "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b","to": "0x546A62c54F50D57D30478C8C275360f20239A23E","toTag": "32143",
-                             "amount": "1200000000000000","fee": "1000000","gasPrice": "13250000","gasLimit": "21000" }
+                  required:
+                    - txHash
+                    - sinoId
+                    - walletId
+                    - chainSymbol
+                    - assetId
+                    - from
+                    - to
+                    - toTag
+                    - amount
+                    - decimal
+                    - fee
+                  type: object
+                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON字符串
+                  properties:
+                    sinoId:
+                      type: string
+                      description: Sinohope 对提现交易的唯一标识
+                      example: "456417158498373"
+                    walletId:
+                      type: string
+                      description: 钱包id
+                      example: "456541901231941"
+                    chainSymbol:
+                      type: string
+                      description: 链唯一标识
+                      example: "ETH"
+                    assetId:
+                      type: integer
+                      description: 代币唯一标识
+                      example: "ETH_ETH"
+                    from:
+                      type: string
+                      description: from地址
+                      example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
+                    to:
+                      type: string
+                      description: to地址
+                      example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
+                    toTag:
+                      type: string
+                      description: tag
+                      example: "1001"
+                    note:
+                      type: string
+                      description: 提现交易创建时填写值
+                      example: "user notes"
+                    amount:
+                      type: string
+                      description: 金额（精度转换前）
+                      example: "1230000000000000000"
+                    decimal:
+                      type: integer
+                      description: 精度
+                      example: 18
+                    fee:
+                      type: string
+                      description: 手续费
+                      example: "30000000000000"
+                    gasPrice:
+                      type: string
+                      description: ethlike会有值，非ethlike给0
+                      example: "1000000000"
+                    gasLimit:
+                      type: string
+                      description: ethlike会有值，非ethlike给0
+                      example: "60000"
                 extraInfo:
                   type: string
-                  description: 与回调请求相关的其他信息；每种类型的回调请求对应于不同的extra_info结构；格式为序列化 JSON
-                    字符串
+                  description: 与回调请求相关的其他信息；当前暂无明确信息。
         required: false
       responses:
         200:
@@ -367,27 +426,6 @@ paths:
       operationId: "/v1/waas/mpc/mpcnode/status"
       summary: 查询MPC node状态
       description: 查询您的MPC Node当前的在线状态
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/mpcnode/status/",
-              {},
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/mpcnode/status/", map[string]string{})
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: empty object
-              type: object
-        required: false
       responses:
         200:
           description: successful operation
@@ -685,27 +723,6 @@ paths:
         - Common APIs
       operationId: "/v1/waas/common/get_supported_chains"
       summary: 查询系统支持链
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/common/get_supported_chains/",
-              {},
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/common/get_supported_chains/", map[string]string{})
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: empty object
-              type: object
-        required: false
       responses:
         200:
           description: successful operation
@@ -818,27 +835,6 @@ paths:
         - Common APIs
       operationId: "/v1/waas/common/get_vaults"
       summary: 金库列表
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/common/get_vaults/",
-              {},
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/common/get_vaults/", map[string]string{})
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: empty object
-              type: object
-        required: false
       responses:
         200:
           description: successful operation
@@ -1817,8 +1813,8 @@ paths:
                 "walletId": "435663",
                 "requestId": "3423434",
                 "chainSymbol": "ETH",
-                "from": "d3912f1a067d3fd45a705de4f224a1f41e07081d",
-                "to": "88a0315ec02224e1ed487193f4d650c5b57051e1",
+                "from": "0xd3912f1a067d3fd45a705de4f224a1f41e07081d",
+                "to": "0x88a0315ec02224e1ed487193f4d650c5b57051e1",
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
@@ -1839,8 +1835,8 @@ paths:
                 "walletId": "435663",
                 "requestId": "3423434",
                 "chainSymbol": "ETH",
-                "from": "d3912f1a067d3fd45a705de4f224a1f41e07081d",
-                "to": "88a0315ec02224e1ed487193f4d650c5b57051e1",
+                "from": "0xd3912f1a067d3fd45a705de4f224a1f41e07081d",
+                "to": "0x88a0315ec02224e1ed487193f4d650c5b57051e1",
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
@@ -1883,11 +1879,11 @@ paths:
                 from:
                   type: string
                   description: from 地址
-                  example: "d3912f1a067d3fd45a705de4f224a1f41e07081d"
+                  example: "0xd3912f1a067d3fd45a705de4f224a1f41e07081d"
                 to:
                   type: string
                   description: to地址
-                  example: "88a0315ec02224e1ed487193f4d650c5b57051e1"
+                  example: "0x88a0315ec02224e1ed487193f4d650c5b57051e1"
                 toTag:
                   type: string
                   description: 交易的memo
@@ -2120,7 +2116,7 @@ paths:
                 "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
                 "sinoId": "1,2",
                 "requestId": "433352715218629,433352715218629",
-                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
                 "chainSymbol": "ETH",
                 "assetId": "USDC_ETH",
                 "pageIndex": 1,
@@ -2137,7 +2133,7 @@ paths:
                 "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
                 "sinoId": "1,2",
                 "requestId": "433352715218629,433352715218629",
-                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
                 "chainSymbol": "ETH",
                 "assetId": "USDC_ETH",
                 "pageIndex": 1,
@@ -2169,7 +2165,7 @@ paths:
                 txHash:
                   type: string
                   description: 交易hash
-                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
+                  example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
                   description: 链标识
@@ -2384,7 +2380,7 @@ paths:
               "POST",
               "/v1/waas/mpc/transaction/transactions_by_tx_hash/",
               {
-                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
                 "chainSymbol": "ETH"
               },
               api_key, host
@@ -2393,7 +2389,7 @@ paths:
           label: 'go'
           source: |
             Request("POST", "/v1/waas/mpc/transaction/transactions_by_tx_hash/", map[string]string{
-                "txHash": "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
                 "chainSymbol": "ETH"
             })
       requestBody:
@@ -2408,7 +2404,7 @@ paths:
                 txHash:
                   type: string
                   description: 通过交易txHash，查询获取已确认交易记录列表
-                  example: "4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
+                  example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
                   description: 链标识
@@ -2512,7 +2508,7 @@ paths:
                 message:
                   type: string
                   description: 待签名的字符串信息
-                  example: 232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                  example: "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
         required: false
       responses:
         200:
@@ -2538,7 +2534,7 @@ paths:
                       messageHash:
                         type: string
                         description: 签名信息，待签名的消息hash
-                        example: 243545657745232313c429aeda8bf786cf092224dddadbc0813f9f230b
+                        example: "0x88665533e51d1939c18289e2a13c72a0348843f1ea97806d0902e4f4340595b9"
                   success:
                     type: boolean
                 description: ""
@@ -2553,7 +2549,7 @@ components:
         txHash:
           type: string
           description: 交易hash
-          example: "ee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
+          example: "0xee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
         actionType:
           type: string
           description: 用户发起交易请求的类型，"Transfer" - 通过create_transfer接口发起的转账交易；"Web3Tx" - 通过 create_transaction 接口发起的交易，一般应是合约交易。 对于充值交易，为空。
@@ -2643,7 +2639,7 @@ components:
               hash:
                 type: string
                 description: 交易hash
-                example: "a585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+                example: "0xa585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
               voutIndex:
                 type: string
                 description: 交易index,代表当前未花费交易所在位置
@@ -2715,7 +2711,7 @@ components:
         address:
           type: string
           description: 链地址
-          example: "4b1613e2501b770463a12e397b34d9cac0d9497c"
+          example: "0x4b1613e2501b770463a12e397b34d9cac0d9497c"
         hdPath:
           type: string
           description: 地址对应的path

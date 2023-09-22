@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "yarn gen-all && docusaurus start",
+    "start": "npm run gen-all && docusaurus start",
     "build": "yarn gen-all && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
