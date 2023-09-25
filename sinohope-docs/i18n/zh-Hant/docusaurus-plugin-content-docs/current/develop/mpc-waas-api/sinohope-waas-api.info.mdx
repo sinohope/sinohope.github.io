@@ -77,6 +77,9 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2011 | Insufficient available balance (token transfer) |
 | 2012 | Name cannot contain backslash \ |
 | 2013 | Address not found for given path |
+| 2014 | Not enough gas |
+| 2015 | invalid input assetID |
+| 2020 | No token information |
 | 2097 | Invalid pageIndex, require pageIndex >=1 |  
 | 2098 | Invalid pageSize, require pageSize <=50 and >=1 |
 | 2099 | Missing required parameter |
@@ -97,6 +100,11 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2117 | Wallet and vault information do not match |
 | 2118 | Vault and organization information do not match |
 | 2119 | Current chain does not support self-transfer |
+| 2120 | Chain information organization is not configured |
+| 2121 | chainSymbol does not match with chain |
+| 2122 | Wallet address information not found |
+| 2123 | The whitelist address verification fails |
+| 2124 | Transaction insertion into the database failed |
 
 
 ### Business Level Errors
@@ -114,6 +122,11 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 4009 | Wallet names cannot be the same under the same vault |
 | 4010 | The value of the count parameter does not match the length of walletInfos array |
 | 4011 | Wallet quantity limit |
+| 4014 | writing to mq failed |
+| 4015 | Transaction insertion into the database failed |
+| 4017 | The cancelled deal does not exist |
+| 4018 | The accelerated transaction status is no longer padding and the transaction cannot be accelerated |
+| 4019 | The deal accelerated by this transaction does not exist |
 
 ## Data Dictionary 
 
