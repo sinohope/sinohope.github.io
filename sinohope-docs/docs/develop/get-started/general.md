@@ -180,8 +180,11 @@ datapath/v1/waas/common/get_vaultstimestamp1692614885153version1.0.0305630100607
 ```
 
 ### Additional Information
-#### DEMO Library
-<https://github.com/sinohope/sinohope-java-api>
+#### Development Utils Kids
+
+For some development languages that SDKs have not been provided yet, Sinohope also offers some code snippets and examples for key generation, signing and signature verification. You can check the github repository [sinohope-waas-code-demo](https://github.com/sinohope/sinohope-waas-code-demo) for details. 
+
+Under the `golang` directory, it provides a sample service which can be used as a callback sample service and also for interface request signature debugging.
 
 #### Signature Algorithm
 Sinohope uses the ECDSA signature scheme based on the P-256 curve (also known as prime256v1 or secp256r1) and SHA256withECDSA algorithm for verification, see the demo above. If you encounter any problems during operation, please contact Sinohope staff at bd@newhuotech.com to assist you in troubleshooting and resolving them together.
