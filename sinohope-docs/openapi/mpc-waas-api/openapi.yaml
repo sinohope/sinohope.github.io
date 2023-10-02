@@ -29,7 +29,7 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/transaction/notify"
       summary: 交易通知
-      description: 交易上链成功后，推送确认数变化
+      description: 地址有充值，或者主动发起的交易上链后，推送通知。
       requestBody:
         content:
           application/json:
@@ -151,7 +151,7 @@ paths:
                       example: "60000"
                     state:
                       type: integer
-                      description: 10-交易上链成功
+                      description: 10-交易上链成功；5-主动发起的（合约交互类交易）已上链，但链上执行状态为失败。
                       example: 10
                 extraInfo:
                   type: string
@@ -989,7 +989,7 @@ paths:
                           type: string
                           description: 钱包id
                           example: "413497079388421"
-                        wallName:
+                        walletName:
                           type: string
                           description: 钱包名称
                           example: "wallet1"
@@ -2528,9 +2528,9 @@ paths:
                     type: object
                     properties:
                       sinoId:
-                        type: integer
+                        type: string
                         description: sinoId
-                        example: 2
+                        example: "456417158498600"
                       messageHash:
                         type: string
                         description: 签名信息，待签名的消息hash
