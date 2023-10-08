@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope will continue to expand support for public chains and currencies. The data listed in this document may not be the most up-to-date. For WaaS services, please refer to the return values of the `/v1/waas/common/get_supported_chains` and `/v1/waas/common/get_supported_coins` interfaces.
 
-List last updated on: 2023/09/18.
+List last updated on: 2023/10/08.
 
 
 ## Main enviroment Chains and Coins
@@ -66,6 +66,7 @@ Testnet:
 |Ethereum_Test|SEPOLIA|
 |Bitcoin_Test|BTC_TEST|
 |BNB Chain_Test|BNB_TEST|
+|Scroll_Test|SCROLL_TEST|
 
 coins:
 
@@ -75,4 +76,5 @@ coins:
 |USDT_SEPOLIA |6|SEPOLIA|aac8e15c491111a52af6c97e26dbb220ca11d73f|
 |BTC_BTC_TEST |8|BTC_TEST| |
 |BNB_BNB_TEST |18|BNB_TEST| |
+|ETH_SCROLL_TEST |18|SCROLL_TEST| |
 

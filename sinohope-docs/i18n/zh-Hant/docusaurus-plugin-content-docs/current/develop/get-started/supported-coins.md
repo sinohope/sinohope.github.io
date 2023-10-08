@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不一定是最新的。对于 WaaS服务，请以 `/v1/waas/common/get_supported_chains` 和 `/v1/waas/common/get_supported_coins` 这两个接口的返回值为准。
 
-列表最新更新日期：2023/09/18
+列表最新更新日期：2023/10/08
 
 ## 正式环境支持的链及币种
 
@@ -65,6 +65,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |Ethereum_Test|SEPOLIA|
 |Bitcoin_Test|BTC_TEST|
 |BNB Chain_Test|BNB_TEST|
+|Scroll_Test|SCROLL_TEST|
 
 币种：
 
@@ -74,4 +75,5 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |USDT_SEPOLIA |6|SEPOLIA|aac8e15c491111a52af6c97e26dbb220ca11d73f|
 |BTC_BTC_TEST |8|BTC_TEST| |
 |BNB_BNB_TEST |18|BNB_TEST| |
+|ETH_SCROLL_TEST |18|SCROLL_TEST| |
 
