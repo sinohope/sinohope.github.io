@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope will continue to expand support for public chains and currencies. The data listed in this document may not be the most up-to-date. For WaaS services, please refer to the return values of the `/v1/waas/common/get_supported_chains` and `/v1/waas/common/get_supported_coins` interfaces.
 
-List last updated on: 2023/10/08.
+List last updated on: 2023/10/12.
 
 
 ## Main enviroment Chains and Coins
@@ -26,6 +26,7 @@ Blockchains:
 |Optimism|OPTIMISM|
 |Filecoin|FIL|
 |Cosmos|COSMOS|
+|Scroll|SCROLL|
 
 Coins:
 
@@ -56,6 +57,7 @@ Coins:
 |OP_OPTIMISM |18|OPTIMISM| 0x4200000000000000000000000000000000000042|
 |FIL_FIL |18|FIL| |
 |ATOM_COSMOS |6|COSMOS| |
+|ETH_SCROLL |18|SCROLL| |
 
 ## Testnet Chains and coins for test
 

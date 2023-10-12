@@ -69,6 +69,19 @@ System.out.println("privateKey = " + privateKey);
 
 在“API回调”界面，会展示 Sinohope 的回调请求公钥；发起回调请求时，Sinohope会使用私钥签名，回调服务中应使用Sinohope提供的公钥进行验签，以确保请求来自Sinohope并且参数未被篡改。同时，也建议回调服务将Sinohope 的IP地址设置为请求来源白名单，并且只允许白名单中的IP访问您的回调服务，从而增强安全性。
 
+API回调，在没有成功获得 response 的情况下，将会有重试。重试规则如下：
+
+- 第1次重试：距上次回调间隔 1 min
+- 第2次重试：间隔 2 min
+- 第3次重试：间隔 4 min
+- 第4次重试：间隔 8 min
+- 第5次重试：间隔 2 0min
+- 第6次重试：间隔 3 0min
+- 第7次重试：间隔 6 0min
+- 第8次及以上次重试：间隔 2 h
+- 最大重试次数 20次
+- 若达到最大重试次数仍然无法成功，则用户后续可在 web console管理界面，针对特定的交易手动重新发起一轮回调。
+
 回调服务示例，可参考[sinohope-waas-code-demo](https://github.com/sinohope/sinohope-waas-code-demo)中`golang`目录下的示例。
 
 ### 开发集成

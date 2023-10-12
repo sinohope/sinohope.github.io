@@ -9,7 +9,7 @@ servers:
   - url: https://api-sandbox.sinohope.com/
 tags:
   - name: Callback APIs
-    description: 回调API定义
+    description: 回调API定义。关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
   - name: Common APIs
     description: 一些多业务线通用的查询接口
   - name: Account&address APIs
@@ -29,7 +29,9 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/transaction/notify"
       summary: 交易通知
-      description: 地址有充值，或者主动发起的交易上链后，推送通知。
+      description: |
+        地址有充值，或者主动发起的交易上链后，推送通知。
+        关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
       requestBody:
         content:
           application/json:
@@ -185,7 +187,9 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/withdrawal/confirm"
       summary: 提现二次确认
-      description: 当sinohope收到提现请求时，会向商户指定的url发送确认请求
+      description: |
+        当sinohope收到提现请求时，会向商户指定的url发送确认请求。
+        关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
       requestBody:
         content:
           application/json:

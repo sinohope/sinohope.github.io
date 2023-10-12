@@ -118,6 +118,8 @@ Retype new password:
 - 创建node id， 每一个MPC Node都有一个唯一标识id，您将需要使用该 node id 将您的MPC 节点与您的 WaaS 组织账号做唯一关联。
 - 创建与callback-server通信时的ECDSA密钥对。
 
+备注：如果需要在当前系统同时运行多个mpc-node，需要以目录的形式进行区分。如果在同一个目录中尝试运行多个mpc-node，则只有第一次初始化的节点可以正常运行。如果希望运行两个mpc-node，它们的名字假设分别是mpc-node-a和mpc-node-b，那么需要创建两个目录，它们的名称可以是：mpc-node-a和mpc-node-b。然后把node.sh和config.toml这两个文件分别复制到以上两个目录中。
+
 #### 2.2.3 (Optional) 部署及配置回调服务
 
 MPC Node 提供回调机制用于供您执行风险控制，这个回调服务是可选的（在生产环境下，强烈建议您开发并部署回调服务）。

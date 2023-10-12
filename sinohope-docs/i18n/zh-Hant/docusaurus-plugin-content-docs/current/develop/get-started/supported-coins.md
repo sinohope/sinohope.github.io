@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不一定是最新的。对于 WaaS服务，请以 `/v1/waas/common/get_supported_chains` 和 `/v1/waas/common/get_supported_coins` 这两个接口的返回值为准。
 
-列表最新更新日期：2023/10/08
+列表最新更新日期：2023/10/12
 
 ## 正式环境支持的链及币种
 
@@ -25,6 +25,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |Optimism|OPTIMISM|
 |Filecoin|FIL|
 |Cosmos|COSMOS|
+|Scroll|SCROLL|
 
 币种：
 
@@ -55,6 +56,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |OP_OPTIMISM |18|OPTIMISM| 0x4200000000000000000000000000000000000042|
 |FIL_FIL |18|FIL| |
 |ATOM_COSMOS |6|COSMOS| |
+|ETH_SCROLL |18|SCROLL| |
 
 ## 测试组织所支持的链及币种
 
