@@ -31,12 +31,6 @@ const FeatureList = [
       <>
         <div className={styles.buttons}>
           <Link
-            to="/docs/learn/news/security-ios-202309">
-            News
-          </Link>
-        </div>
-        <div className={styles.buttons}>
-          <Link
             to="/blog">
             Blog
           </Link>
