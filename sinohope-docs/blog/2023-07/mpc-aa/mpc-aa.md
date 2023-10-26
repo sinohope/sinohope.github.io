@@ -41,6 +41,8 @@ The next wave of potential scale users are certainly not tech geeks who can't un
 The next wave of potential scaled assets will likely come from the existing financial system's asset mapping, which will involve corporate users, who have vastly different needs and scenarios from individual users.
 
 Below are two major types of user intent and their requirements/pain points in high-frequency scenarios:
+
+
 | User Type        | User Willingness                                             | Example of Application Scenario      | Core Demand                                                  | User Pain Point                                              |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Corporate Users  | Most have no desire to invest much in Crypto R&D resources Are more inclined to do efficient and simple service integration | Quantitative trading fund management | Asset security Rich and easy-to-use functionality Approval process/rule engine Regulatory license | Capital can't be lost Control of fund flow direction No need for teams to build their own wallets Hope for improvement in the inefficient cold wallet solution |
