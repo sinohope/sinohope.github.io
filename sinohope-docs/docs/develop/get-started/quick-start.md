@@ -42,4 +42,4 @@ Currently provided SDKs: [java sdk](https://github.com/sinohope/sinohope-java-ap
 [Full-custody-waas-api](/docs/category/full-custody-waas-api)
 
 # Developer Group
-![tg](./img/telegram-developer.jpg)
+![tg](./img/telegram-developer.png)

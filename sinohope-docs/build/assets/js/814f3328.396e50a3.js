@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdemo=self.webpackChunkdemo||[]).push([[2535],{45641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"MPC+AA for the Mass Adoption","permalink":"/blog/2023-07/mpc-aa/mpc-aa"}]}')}}]);
