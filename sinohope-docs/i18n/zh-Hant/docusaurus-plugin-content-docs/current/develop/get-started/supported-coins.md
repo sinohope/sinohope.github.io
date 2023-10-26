@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不一定是最新的。对于 WaaS服务，请以 `/v1/waas/common/get_supported_chains` 和 `/v1/waas/common/get_supported_coins` 这两个接口的返回值为准。
 
-列表最新更新日期：2023/10/12
+列表最新更新日期：2023/10/26
 
 ## 正式环境支持的链及币种
 
@@ -26,6 +26,8 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |Filecoin|FIL|
 |Cosmos|COSMOS|
 |Scroll|SCROLL|
+|Litecoin|LITECOIN|
+|Dogecoin|DOGECOIN|
 
 币种：
 
@@ -57,6 +59,8 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |FIL_FIL |18|FIL| |
 |ATOM_COSMOS |6|COSMOS| |
 |ETH_SCROLL |18|SCROLL| |
+|LTC_LITECOIN |8|LITECOIN| |
+|DOGE_DOGECOIN |8|DOGECOIN| |
 
 ## 测试组织所支持的链及币种
 
@@ -74,7 +78,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |assetId |decimals|chainSymbol|contractAddress|
 |--|--|--|--|
 |ETH_SEPOLIA |18|SEPOLIA| |
-|USDT_SEPOLIA |6|SEPOLIA|aac8e15c491111a52af6c97e26dbb220ca11d73f|
+|USDT_SEPOLIA |6|SEPOLIA|0xaac8e15c491111a52af6c97e26dbb220ca11d73f|
 |BTC_BTC_TEST |8|BTC_TEST| |
 |BNB_BNB_TEST |18|BNB_TEST| |
 |ETH_SCROLL_TEST |18|SCROLL_TEST| |

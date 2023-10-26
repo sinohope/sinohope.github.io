@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope will continue to expand support for public chains and currencies. The data listed in this document may not be the most up-to-date. For WaaS services, please refer to the return values of the `/v1/waas/common/get_supported_chains` and `/v1/waas/common/get_supported_coins` interfaces.
 
-List last updated on: 2023/10/12.
+List last updated on: 2023/10/26.
 
 
 ## Main enviroment Chains and Coins
@@ -27,6 +27,8 @@ Blockchains:
 |Filecoin|FIL|
 |Cosmos|COSMOS|
 |Scroll|SCROLL|
+|Litecoin|LITECOIN|
+|Dogecoin|DOGECOIN|
 
 Coins:
 
@@ -58,6 +60,8 @@ Coins:
 |FIL_FIL |18|FIL| |
 |ATOM_COSMOS |6|COSMOS| |
 |ETH_SCROLL |18|SCROLL| |
+|LTC_LITECOIN |8|LITECOIN| |
+|DOGE_DOGECOIN |8|DOGECOIN| |
 
 ## Testnet Chains and coins for test
 
@@ -75,7 +79,7 @@ coins:
 |assetId |decimals|chainSymbol|contractAddress|
 |--|--|--|--|
 |ETH_SEPOLIA |18|SEPOLIA| |
-|USDT_SEPOLIA |6|SEPOLIA|aac8e15c491111a52af6c97e26dbb220ca11d73f|
+|USDT_SEPOLIA |6|SEPOLIA|0xaac8e15c491111a52af6c97e26dbb220ca11d73f|
 |BTC_BTC_TEST |8|BTC_TEST| |
 |BNB_BNB_TEST |18|BNB_TEST| |
 |ETH_SCROLL_TEST |18|SCROLL_TEST| |
