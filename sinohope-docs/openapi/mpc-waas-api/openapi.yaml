@@ -1656,6 +1656,158 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
+
+  /v1/waas/mpc/transaction/fee:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/mpc/transaction/fee"
+      summary: 估算交易所需费用
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/fee",
+              {
+                "chainSymbol": "GOERLI",
+                "operationType": "TRANSFER",
+                "from": "0xcec96d6b9a0ba75f1dcb882454ad582f273b2842",
+                "to": "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad",
+                "assetId": "ETH_GOERLI",
+                "amount" : "123"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/fee", map[string]string{
+                "chainSymbol": "GOERLI",
+                "operationType": "TRANSFER",
+                "from": "0xcec96d6b9a0ba75f1dcb882454ad582f273b2842",
+                "to": "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad",
+                "assetId": "ETH_GOERLI",
+                "amount" : "123"
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - operationType
+                - chainSymbol
+                - from
+                - to
+              type: object
+              properties:
+                operationType:
+                  type: string
+                  description: '交易类型 必填 TRANSFER ：转账 CONTRACT_CALL ：web3合约调用'
+                  example: 'CONTRACT_CALL'
+                from:
+                  type: string
+                  description: 'from地址'
+                  example: '0xcec96d6b9a0ba75f1dcb882454ad582f273b2842'
+                to:
+                  type: string
+                  description: 'to地址 必填 如果是合约调用，则填写合约地址'
+                  example: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad'
+                assetId:
+                  type: string
+                  description: '资产id，如果交易类型为TRANSFER必填。'
+                  example: 'ETH_GOERLI'
+                chainSymbol:
+                  type: string
+                  description: '链标识'
+                  example: "GOERLI"
+                amount:
+                  type: string
+                  description: '转账金额 如果所属链为btc like，则amount必传。'
+                  example: "123"
+                inputData:
+                  type: string
+                  description: '如果交易类型为CONTRACT_CALL合约调用时，inputData必填'
+                  example: "0xf86407850271d94900825208943fc91a3afd70395cd496c647d5a6cc9d4b2b7fad80802da0a635c2bf652f4eb9980c27544320376759c22ad70b7d67c21adc1fcfd5b11eeca0068a8a2610c3e36940368172d6a80dc7eac3f090e616aec23c27eccaf581e550"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    required:
+                      - transactionFee
+                    type: object
+                    properties:
+                      transactionFee:
+                        required:
+                          - slowFee
+                          - averageFee
+                          - fastFee
+                        type: object
+                        properties:
+                          slowFee:
+                            type: string
+                            description: '低档交易费'
+                            example: '200'
+                          averageFee:
+                            type: string
+                            description: "中档交易费"
+                            example: '1111'
+                          fastFee:
+                            type: string
+                            description: '高档交易费'
+                            example: '2222'
+                          feePerByte:
+                            type: string
+                            description: '每个字节的费用 btc like链会返回'
+                            example: '1111'
+                      gasFee:
+                        type: string
+                        description: 对于ETH及EVM兼容链，预估费用详情
+                        properties:
+                          slow:
+                            type: object
+                            properties:
+                              gasPrice:
+                                type: string
+                                description: 'gasPrice'
+                              gasLimit:
+                                type: string
+                                description: 'gasLimit'
+                          average:
+                            type: object
+                            properties:
+                              gasPrice:
+                                type: string
+                                description: 'gasPrice'
+                              gasLimit:
+                                type: string
+                                description: 'gasLimit'
+                          fast:
+                            type: object
+                            properties:
+                              gasPrice:
+                                type: string
+                                description: 'gasPrice'
+                              gasLimit:
+                                type: string
+                                description: 'gasLimit'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
   /v1/waas/mpc/transaction/create_transfer:
     post:
       tags:
