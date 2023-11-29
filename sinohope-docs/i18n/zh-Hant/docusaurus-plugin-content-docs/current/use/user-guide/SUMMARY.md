@@ -29,6 +29,7 @@ sidebar_position: "0"
 * [🪧 名称修改](wallet-management/name-modification.md)
 * [🎞 工作流](wallet-management/workflows.md)
 * [📝 导出交易记录](wallet-management/export-transaction-records.md)
+* [📖 規則引擎](wallet-management/rules-engine.md)
 
 ## WaaS
 

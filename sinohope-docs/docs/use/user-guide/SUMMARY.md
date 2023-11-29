@@ -29,6 +29,7 @@ sidebar_position: "0"
 * [🪧 Modifying Organization Name](wallet-management/name-modification.md)
 * [🎞 Workflow](wallet-management/workflows.md)
 * [📝 Export Transaction Records](wallet-management/export-transaction-records.md)
+* [📖 Rules Engine](wallet-management/rules-engine.md)
 
 ## WaaS
 
