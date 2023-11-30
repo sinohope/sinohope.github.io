@@ -1774,7 +1774,7 @@ paths:
                             description: '每个字节的费用 btc like链会返回'
                             example: '1111'
                       gasFee:
-                        type: string
+                        type: object
                         description: 对于ETH及EVM兼容链，预估费用详情
                         properties:
                           slow:
