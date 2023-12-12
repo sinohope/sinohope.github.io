@@ -23,19 +23,51 @@ Sinohope 采用3-3多签模式，客户持有一个私钥分片、Sinohope持有
 
 ##### 最低配置
 
-- CPU：AMD64 或ARM64 架构，2 核，主频 2.0 GHz
+- CPU：AMD64或ARM64 架构，2 核，主频 2.0 GHz
 - 内存：4 G
 - 硬盘：64 G SSD
 - 操作系统：Ubuntu 20.04或最新。 (注：理论上支持所有可运行Docker的系统)
 
 ##### 推荐配置
 
-- CPU：AMD64 或者 ARM64 架构，4 核心，主频 3.0 GHz
+- CPU：AMD64或ARM64 架构，4 核，主频 3.0 GHz
 - 内存：8 G
 - 硬盘：128 G SSD
 - 操作系统：Ubuntu 20.04或最新。 (注：理论上支持所有可运行Docker的系统)
 
-#### 2.1.2 网络要求
+#### 2.1.2 TEE服务器环境
+
+可参考Azure的SGX云服务快速完成机器的配置，[快速入门：在 Azure 市场中创建 Intel SGX VM](https://learn.microsoft.com/zh-cn/azure/confidential-computing/quick-create-marketplace)。购买微软云SGX服务器，请选择Ubuntu 20.04和DCsv3系列支持标准。配置说明请参考：[适用于 Intel SGX 的 Azure 上的解决方案](https://learn.microsoft.com/zh-cn/azure/confidential-computing/virtual-machine-solutions-sgx)。
+
+##### 最低配置
+
+- CPU：Intel-SGX 架构，2核
+- 内存：4 G
+- 硬盘：64 G SSD
+- 操作系统：Ubuntu 20.04
+
+##### 推荐配置
+
+- CPU：Intel-SGX 架构，2核
+- 内存：16 G
+- 硬盘：128 G SSD
+- 操作系统：Ubuntu 20.04或最新。 (注：理论上支持所有可运行Docker的系统)
+
+ ![img](./images/sgx.png)
+
+- 查看机器对SGX的支持情况，如果使用的Azure云服务默认都已经配置完成。
+```
+apt install cpuid
+cpuid | grep SGX
+```
+- 查看SGX驱动安装情况，如果使用的Azure云服务默认都已经配置完成。
+
+如果您的系统支持 FLC，请确保您的 Linux 内核版本为 5.11 或更高版本。您可以使用 进行检查uname -r。如果您无法升级内核，您可以安装DCAP 驱动程序。
+```
+ls /dev/*sgx*
+```
+
+#### 2.1.3 网络要求
 
 ##### 防火墙入站规则
 
@@ -53,7 +85,7 @@ Sinohope 采用3-3多签模式，客户持有一个私钥分片、Sinohope持有
   - 可访问mpc-proxy，签名时需要与其他MPC Node通信。
   - 在不影响运维和安全的情况下，其他出站ip全部关掉。
 
-#### 2.1.3 安装 Docker
+#### 2.1.4 安装 Docker
 
 请参考[官方文档](https://docs.docker.com/engine/install/)安装Docker。Sinohope MPC Node安装包中的启动脚本执行时，会自动检查Docker的安装情况，如果未安装无法运行。
 
@@ -70,7 +102,7 @@ Sinohope 采用3-3多签模式，客户持有一个私钥分片、Sinohope持有
 
 #### 2.2.1 获取并验证安装包
 
-- 软件包（主要是管理脚本及配置文件）通过开源项目进行发布，下载地址：[sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases)。
+- 软件包（主要是管理脚本及配置文件）通过开源项目进行发布，下载地址：[sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases)。如果是SGX服务器，请使用production/sgx下的软件。
 - Releases 页面将包含主要内容的 sha256 值，请将内容下载到目标位置后，校验哈希值的一致性。
 
 所需的初始文件如下：
