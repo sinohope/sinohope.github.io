@@ -82,7 +82,6 @@ API回调，在没有成功获得 response 的情况下，将会有重试。重�
 - 最大重试次数 20次
 - 若达到最大重试次数仍然无法成功，则用户后续可在 web console管理界面，针对特定的交易手动重新发起一轮回调。
 
-
 回调服务示例，可参考[sinohope-waas-code-demo](https://github.com/sinohope/sinohope-waas-code-demo)中`golang`目录下的示例。
 
 ### 开发集成

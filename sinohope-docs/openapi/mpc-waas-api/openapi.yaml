@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Sinohope WaaS API
-  version: 0.9.4
+  version: 0.9.5
   description: 
     $ref: description.md
 servers:
@@ -467,7 +467,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
       summary: 原始数据签名
-      description: 直接对指定数据进行签名
+      description: 直接对指定数据进行签名，签名结果可通过 /v1/waas/mpc/web3/sign_result查询，或通过MPC-node的回调下发。
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2605,6 +2605,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_message"
       summary: 按已知的规范签名消息（EIP-191、 EIP-712）
+      description: 按已知的规范签名消息（EIP-191、 EIP-712），签名结果可通过 /v1/waas/mpc/web3/sign_result查询，或通过MPC-node的回调下发。
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2692,6 +2693,75 @@ paths:
                   success:
                     type: boolean
                 description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/web3/sign_result:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/mpc/web3/sign_result"
+      summary: 查询签名结果
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/web3/sign_result/",
+              {
+                "requestId": "433352715218629",
+                "sinoId": 433352715218629
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/web3/sign_result/", map[string]string{
+                "requestId": "433352715218629",
+                "sinoId": 433352715218629
+            })
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 选填，与sinoId至少传1个
+                  example: "433352715218629"
+                sinoId:
+                  type: string
+                  description: 选填，与requestId至少传1个
+                  example: "433352715218629"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: string
+                    example: ""
+                  sinoId:
+                    type: string
+                    example: ""
+                  message:
+                    type: string
+                    description: 原始待签名的消息，string
+                    example: ""
+                  signature:
+                    type: string
+                    description: 签名结果
+                    example: ""
+                  state:
+                    type: integer
+                    description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                    example: 0
       x-codegen-request-body-name: root
 
 components:
