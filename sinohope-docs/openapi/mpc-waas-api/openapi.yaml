@@ -395,22 +395,22 @@ paths:
                               description: sinoId sinohope 根据当前业务生成的唯一id
                               example: "123123123"
                             requestTime:
-                              type: integer
-                              description: 请求时间
-                              example: 123123123213
+                              type: string
+                              description: 请求时间，日期时间字符串，格式：`yyyy-MM-dd HH:mm:ss` ，GMT+8 时区。
+                              example: "2023-12-23 13:23:45"
                             param:
                               type: string
-                              description: 参数
-                              example: "xxxxxxxx"
+                              description: 向MPC node 发起业务请求时的参数，具体值依据 `businessExecType` 的不同而不同。KeyGen 时：值为key的密码学类型，`ecdsa-secp256k1` 或 `eddsa-ed25519`；其他类型均为待签名的数据。
+                              example: "ecdsa-secp256k1"
                             businessExecType:
                               type: integer
                               description: 业务执行类型（KeyGen 类型请求：1，signTx 类型请求：2，signMessage
                                 类型请求：3，signRawData 类型请求：4）
-                              example: 8
+                              example: 1
                             businessExecStatus:
                               type: integer
                               description: 业务执行状态 (进行中：0，成功：1，失败：2）
-                              example: 0
+                              example: 1
                             isSuccess:
                               type: boolean
                               description: 是否成功
