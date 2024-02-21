@@ -9,17 +9,17 @@ servers:
   - url: https://api-sandbox.sinohope.com/
 tags:
   - name: Callback APIs
-    description: 回调API定义。关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
+    description: Callback API definition. For callback rules, please refer to [MPC WaaS Quick Start](./quick-start/qs-1-waas) Related explanations。
   - name: Common APIs
-    description: 一些多业务线通用的查询接口
+    description: Some common query interfaces for multiple Lines of Business
   - name: Account&address APIs
-    description: 创建、管理、查询钱包账户与地址信息
+    description: Create, manage, and query wallet account and address information
   - name: Transaction APIs
-    description: 创建及查询交易信息，创建离线签名
+    description: Create and query transaction information, create offline signatures
   - name: Advanced APIs
-    description: 高级功能允许直接签名指定的原始数据，需钱包组及钱包均开启“高级功能”才可用
+    description: Advanced features allow direct signing of specified original data sources. "Advanced features" must be enabled in both the wallet group and wallet to be available.
   - name: MPC Node APIs
-    description: 查询mpc协议执行信息以及您的MPC Node在线状态
+    description: Query MPC protocol execution information and your MPC Node online status
 paths:
   /v1/call_back/transaction/notify:
     servers:
@@ -28,10 +28,10 @@ paths:
       tags:
         - Callback APIs
       operationId: "/v1/call_back/transaction/notify"
-      summary: 交易通知
+      summary: Transaction Notification
       description: |
-        地址有充值，或者主动发起的交易上链后，推送通知。
-        关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
+       After the address has been recharged or the transaction initiated actively is put on the chain, a notification will be pushed.
+       For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start] (./quick-start/qs-1-waas).
       requestBody:
         content:
           application/json:
@@ -44,11 +44,11 @@ paths:
               properties:
                 requestType:
                   type: integer
-                  description: 回调请求类型 (0-提现；1-充值)
+                  description: Callback request type (0-withdrawal; 1-recharge)
                   example: 1
                 requestId:
                   type: string
-                  description: 请求的唯一id,多次调用不变
+                  description: The unique ID of the request, unchanged after multiple calls
                   example: "413497079388421"
                 requestDetail:
                   required:
@@ -69,95 +69,95 @@ paths:
                     - usedFee
                     - state
                   type: object
-                  description: 回调请求的详细信息；格式为序列化的 JSON字符串，当前包含如下参数内容
+                  description: Detailed information of the callback request; the format is serialized JSON string, currently containing the following parameter content
                   properties:
                     sinoId:
                       type: string
-                      description: 交易流水号，转账时会返回，充值固定返0
+                      description: Transaction serial number, will be returned when transferring, recharge fixed return 0
                       example: "456417158498373"
                     txHash:
                       type: string
-                      description: 交易hash，链上数据
+                      description: Transaction hash, on-chain data
                       example: "0xee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
                     confirmNumber:
                       type: integer
-                      description: 确认数，当前固定给0
+                      description: Confirmation number, currently fixed to 0
                       example: 0
                     walletId:
                       type: string
-                      description: 钱包id
+                      description: wallet id
                       example: "456541901231941"
                     chainSymbol:
                       type: string
-                      description: 链唯一标识
+                      description: Unique identification of the chain
                       example: ETH
                     assetId:
                       type: string
-                      description: asset唯一标识
+                      description: Unique asset identifier
                       example: "ETH_ETH"
                     txDirection:
                       type: integer
-                      description: 交易类型：0-提现；1-充值
+                      description: Transaction type：0-withdrawal; 1-recharge
                       example: 0
                     note:
                       type: string
-                      description: 提现交易创建时填写值，充值交易无
+                      description: Fill in the value when creating a withdrawal transaction, no recharge transaction
                       example: "user notes"
                     nonce:
                       type: integer
-                      description: EVM兼容链交易nonce值，交易类型为0（提现）时，返回；当交易类型为1（充值）时，返回为0
+                      description: EVM compatible chain transaction nonce value, returned when the transaction type is 0 (withdrawal); returned as 0 when the transaction type is 1 (recharge)
                       example: 2
                     from:
                       type: string
-                      description: from地址
+                      description: from address
                       example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
                     to:
                       type: string
-                      description: to地址
+                      description: to address
                       example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
                     toTag:
                       type: string
-                      description: 提现交易创建时传入值，充值交易为null
+                      description: The value is passed in when the withdrawal transaction is created, and the recharge transaction is null.
                       example: "1001"
                     amount:
                       type: string
-                      description: 金额
+                      description: Amount
                       example: "1230000000000000000"
                     decimal:
                       type: integer
-                      description: 精度
+                      description: Accuracy
                       example: 18
                     fee:
                       type: string
-                      description: 对于提现交易，构造交易时确定的手续费
+                      description: For withdrawal transactions, the handling fee determined when constructing the transaction
                       example: "30000000000000"
                     feeAsset:
                       type: string
-                      description: 手续费代币标识
+                      description: Fee token identification
                       example: "ETH_ETH"
                     feeAssetDecimal:
                       type: integer
-                      description: 手续费代币唯精度
+                      description: Fee token only precision
                       example: 18
                     usedFee:
                       type: string
-                      description: 实际使用的手续费
+                      description: Actual usage fee
                       example: "21000000000000"
                     gasPrice:
                       type: string
-                      description: ethlike会有值，非ethlike给0
+                      description: ethlike will have a value, non-ethlike will be given 0.
                       example: "1000000000"
                     gasLimit:
                       type: string
-                      description: ethlike会有值，非ethlike给0
+                      description: ethlike will have a value, non-ethlike will be given 0.
                       example: "60000"
                     state:
                       type: integer
-                      description: 10-交易上链成功；5-主动发起的（合约交互类交易）已上链，但链上执行状态为失败。
+                      description: 10 - The transaction was successfully uploaded to the chain; 5 - The actively initiated (contract interaction type transaction) has been uploaded to the chain, but the on-chain execution status is failed.
                       example: 10
                 extraInfo:
                   type: string
-                  description: 与回调请求相关的其他信息；当前暂无明确信息
+                  description: Other information related to the callback request; there is currently no clear information
         required: false
       responses:
         200:
@@ -172,11 +172,11 @@ paths:
                     example: 200
                   requestId:
                     type: string
-                    description: 请求的唯一id,多次调用不变
+                    description: The unique ID of the request, unchanged after multiple calls
                     example: "431431431431431"
                   message:
                     type: string
-                    description: 错误信息
+                    description: Error message
                     example: ""
       x-codegen-request-body-name: root
   /v1/call_back/withdrawal/confirm:
@@ -186,10 +186,10 @@ paths:
       tags:
         - Callback APIs
       operationId: "/v1/call_back/withdrawal/confirm"
-      summary: 提现二次确认
+      summary: Withdrawal Confirmation
       description: |
-        当sinohope收到提现请求时，会向商户指定的url发送确认请求。
-        关于回调规则，可参考 [MPC WaaS 快速入门](./quick-start/qs-1-waas) 中的相关说明。
+        When sinohope receives a withdrawal request, it will send a confirmation request to the URL specified by the merchant.
+        For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start] (./quick-start/qs-1-waas).
       requestBody:
         content:
           application/json:
@@ -201,7 +201,7 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 请求的唯一id,多次调用不变
+                  description: The unique ID of the request, unchanged after multiple calls
                   example: "413497079388421"
                 requestDetail:
                   required:
@@ -217,31 +217,31 @@ paths:
                     - decimal
                     - fee
                   type: object
-                  description: 回调请求的详细信息；每种类型的回调请求对应于不同的requestDetail结构；格式为序列化的 JSON字符串
+                  description: Detailed information of the callback request; each type of callback request corresponds to a different requestDetail structure; the format is serialized JSON string.
                   properties:
                     sinoId:
                       type: string
-                      description: Sinohope 对提现交易的唯一标识
+                      description: Sinohope is a unique identifier for withdrawal transactions
                       example: "456417158498373"
                     walletId:
                       type: string
-                      description: 钱包id
+                      description: wallet id
                       example: "456541901231941"
                     chainSymbol:
                       type: string
-                      description: 链唯一标识
+                      description: Unique identification of the chain
                       example: "ETH"
                     assetId:
                       type: integer
-                      description: 代币唯一标识
+                      description: Unique token identifier
                       example: "ETH_ETH"
                     from:
                       type: string
-                      description: from地址
+                      description: from address
                       example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
                     to:
                       type: string
-                      description: to地址
+                      description: to address
                       example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
                     toTag:
                       type: string
@@ -249,31 +249,31 @@ paths:
                       example: "1001"
                     note:
                       type: string
-                      description: 提现交易创建时填写值
+                      description: Fill in the value when creating a withdrawal transaction
                       example: "user notes"
                     amount:
                       type: string
-                      description: 金额（精度转换前）
+                      description: Amount (before precision conversion)
                       example: "1230000000000000000"
                     decimal:
                       type: integer
-                      description: 精度
+                      description: Accuracy
                       example: 18
                     fee:
                       type: string
-                      description: 手续费
+                      description: Fee
                       example: "30000000000000"
                     gasPrice:
                       type: string
-                      description: ethlike会有值，非ethlike给0
+                      description: ethlike will have a value, non-ethlike will be given 0.
                       example: "1000000000"
                     gasLimit:
                       type: string
-                      description: ethlike会有值，非ethlike给0
+                      description: ethlike will have a value, non-ethlike will be given 0.
                       example: "60000"
                 extraInfo:
                   type: string
-                  description: 与回调请求相关的其他信息；当前暂无明确信息。
+                  description: Other information related to the callback request; there is currently no clear information.
         required: false
       responses:
         200:
@@ -288,15 +288,15 @@ paths:
                     example: 200
                   requestId:
                     type: string
-                    description: 请求的唯一id,多次调用不变
+                    description: The unique ID of the request, unchanged after multiple calls
                     example: "431431431431431"
                   message:
                     type: string
-                    description: 错误信息
+                    description: Error message
                     example: ""
                   action:
                     type: string
-                    description: 任务执行说明，APPROVE 批准、REJECT 拒绝
+                    description: Task execution instructions, APPROVE approval, REJECT rejection
                     example: "APPROVE"
       x-codegen-request-body-name: root
   /v1/waas/mpc/mpcnode/list_mpc_requests:
@@ -304,7 +304,7 @@ paths:
       tags:
         - MPC Node APIs
       operationId: "/v1/waas/mpc/mpcnode/list_mpc_requests"
-      summary: 查询mpc协议执行记录
+      summary: Query MPC protocol execution records
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -339,16 +339,16 @@ paths:
               properties:
                 businessExecType:
                   type: integer
-                  description: 业务执行类型（KeyGen 类型请求：1，signTx 类型请求：2，signMessage 类型请求：3，signRawData
-                    类型请求：4）
+                  description: Business execution type (KeyGen type request:1, signTx type request:2, signMessage type request:3, signRawData)
+                   Type of request:4)
                   example: 1
                 businessExecStatus:
                   type: integer
-                  description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                  description: Business execution status (in progress:0, success:1, failure:2)
                   example: 1
                 sinoId:
                   type: string
-                  description: sinoId,不传按照分页查询
+                  description: sinoId, not passed by pagination query
                   example: "413497079388421"
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -388,36 +388,36 @@ paths:
                           properties:
                             requestId:
                               type: string
-                              description: 用户发起业务自己生成的唯一请求id
+                              description: The unique request id generated by the user initiating the business.
                               example: "asdf123123123"
                             sinoId:
                               type: string
-                              description: sinoId sinohope 根据当前业务生成的唯一id
+                              description: sinoId sinohope is a unique ID generated based on the current business
                               example: "123123123"
                             requestTime:
                               type: string
-                              description: 请求时间，日期时间字符串，格式：`yyyy-MM-dd HH:mm:ss` ，GMT+8 时区。
+                              description: Request time, date and time string, format:yyyy-MM-dd HH:mm:ss , GMT + 8 time zone.
                               example: "2023-12-23 13:23:45"
                             param:
                               type: string
-                              description: 向MPC node 发起业务请求时的参数，具体值依据 `businessExecType` 的不同而不同。KeyGen 时：值为key的密码学类型，`ecdsa-secp256k1` 或 `eddsa-ed25519`；其他类型均为待签名的数据。
+                              description: Parameter when initiating a business request to an MPC node, the specific value varies depending on the businessExecType . KeyGen:The value is the cryptographic type of the key, ecdsa-secp256k1 or eddsa-ed25519 ; other types are data to be signed.
                               example: "ecdsa-secp256k1"
                             businessExecType:
                               type: integer
-                              description: 业务执行类型（KeyGen 类型请求：1，signTx 类型请求：2，signMessage
-                                类型请求：3，signRawData 类型请求：4）
+                              description: Business execution type (KeyGen type request:1, signTx type request:2, signMessage)
+                               Type request:3, signRawData type request:4)
                               example: 1
                             businessExecStatus:
                               type: integer
-                              description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                              description: Business execution status (in progress:0, success:1, failure:2)
                               example: 1
                             isSuccess:
                               type: boolean
-                              description: 是否成功
+                              description: successful or not
                               example: true
                             failedReason:
                               type: string
-                              description: 失败原因
+                              description: Reason for failure
                               example: ""
                   success:
                     type: boolean
@@ -428,8 +428,8 @@ paths:
       tags:
         - MPC Node APIs
       operationId: "/v1/waas/mpc/mpcnode/status"
-      summary: 查询MPC node状态
-      description: 查询您的MPC Node当前的在线状态
+      summary: Query MPC node status
+      description: Check the current online status of your MPC Node
       responses:
         200:
           description: successful operation
@@ -449,13 +449,13 @@ paths:
                     properties:
                       nodeId:
                         type: string
-                        description: 节点id
+                        description: node id
                         example: "asdf123123123"
                       onlineStatus:
                         type: integer
                         description: |-
-                          在线状态 (offline：0，online：1)
-                          <p> MPC Node 和 sinohope的连接状态</p>
+                          Online status (offline: 0, online: 1)
+                          < p > MPC Node and sinohope connection status </p >
                         example: 0
                   success:
                     type: boolean
@@ -466,8 +466,8 @@ paths:
       tags:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
-      summary: 原始数据签名
-      description: 直接对指定数据进行签名，签名结果可通过 /v1/waas/mpc/web3/sign_result查询，或通过MPC-node的回调下发。
+      summary: original data source signature
+      description: Directly sign the specified data, and the signature result can be queried through the /v1/waas/mpc/web3/sign_result or issued through the callback of the MPC-node.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -508,25 +508,25 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 requestId:
                   type: string
                   description: |-
-                    唯一id
-                    <p> 用户自己生成的请求唯一id, 用于重试<p/>
+                    Unique ID
+                    < p > User-generated request unique id, used for retry < p/>
                   example: "413497079388421"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "413497079382091"
                 hdPath:
                   type: string
-                  description: 地址对应的path
+                  description: The path corresponding to the address
                   example: "m/1/1/60/0"
                 rawData:
                   type: string
-                  description: 签名数据
+                  description: Signature data
                   example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
         required: false
       responses:
@@ -550,7 +550,7 @@ paths:
                         type: string
                         description: |-
                           sinohope Id
-                          <p> sinohope 为每个业务生成的唯一id <p/>
+                          < p > unique id generated by sinohope for each business < p/>
                         example: "12312321"
                   success:
                     type: boolean
@@ -560,8 +560,8 @@ paths:
       tags:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/gen_address_by_path"
-      summary: 根据指定的路径创建地址
-      description: 根据指定派生路径创建地址
+      summary: Create an address based on the specified path
+      description: Create an address based on the specified derived path
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -602,25 +602,25 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "413497079388421"
                 index:
                   type: string
-                  description: 用于区分同一个钱包的同一个cointype 下的不同地址
+                  description: Used to distinguish different addresses under the same cointype of the same wallet
                   example: "1"
                 algorithmType:
                   type: integer
-                  description: '算法类型(0: "ECDSA:secp256k1", 1: "EdDSA:ed25519")'
+                  description: 'Algorithm type (0: "ECDSA: secp256k1", 1: "EdDSA: ed25519") '
                   example: 1
                 coinType:
                   type: integer
-                  description: 参考slip-44 https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-                    中定义的coin type常量，使用none-hardened 的版本。根据业界常规做法，对于所有 eth-like 公链，可共用以太坊的
-                    coin type `60`
+                  description: Reference slip-44 https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+                    The coin type constant defined in the middle uses a non-hardened version. According to industry practice, for all eth-like public chains, Ethereum's
+                    coin type 60
                   example: 10
         required: false
       responses:
@@ -647,7 +647,7 @@ paths:
       tags:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/update_wallet"
-      summary: 更新钱包属性（高级功能开启、关闭）
+      summary: Update wallet properties (advanced features enabled and disabled)
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -682,19 +682,19 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
                   description: |-
-                    钱包id
-                    <p> 当指定了以后就是根据钱包开关 <p/>
+                    Wallet ID
+                    < p > When specified, it is based on the wallet switch < p/>
                   example: "413497079388421"
                 advancedEnabled:
                   type: integer
                   description: |-
-                    高级功能开关 (关：0，开：1)
-                    <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                    Advanced Function Switch (Off: 0, On: 1)
+                    < p > After opening the support function: create address according to the specified path, original data source signature < p/>
                   example: 1
         required: false
       responses:
@@ -716,7 +716,7 @@ paths:
                     properties:
                       updateWallet:
                         type: boolean
-                        description: 修改结果
+                        description: Modify result
                         example: true
                   success:
                     type: boolean
@@ -726,7 +726,7 @@ paths:
       tags:
         - Common APIs
       operationId: "/v1/waas/common/get_supported_chains"
-      summary: 查询系统支持链
+      summary: Query system support chain
       responses:
         200:
           description: successful operation
@@ -751,11 +751,11 @@ paths:
                       properties:
                         chainName:
                           type: string
-                          description: 链全名
+                          description: Chain full name
                           example: "Near"
                         chainSymbol:
                           type: string
-                          description: 链名称 简称 链标识 具有唯一性
+                          description: Chain name, abbreviation, chain identifier, unique
                           example: "NEAR"
                   success:
                     type: boolean
@@ -765,7 +765,7 @@ paths:
       tags:
         - Common APIs
       operationId: "/v1/waas/common/get_supported_coins"
-      summary: 查询链支持的币种列表
+      summary: List of supported currencies in the query chain
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -794,7 +794,7 @@ paths:
               properties:
                 chainSymbol:
                   type: string
-                  description: 链名称 简称 链标识 具有唯一性
+                  description: Chain name, abbreviation, chain identifier, unique
                   example: "ETH"
         required: false
       responses:
@@ -820,15 +820,15 @@ paths:
                     properties:
                       assetName:
                         type: string
-                        description: 币种全名称
+                        description: Coin full name
                         example: "ETH"
                       assetId:
                         type: string
-                        description: 币标识 具有唯一性
+                        description: Coin identification, unique
                         example: "ETH_ETH"
                       assetDecimal:
                         type: integer
-                        description: 币种精度
+                        description: Coin accuracy
                         example: 18
                   success:
                     type: boolean
@@ -838,7 +838,7 @@ paths:
       tags:
         - Common APIs
       operationId: "/v1/waas/common/get_vaults"
-      summary: 金库列表
+      summary: Vault List
       responses:
         200:
           description: successful operation
@@ -860,29 +860,29 @@ paths:
                       properties:
                         businessType:
                           type: integer
-                          description: 业务类型：0：自托管 2：waas 3:全托管
+                          description: Business type:0:self-hosted 2:waas 3:fully hosted
                           example: 2
                         vaultInfoOfOpenApiList:
                           type: array
-                          description: 金库信息
+                          description: Vault information
                           items:
                             type: object
                             properties:
                               vaultId:
                                 type: string
-                                description: 金库id
+                                description: Vault id
                                 example: "450632968208222"
                               vaultName:
                                 type: string
-                                description: 金库名称
-                                example: "测试金库"
+                                description: Vault name
+                                example: "Test vault"
                               createTime:
                                 type: string
-                                description: 创建时间，格式yyyy-MM-dd HH:mm:ss
+                                description: Creation time, format yyyy-MM-dd HH:mm:ss
                                 example: "2023-08-16 16:04:49"
                               authorityType:
                                 type: string
-                                description: 权限分类：0 所有，1 查询，2 操作，3 提现，4 任意交易 描述：apiKey绑定金库所属权限，该字段参数存在多权限组合形式出现，逗号分隔。例如："1,3"
+                                description: Permission classification:0 All, 1 Query, 2 Operation, 3 Withdrawal, 4 Arbitrary transaction, Description:apiKey is bound to the permissions of the vault, and this field parameter appears in the form of multiple permission combinations, separated by commas. For example:"1,3"
                                 example: "1"
                   success:
                     type: boolean
@@ -892,7 +892,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/create_wallets"
-      summary: 创建钱包
+      summary: Creating a wallet
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -938,36 +938,36 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 业务唯一值
+                  description: business unique value
                   example: "413497079388421"
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 count:
                   type: integer
-                  description: 创建多少个。默认值为 1，最大值 50。
+                  description: How many to create. Default value is 1, maximum value is 50.
                   example: 1
                 walletInfos:
                   type: array
                   description: |-
-                    钱包信息
-                    如果不为空 count值必须 walletInfos的数量一致
+                    Wallet information
+                    If it is not null, the count value must be consistent with the number of walletInfos
                   items:
                     type: object
                     properties:
                       walletName:
                         type: string
                         description: |-
-                          钱包名称
-                          为空的话用默认值: wallet+随机值
-                          不为空时：部门下钱包名称不能给重复
+                         Wallet name
+                         If it is empty, use the default value: wallet + random value
+                         When not empty: Wallet names under departments cannot be duplicated.
                         example: "wallet1"
                       advancedEnabled:
                         type: integer
                         description: |-
-                          高级功能开关 (关：0，开：1)
-                          <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                          Advanced Function Switch (Off: 0, On: 1)
+                          < p > After opening the support function: create address according to the specified path, original data source signature < p/>
                         example: 1
         required: false
       responses:
@@ -991,17 +991,17 @@ paths:
                       properties:
                         walletId:
                           type: string
-                          description: 钱包id
+                          description: wallet id
                           example: "413497079388421"
                         walletName:
                           type: string
-                          description: 钱包名称
+                          description: Wallet name
                           example: "wallet1"
                         advancedEnabled:
                           type: integer
                           description: |-
-                            高级功能开关 (关：0，开：1)
-                            <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                            Advanced Function Switch (Off: 0, On: 1)
+                            < p > After opening the support function: create address according to the specified path, original data source signature < p/>
                           example: 1
                   success:
                     type: boolean
@@ -1011,7 +1011,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/list_addresses"
-      summary: 查询链地址
+      summary: Query chain address
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1050,15 +1050,15 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "413497079388421"
                 chainSymbol:
                   type: string
-                  description: 链名称 简称 链标识
+                  description: Chain name, abbreviation, chain identifier
                   example: "ETH"
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -1103,7 +1103,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/generate_chain_addresses"
-      summary: 生成链地址
+      summary: Generate chain address
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1143,23 +1143,23 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 业务唯一值
+                  description: business unique value
                   example: "413497079388421"
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "413497079388421"
                 count:
                   type: integer
-                  description: 创建多少个。默认值为 1，最大值 50。
+                  description: How many to create. Default value is 1, maximum value is 50.
                   example: 1
                 chainSymbol:
                   type: string
-                  description: 链名称 简称 链标识 具有唯一性
+                  description: Chain name, abbreviation, chain identifier, unique
                   example: "ETH"
         required: false
       responses:
@@ -1188,7 +1188,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/list_wallets"
-      summary: 查询钱包列表
+      summary: Query wallet list
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1221,7 +1221,7 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -1261,17 +1261,17 @@ paths:
                           properties:
                             walletId:
                               type: string
-                              description: 钱包id
+                              description: wallet id
                               example: "413497079388421"
                             walletName:
                               type: string
-                              description: 钱包名称
+                              description: Wallet name
                               example: "wallet1"
                             advancedEnabled:
                               type: integer
                               description: |-
-                                高级功能开关 (关：0，开：1)
-                                <p> 开了以后支持的功能: 根据指定的路径创建地址 ,原始数据签名 <p/>
+                                Advanced Function Switch (Off: 0, On: 1)
+                                < p > After opening the support function: create an address according to the specified path, the original data source signature < p/>
                               example: 1
                   success:
                     type: boolean
@@ -1281,7 +1281,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/list_added_chains"
-      summary: 查询指定钱包下已添加地址的链及其首个地址信息
+      summary: Query the chain with the added address under the specified wallet and its first address information
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1313,11 +1313,11 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "413497079388421"
         required: false
       responses:
@@ -1344,7 +1344,7 @@ paths:
                       properties:
                         chainSymbol:
                           type: string
-                          description: 链名称 简称 链标识
+                          description: Chain name, abbreviation, chain identifier
                           example: "ETH"
                         firstAddressInfo:
                           $ref: '#/components/schemas/addressInfo'
@@ -1356,7 +1356,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/get_address_balance"
-      summary: 查询地址余额信息
+      summary: Query address balance information
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1388,11 +1388,11 @@ paths:
               properties:
                 assetId:
                   type: string
-                  description: 币名称 简称 币标识 具有唯一性
+                  description: Coin name, abbreviation, coin identification, unique
                   example: "USDT_ETH"
                 address:
                   type: string
-                  description: 地址
+                  description: Address
                   example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
         required: false
       responses:
@@ -1419,21 +1419,21 @@ paths:
                     properties:
                       chainSymbol:
                         type: string
-                        description: 链名称 简称 链标识
+                        description: Chain name, abbreviation, chain identifier
                         example: "BTC"
                       assetId:
                         type: string
-                        description: 币名称 简称 币标识
+                        description: Coin name, abbreviation, coin identification
                         example: "USDT_BTC"
                       balance:
                         type: string
                         description: |-
-                          金额
-                          <p>比如1个eth,精度18位, 这里就是 10^18 Wei,   1,000,000,000,000,000,000<p/>
+                          Amount
+                          < p > For example, 1 eth, precision 18 bits, here is 10 ^ 18 Wei, 1,000,000,000,000,000,000 < p/>
                         example: "12223111"
                       assetDecimal:
                         type: integer
-                        description: 币种精度
+                        Description: Currency accuracy
                         example: 18
                   success:
                     type: boolean
@@ -1443,7 +1443,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/is_valid_address"
-      summary: 检查币种地址是否正确
+      summary: Check if the currency address is correct
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1475,11 +1475,11 @@ paths:
               properties:
                 assetId:
                   type: string
-                  description: 币种代号 币标识 具有唯一性
+                  description: Currency code, currency identification, unique
                   example: "USDT_ETH"
                 address:
                   type: string
-                  description: 地址
+                  description: Address
                   example: "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
         required: false
       responses:
@@ -1501,7 +1501,7 @@ paths:
                     properties:
                       isValid:
                         type: boolean
-                        description: 检查结果
+                        description: Inspection results
                         example: true
                   success:
                     type: boolean
@@ -1511,7 +1511,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/transfer_address_book"
-      summary: 当前金库设置开关以后,支持转账的地址簿
+      summary: After the current vault settings switch, the address book that supports transfers
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1547,11 +1547,11 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 chainSymbol:
                   type: string
-                  description: 链名称 简称 链标识 具有唯一性
+                  description: Chain name, abbreviation, chain identifier, unique
                   example: "ETH"
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -1591,7 +1591,7 @@ paths:
                           properties:
                             address:
                               type: string
-                              description: 地址
+                              description: Address
                               example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
                   success:
                     type: boolean
@@ -1601,7 +1601,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/transfer_risk_control_switch"
-      summary: 查询当前金库是否设置了风控开关
+      summary: Check whether the current vault has set the risk control switch
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1630,7 +1630,7 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
         required: false
       responses:
@@ -1652,7 +1652,7 @@ paths:
                     properties:
                       riskControlEnabled:
                         type: boolean
-                        description: 风控开关 (true 开启, false 关闭)
+                        description: risk control switch (true on, false off)
                   success:
                     type: boolean
       x-codegen-request-body-name: root
@@ -1662,7 +1662,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/fee"
-      summary: 估算交易所需费用
+      summary: Estimate transaction costs
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1704,31 +1704,31 @@ paths:
               properties:
                 operationType:
                   type: string
-                  description: '交易类型 必填 TRANSFER ：转账 CONTRACT_CALL ：web3合约调用'
+                  description: 'Transaction type, required TRANSFER: Transfer CONTRACT_CALL: web3 contract call'
                   example: 'CONTRACT_CALL'
                 from:
                   type: string
-                  description: 'from地址'
+                  description: 'from address'
                   example: '0xcec96d6b9a0ba75f1dcb882454ad582f273b2842'
                 to:
                   type: string
-                  description: 'to地址 必填 如果是合约调用，则填写合约地址'
+                  description: 'to address, required, if it is a contract call, fill in the contract address'
                   example: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad'
                 assetId:
                   type: string
-                  description: '资产id，如果交易类型为TRANSFER必填。'
+                  description: 'Asset id, required if the transaction type is TRANSFER.'
                   example: 'ETH_GOERLI'
                 chainSymbol:
                   type: string
-                  description: '链标识'
+                  description: 'Chain Identification'
                   example: "GOERLI"
                 amount:
                   type: string
-                  description: '转账金额 如果所属链为btc like，则amount必传。'
+                  description: 'Transfer amount, if the chain belongs to btc like, the amount must be transmitted.'
                   example: "123"
                 inputData:
                   type: string
-                  description: '如果交易类型为CONTRACT_CALL合约调用时，inputData必填'
+                  description: 'If the transaction type is CONTRACT_CALL contract call, inputData is required.'
                   example: "0xf86407850271d94900825208943fc91a3afd70395cd496c647d5a6cc9d4b2b7fad80802da0a635c2bf652f4eb9980c27544320376759c22ad70b7d67c21adc1fcfd5b11eeca0068a8a2610c3e36940368172d6a80dc7eac3f090e616aec23c27eccaf581e550"
         required: false
       responses:
@@ -1759,23 +1759,23 @@ paths:
                         properties:
                           slowFee:
                             type: string
-                            description: '低档交易费'
+                            description: 'Low transaction fees'
                             example: '200'
                           averageFee:
                             type: string
-                            description: "中档交易费"
+                            description: "Mid-range transaction fee"
                             example: '1111'
                           fastFee:
                             type: string
-                            description: '高档交易费'
+                            description: 'High-end transaction fees'
                             example: '2222'
                           feePerByte:
                             type: string
-                            description: '每个字节的费用 btc like链会返回'
+                            description: 'The cost per byte is returned by btc like chain.'
                             example: '1111'
                       gasFee:
                         type: object
-                        description: 对于ETH及EVM兼容链，预估费用详情
+                        description: Estimated cost details for ETH and EVM compatible chains
                         properties:
                           slow:
                             type: object
@@ -1813,7 +1813,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transfer"
-      summary: 发起转账交易
+      summary: Initiate a transfer transaction
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1835,7 +1835,7 @@ paths:
                 "fee_rate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "note": "用户信息备注"
+                "note": "User information note"
               },
               api_key, host
             )
@@ -1856,7 +1856,7 @@ paths:
                 "fee_rate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "note": "用户信息备注"
+                "Note": "User information note"
             })
       requestBody:
         content:
@@ -1875,31 +1875,31 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "456042601079301"
                 requestId:
                   type: string
-                  description: 请求方交易的requestId
+                  description: requestId of the requestor transaction
                   example: "2132134"
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
                 assetId:
                   type: string
-                  description: 资产id
+                  description: Asset id
                   example: USDC_ETH
                 from:
                   type: string
-                  description: from 地址
+                  description: from address
                   example: "0xc429aeda8bf786cf092224dddadbc0813f9f230b"
                 to:
                   type: string
-                  description: to地址
+                  description: to address
                   example: "0x546A62c54F50D57D30478C8C275360f20239A23E"
                 toTag:
                   type: string
@@ -1907,28 +1907,28 @@ paths:
                   example: "32143"
                 amount:
                   type: string
-                  description: 金额
+                  description: Amount
                   example: "1200000000000000"
                 fee:
                   type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  description: Fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if the parameter is provided for UTXO asset transfer, it represents the fee per byte
                   example: "60000000000000"
                 fee_rate:
                   type: string
-                  description: 手续费费率 1:快 2:中 3:慢
+                  description: Fee rate 1:Fast 2:Medium 3:Slow
                   example: "1"
                 gasPrice:
                   type: string
-                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: "1000000000"
                 gasLimit:
                   type: string
-                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  description: Trading gasLimit, fuel cap, ETH account model applicable
                   example: "60000"
                 note:
                   type: string
-                  description: 备注：用于用户自己需要的一些备注信息
-                  example: 用户交易信息备注
+                  description: Note:Used for some note information that users need
+                  example: User transaction information remarks
         required: false
       responses:
         200:
@@ -1955,8 +1955,8 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transaction"
-      summary: 发起任意交易
-      description: 发起任意交易，当前主要主持EVM兼容链
+      summary: Initiate any transaction
+      description: Initiate any transaction, currently mainly hosting EVM compatible chain
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1979,7 +1979,7 @@ paths:
                 "gasLimit": "21000",
                 "inputData":
             "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680",
-                "note": "用户交易信息备注"
+                "note": "User transaction information note"
               },
               api_key, host
             )
@@ -2001,7 +2001,7 @@ paths:
                 "gasLimit": "21000",
                 "inputData":
             "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680",
-                "note": "用户交易信息备注"
+                "note": "User transaction information note"
             })
       requestBody:
         content:
@@ -2018,60 +2018,60 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 请求方对本次请求的唯一标识
+                  description: The unique identifier of the requesting party for this request
                   example: "3423434"
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: Vault id
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: 钱包id
+                  description: wallet id
                   example: "456042601079301"
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
                 from:
                   type: string
-                  description: from 地址
+                  description: from address
                   example: "0xd3912f1a067d3fd45a705de4f224a1f41e07081d"
                 to:
                   type: string
-                  description: to地址
+                  description: to address
                   example: "0x88a0315ec02224e1ed487193f4d650c5b57051e1"
                 toTag:
                   type: string
-                  description: 交易的memo
+                  description: Transaction memo
                   example: ""
                 amount:
                   type: string
-                  description: 主链币金额
+                  description: Main chain coin amount
                   example: "0"
                 fee:
                   type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  description: Fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if the parameter is provided for UTXO asset transfer, it represents the fee per byte
                   example: "60000000000000"
                 fee_rate:
                   type: string
-                  description: 手续费费率 1:快 2:中 3:慢
+                  description: Fee rate 1:Fast 2:Medium 3:Slow
                   example: "1"
                 gasPrice:
                   type: string
-                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: "1000000000"
                 gasLimit:
                   type: string
-                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  description: Trading gasLimit, fuel cap, ETH account model applicable
                   example: "60000"
                 inputData:
                   type: string
-                  description: 以太坊交易data
+                  description: Ethereum transaction data
                   example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"
                 note:
                   type: string
-                  description: 备注：用于用户自己需要的一些备注信息
-                  example: "用户交易信息备注"
+                  description: Note:Used for some note information that users need
+                  example: "User Transaction Information Remarks"
         required: false
       responses:
         200:
@@ -2098,7 +2098,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/speedup_transaction"
-      summary: 交易加速
+      summary: Transaction Acceleration
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2112,7 +2112,7 @@ paths:
                 "gasPrice": "1300000",
                 "fee": "344000",
                 "chainSymbol": "ETH",
-                "sinoId": "加速交易的sinoId"
+                "sinoId": "sinoId for accelerating transactions"
               },
               api_key, host
             )
@@ -2125,7 +2125,7 @@ paths:
                 "gasPrice": "1300000",
                 "fee": "344000",
                 "chainSymbol": "ETH",
-                "sinoId": "加速交易的sinoId"
+                "sinoId": "sinoId for accelerating transactions"
             })
       requestBody:
         content:
@@ -2138,27 +2138,27 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 当前请求的requestId
+                  description: requestId of the current request
                   example: 123234,45345,324234
                 sinoId:
                   type: string
-                  description: 要加速的交易的sinoId
+                  description: sinoId of the transaction to be accelerated
                   example: 1
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
                 gasLimit:
                   type: string
-                  description: 交易gasLimit，燃料上限，ETH 账号模型适用
+                  description: Trading gasLimit, fuel cap, ETH account model applicable
                   example: 21000
                 gasPrice:
                   type: string
-                  description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: 1300000
                 fee:
                   type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  description: Fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if the parameter is provided for UTXO asset transfer, it represents the fee per byte
                   example: 344000
 
         required: false
@@ -2187,8 +2187,8 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/cancel_transaction"
-      summary: 交易取消
-      description: 交易取消，该方法只支持EVM兼容链系列交易取消
+      summary: Cancelled Transaction
+      description: Transaction cancellation, this method only supports EVM compatible chain series transaction cancellation
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2222,15 +2222,15 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 请求的唯一标识
+                  description: Unique identifier of the request
                   example: 64534
                 sinoId:
                   type: string
-                  description: 要取消的交易对应的sinoId
+                  description: The sinoId corresponding to the transaction to be cancelled.
                   example: 1
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
         required: false
       responses:
@@ -2258,7 +2258,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/list_transactions"
-      summary: 交易列表
+      summary: Transaction List
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2306,27 +2306,27 @@ paths:
               properties:
                 address:
                   type: string
-                  description: 链地址
+                  description: link address
                   example: "0x4b67ec7fb5804dc645d584a715792f7ca76caace"
                 sinoIds:
                   type: string
-                  description: 通过sinoIds查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，sinoid不能大于50个
+                  description: Obtain a list of confirmed transaction records through sinoIds query. Sinoid is the unique identifier of sinohope transaction ID, separated by commas. Sinoid cannot exceed 50
                   example: 1,2
                 requestIds:
                   type: string
-                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，requestId不能大于50个
+                  description: Obtain a list of confirmed transaction records through requestIds query. RequestId is separated by commas and cannot exceed 50 requestId
                   example: 433352715218629,433352715218629
                 txHash:
                   type: string
-                  description: 交易hash
+                  description: Transaction hash
                   example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
                 assetId:
                   type: string
-                  description: 资产id
+                  description: Asset id
                   example: USDC_ETH
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -2334,11 +2334,11 @@ paths:
                   $ref: '#/components/schemas/pageSize'
                 startUpdateTime:
                   type: string
-                  description: 根据更新时间查询,开始时间 传了开始时间,开始结束也得带上（格式 "2022-02-02 00:00:00"）
+                  description: According to the update time query, start time, pass the start time, start and end also have to bring (format "2022-02-02 00:00:00")
                   example: 2022-02-02 00:00:00
                 endUpdateTime:
                   type: string
-                  description: 根据更新时间查询,结束时间  传了结束时间,开始时间也得带上（2022-02-02 00:00:00））
+                  Description: According to the update time query, the end time, the end time is passed, and the start time must also be included (2022-02-02 00:00:00))
                   example: 2022-03-02 00:00:00
         required: false
       responses:
@@ -2369,7 +2369,7 @@ paths:
                         example: 10
                       list:
                         type: array
-                        description: 交易记录列表
+                        description: Transaction record list
                         items:
                           $ref: '#/components/schemas/transactionRecord'
                   success:
@@ -2381,7 +2381,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/transactions_by_request_ids"
-      summary: 根据requestIds查询交易列表
+      summary: Query transaction list based on requestIds
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2410,7 +2410,7 @@ paths:
               properties:
                 requestIds:
                   type: string
-                  description: 通过requestIds查询获取已确认交易记录列表，requestId以逗号分割，不能为空且不能大于50个
+                  description: Obtain a list of confirmed transaction records through requestIds query. RequestId is separated by commas, cannot be empty, and cannot exceed 50
                   example: 433352715218629,433352715218629
         required: false
       responses:
@@ -2441,7 +2441,7 @@ paths:
                         example: 10
                       list:
                         type: array
-                        description: 交易记录列表
+                        description: Transaction record list
                         items:
                           $ref: '#/components/schemas/transactionRecord'
                   success:
@@ -2453,7 +2453,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/transactions_by_sino_ids"
-      summary: 根据sinoIds查询交易列表
+      summary: Query transaction list based on sinoIds
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2482,7 +2482,7 @@ paths:
               properties:
                 sinoIds:
                   type: string
-                  description: 通过sinoId查询获取已确认交易记录列表，sinoid是sinohope唯一标识交易id，以逗号分割，不能为空且不能大于50个
+                  description: Obtain a list of confirmed transaction records through sinoId query. Sinoid is the unique identifier of sinohope transaction ID, separated by commas, cannot be empty, and cannot exceed 50
                   example: 1,2,3,4
         required: false
       responses:
@@ -2513,7 +2513,7 @@ paths:
                         example: 10
                       list:
                         type: array
-                        description: 交易记录列表
+                        description: Transaction record list
                         items:
                           $ref: '#/components/schemas/transactionRecord'
                   success:
@@ -2525,7 +2525,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/transactions_by_tx_hash"
-      summary: 根据txHash查询交易列表
+      summary: Query transaction list based on txHash
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2557,11 +2557,11 @@ paths:
               properties:
                 txHash:
                   type: string
-                  description: 通过交易txHash，查询获取已确认交易记录列表
+                  description: Query and obtain the list of confirmed transaction records through transaction txHash
                   example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
-                  description: 链标识
+                  description: Chain ID
                   example: ETH
         required: false
       responses:
@@ -2592,7 +2592,7 @@ paths:
                         example: 10
                       list:
                         type: array
-                        description: 交易记录列表
+                        description: Transaction record list
                         items:
                           $ref: '#/components/schemas/transactionRecord'
                   success:
@@ -2604,8 +2604,8 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_message"
-      summary: 按已知的规范签名消息（EIP-191、 EIP-712）
-      description: 按已知的规范签名消息（EIP-191、 EIP-712），签名结果可通过 /v1/waas/mpc/web3/sign_result查询，或通过MPC-node的回调下发。
+      summary: Signing messages according to known specifications (EIP-191, EIP-712)
+      description: Messages are signed according to known specifications (EIP-191, EIP-712), and the signature results can be queried through the /v1/waas/mpc/web3/sign_result or issued through the callback of the MPC-node.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2646,23 +2646,23 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 请求方交易的requestId
+                  description: requestId of the requestor transaction
                   example: 4242342,324234
                 chainSymbol:
                   type: string
-                  description: 链
+                  description: Chain
                   example: ETH
                 hdPath:
                   type: string
-                  description: bip32、bip44的推导路径
+                  description: Derivation path of bip32 and bip44
                   example: m/1/1/60/0
                 signAlgorithm:
                   type: string
-                  description: '支持签名算法: （personal_sign、signTypedData、eth_signTypedData_v3、eth_signTypedData_v4）'
+                  description: 'Supported signature algorithms: (personal_sign, signTypedData, eth_signTypedData_v3, eth_signTypedData_v4) '
                   example: personal_sign
                 message:
                   type: string
-                  description: 待签名的字符串信息
+                  description: String information to be signed
                   example: "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
         required: false
       responses:
@@ -2688,7 +2688,7 @@ paths:
                         example: "456417158498600"
                       messageHash:
                         type: string
-                        description: 签名信息，待签名的消息hash
+                        description: Signature information, message hash to be signed
                         example: "0x88665533e51d1939c18289e2a13c72a0348843f1ea97806d0902e4f4340595b9"
                   success:
                     type: boolean
@@ -2699,7 +2699,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_result"
-      summary: 查询签名结果
+      summary: Query signature results
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2729,11 +2729,11 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: 选填，与sinoId至少传1个
+                  description: Optional, pass at least 1 with sinoId
                   example: "433352715218629"
                 sinoId:
                   type: string
-                  description: 选填，与requestId至少传1个
+                  description: Optional, pass at least 1 with requestId
                   example: "433352715218629"
         required: false
       responses:
@@ -2752,15 +2752,15 @@ paths:
                     example: ""
                   message:
                     type: string
-                    description: 原始待签名的消息，string
+                    description: Original message to be signed, string
                     example: ""
                   signature:
                     type: string
-                    description: 签名结果
+                    description: Signature result
                     example: ""
                   state:
                     type: integer
-                    description: 业务执行状态 (进行中：0，成功：1，失败：2）
+                    description: Business execution status (in progress:0, success:1, failure:2)
                     example: 0
       x-codegen-request-body-name: root
 
@@ -2768,194 +2768,194 @@ components:
   schemas:
     transactionObject:
       type: object
-      description: 交易信息
+      description: Transaction information
       properties:
         txHash:
           type: string
-          description: 交易hash
+          description: Transaction hash
           example: "0xee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
         actionType:
           type: string
-          description: 用户发起交易请求的类型，"Transfer" - 通过create_transfer接口发起的转账交易；"Web3Tx" - 通过 create_transaction 接口发起的交易，一般应是合约交易。 对于充值交易，为空。
+          description: The type of transaction request initiated by the user, "Transfer" - transfer transaction initiated through the create_transfer interface; "Web3Tx" - transaction initiated through the create_transaction interface, which should generally be a contract transaction. For recharge transactions, it is empty.
           example: "Transfer"
         from:
           type: string
-          description: from地址
+          description: from address
           example: "0xc9cf7d652a036d65b3392dfcabc3d3c332082558"
         fromTag:
           type: string
-          description: from地址tag
+          description: from address tag
           example: "12300"
         to:
           type: string
-          description: to地址
+          description: to address
           example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
         toTag:
           type: string
-          description: to地址tag
+          description: to address tag
           example: "1001"
         amount:
           type: string
-          description: 金额：最小精度的整数值 例如：1230000000000000000
+          description: Amount:Integer value with minimum precision, for example:1230000000000000000
           example: "1230000000000000000"
         assetId:
           type: string
-          description: 资产id
+          description: Asset id
           example: "ETH_ETH"
         decimal:
           type: integer
-          description: 资产精度
+          description: Asset Accuracy
           example: 18
         contractAddress:
           type: string
-          description: 对于ERC20/ERC721 等资产，资产对应的Token合约地址
+          description: For assets such as ERC20/ERC721, the corresponding Token contract address of the asset
           example: ""
         feeAsset:
           type: string
-          description: 手续费资产
+          description: Fee assets
           example: "ETH_ETH"
         feeAssetDecimal:
           type: integer
-          description: 手续费资产精度
+          description: Fee asset accuracy
           example: 18
         usedFee:
           type: string
-          description: 真实消耗的手续费，最小精度的整数值
+          description: The actual transaction fee consumed, the minimum precision integer value
           example: "21000000000000"
         fee:
           type: string
-          description: 构造交易时赋予的手续费
+          description: Fee assigned when constructing a transaction
           example: "30000000000000"
         gasPrice:
           type: string
-          description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
+          description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
           example: "1000000000"
         gasLimit:
           type: string
-          description: 交易gasLimit，燃料上限，ETH 账号模型适用
+          description: Trading gasLimit, fuel cap, ETH account model applicable
           example: "60000"
         nonce:
           type: string
-          description: 交易nonce
+          description: transaction nonce
           example: "2"
         inputData:
           type: string
-          description: 以太坊交易data（此字段只对由create_transaction 接口发起的 "Web3Tx"交易有效）
+          description: Ethereum transaction data (this field is only valid for "Web3Tx" transactions initiated by create_transaction interfaces)
           example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"
         expireTime:
           type: integer
-          description: 有效时间
+          description: Valid time
           example: 1691500231
         expireBlockHeight:
           type: integer
-          description: 交易有效高度
+          description: Transaction effective height
           example: 6566009
         referBlockHeight:
           type: integer
-          description: refer 高度
+          description: referring height
           example: 6566020
         vin:
           type: array
-          description: utxo input, 当币种是utxo类型币种时，才有此参数
+          description: utxo input, this parameter is only available when the currency is a utxo type currency
           items:
             type: object
             properties:
               hash:
                 type: string
-                description: 交易hash
+                description: Transaction hash
                 example: "0xa585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
               voutIndex:
                 type: string
-                description: 交易index,代表当前未花费交易所在位置
+                description: Transaction index, representing the current unspent transaction location
                 example: "1"
               address:
                 type: string
-                description: 交易地址
+                description: Transaction address
                 example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
               amount:
                 type: string
-                description: 交易金额
+                description: Transaction amount
                 example: "123000"
         vout:
           type: array
-          description: 交易output, 当币种是utxo类型币种时，才有此参数
+          description: Transaction output, this parameter is only available when the currency is a utxo type currency
           items:
             type: object
             properties:
               address:
                 type: string
-                description: 交易地址
+                description: Transaction address
                 example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
               amount:
                 type: string
-                description: 交易金额
+                description: Transaction amount
                 example: "123000"
     transactionRecord:
       type: object
-      description: 完整交易记录
+      description: Complete transaction record
       properties:
         sinoId:
           type: string
-          description: Sinohope对交易的唯一标识
+          description: Sinohope is a unique identifier for transactions
           example: "456417158498373"
         requestId:
           type: string
-          description: 请求方对业务请求的唯一标识
+          description: The unique identifier of the requesting party for the business request
           example: "3423434"
         replacedSinoId:
           type: string
-          description: 通过交易加速/取消接口替换旧交易时，被替换的交易的sinoId
+          description: When replacing old transactions through the transaction acceleration/cancellation interface, the sinoId of the replaced transaction
           example: "456417158498300"
         chainSymbol:
           type: string
-          description: 链唯一标识
+          description: Unique identification of the chain
           example: ETH
         txDirection:
           type: integer
-          description: 交易方向类型：0 提现（系统内地址作为from地址发起的交易），1充值 
+          description: Transaction direction type:0 withdrawal (transactions initiated by system addresses as from addresses), 1 recharge
           example: 1
         state:
           type: integer
-          description: 交易状态： 0-交易审批中 1-交易审批成功 2-交易上链中 4-广播失败 5-交易上链失败 6-广播网络超时 10-交易上链成功 11-交易链上回滚 12-交易待审批 13-交易审批驳 
+          description: Transaction status:0-Transaction approval in progress 1-Transaction approval successful 2-Transaction on-chain in progress 4-Broadcast failure 5-Transaction on-chain failure 6-Broadcast network timeout 10-Transaction on-chain successful 11-Transaction on-chain rollback 12-Transaction pending approval 13-Transaction approval rejection
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
         note:
           type: string
-          description: 用户对交易的说明信息，备注
+          description: User's explanatory information about the transaction, remarks
           example: ''
     addressInfo:
       type: object
-      description: 地址信息
+      description: Address information
       properties:
         id:
           type: string
-          description: 地址id
+          description: address id
           example: "11368"
         address:
           type: string
-          description: 链地址
+          description: link address
           example: "0x4b1613e2501b770463a12e397b34d9cac0d9497c"
         hdPath:
           type: string
-          description: 地址对应的path
+          description: The path corresponding to the address
           example: "m/1/1/60/0"
         encoding:
           type: integer
           description: |-
-            链地址
-            地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
+            Chain address
+            Address Type (Example: BTC Chain: Legacy (P2PKH) Format: 0, Native SegWit (Bech32) Format: 2)
           example: 0
         pubkey:
           type: string
-          description: 公钥
+          description: Public key
           example: "021855d461cf75ac6579d32a2af92d0dc26f0f0736ac766f8ad7894407ab360ffb"
     
     pageIndex:
       type: integer
-      description: 当前页码，首页为 1。
+      description: Current page number, the first page is 1.
       example: 1
     pageSize:
       type: integer
-      description: 每页数据条数（不得小于1,不得大于50；默认 10）
+      description: Number of data items per page (not less than 1, not more than 50; default is 10)
       example: 10
