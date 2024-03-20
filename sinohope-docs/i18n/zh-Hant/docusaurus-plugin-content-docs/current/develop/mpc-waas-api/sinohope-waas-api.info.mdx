@@ -37,7 +37,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 - `200`: Successful response. Refer to each API for the detailed response data.
 - `400`: Bad Request.
 - `401`: Unauthorized. Either API details are missing or invalid.
-- `403`: Forbidden - You do not have access to the requested resource.
+- `403`: Forbidden. You do not have access to the requested resource.
 - `415`: Unsupported media type. You need to use application/json. 
 - `500`: Sinohope internal error.
 
@@ -78,7 +78,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2012 | Name cannot contain backslash \ |
 | 2013 | Address not found for given path |
 | 2014 | Not enough gas |
-| 2015 | invalid input assetID |
+| 2015 | Invalid input assetID |
 | 2020 | No token information |
 | 2097 | Invalid pageIndex, require pageIndex >=1 |  
 | 2098 | Invalid pageSize, require pageSize <=50 and >=1 |
@@ -89,7 +89,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 2104 | Specified vault does not exist |
 | 2106 | The maximum number of single chain address subscriptions exceeds the limit (50) |
 | 2108 | Parameter type error |
-| 2109 | advancedEnabled must be 0 or 1 |
+| 2109 | AdvancedEnabled must be 0 or 1 |
 | 2110 | algorithmType must be 0 or 1 |
 | 2111 | Must be less then 50 requestIds in one query |
 | 2112 | Must be less then 50 sinoIds in one query |
@@ -122,7 +122,7 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | 4009 | Wallet names cannot be the same under the same vault |
 | 4010 | The value of the count parameter does not match the length of walletInfos array |
 | 4011 | Wallet quantity limit |
-| 4014 | writing to mq failed |
+| 4014 | Writing to mq failed |
 | 4015 | Transaction insertion into the database failed |
 | 4017 | The cancelled deal does not exist |
 | 4018 | The accelerated transaction status is no longer padding and the transaction cannot be accelerated |
@@ -161,6 +161,6 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | v0.9.1 | Added new sections, fixed some APIs | 2023-08-22 | Owen |  
 | v0.9.2 | Quite many changes about transaction information, SO PLEASE JUST IGNORE THE OLD VERSIONS | 2023-09-05 | Owen |
 | v0.9.3 | Updates the request parameters of interfaces `/v1/call_back/transaction/notify` and `/v1/call_back/withdrawal/confirm` | 2023-09-05 | Owen |
-| v0.9.4 | Cumulative updates: <br/>1. add api `/v1/waas/mpc/transaction/fee`. <br/> 2. Fix: Correct the response feild `sinoId` of api `/v1/waas/mpc/web3/sign_message` from `integer` to `string`, and the request params `chainSymbol` of apis `/v1/waas/mpc/transaction/cancel_transaction` and `/v1/waas/mpc/transaction/speedup_transaction` is modified from `required` to `non-required`. | 2023-12-25 | Shihan, etc. |
+| v0.9.4 | Cumulative updates: <br/>1. Add api `/v1/waas/mpc/transaction/fee`. <br/> 2. Fix: Correct the response feild `sinoId` of api `/v1/waas/mpc/web3/sign_message` from `integer` to `string`, and the request params `chainSymbol` of apis `/v1/waas/mpc/transaction/cancel_transaction` and `/v1/waas/mpc/transaction/speedup_transaction` is modified from `required` to `non-required`. | 2023-12-25 | Shihan, etc. |
 | v0.9.5 | Added new interfaces `/v1/waas/mpc/web3/sign_result`| 2024-01-10 | wd |  
 

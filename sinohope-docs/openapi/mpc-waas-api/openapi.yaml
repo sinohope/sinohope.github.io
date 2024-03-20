@@ -9,15 +9,15 @@ servers:
   - url: https://api-sandbox.sinohope.com/
 tags:
   - name: Callback APIs
-    description: Callback API definition. For callback rules, please refer to [MPC WaaS Quick Start](./quick-start/qs-1-waas) Related explanations。
+    description: Callback API definition. For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
   - name: Common APIs
-    description: Some common query interfaces for multiple Lines of Business
+    description: Query interfaces for multiple business lines
   - name: Account&address APIs
     description: Create, manage, and query wallet account and address information
   - name: Transaction APIs
     description: Create and query transaction information, create offline signatures
   - name: Advanced APIs
-    description: Advanced features allow direct signing of specified original data sources. "Advanced features" must be enabled in both the wallet group and wallet to be available.
+    description: Advanced features allow direct signing of specified raw data. "Advanced features" must be enabled in both the wallet group and wallet to be available.
   - name: MPC Node APIs
     description: Query MPC protocol execution information and your MPC Node online status
 paths:
@@ -30,8 +30,8 @@ paths:
       operationId: "/v1/call_back/transaction/notify"
       summary: Transaction Notification
       description: |
-       After the address has been recharged or the transaction initiated actively is put on the chain, a notification will be pushed.
-       For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start] (./quick-start/qs-1-waas).
+       After the address has been deposited or the transaction initiated actively is put on the chain, a notification will be pushed.
+       For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
       requestBody:
         content:
           application/json:
@@ -44,7 +44,7 @@ paths:
               properties:
                 requestType:
                   type: integer
-                  description: Callback request type (0-withdrawal; 1-recharge)
+                  description: Callback request type (0-withdrawal; 1-deposit)
                   example: 1
                 requestId:
                   type: string
@@ -73,7 +73,7 @@ paths:
                   properties:
                     sinoId:
                       type: string
-                      description: Transaction serial number, will be returned when transferring, recharge fixed return 0
+                      description: Transaction serial number, will be returned when transferring, fixed as 0 for deposits
                       example: "456417158498373"
                     txHash:
                       type: string
@@ -97,15 +97,15 @@ paths:
                       example: "ETH_ETH"
                     txDirection:
                       type: integer
-                      description: Transaction type：0-withdrawal; 1-recharge
+                      description: Transaction type：0-withdrawal; 1-deposit
                       example: 0
                     note:
                       type: string
-                      description: Fill in the value when creating a withdrawal transaction, no recharge transaction
+                      description: Fill in the value when creating a withdrawal transaction; not applicable for deposit transactions
                       example: "user notes"
                     nonce:
                       type: integer
-                      description: EVM compatible chain transaction nonce value, returned when the transaction type is 0 (withdrawal); returned as 0 when the transaction type is 1 (recharge)
+                      description: EVM compatible chain transaction nonce value, returned when the transaction type is 0 (withdrawal); returned as 0 when the transaction type is 1 (deposit)
                       example: 2
                     from:
                       type: string
@@ -117,7 +117,7 @@ paths:
                       example: "0xca1b41bc3c4ffa88e3a31bff85e3289ec375d138"
                     toTag:
                       type: string
-                      description: The value is passed in when the withdrawal transaction is created, and the recharge transaction is null.
+                      description: Value provided during withdrawal transaction creation; null for deposit transactions
                       example: "1001"
                     amount:
                       type: string
@@ -125,11 +125,11 @@ paths:
                       example: "1230000000000000000"
                     decimal:
                       type: integer
-                      description: Accuracy
+                      description: Precision
                       example: 18
                     fee:
                       type: string
-                      description: For withdrawal transactions, the handling fee determined when constructing the transaction
+                      description: For withdrawal transactions, the fee determined when constructing the transaction
                       example: "30000000000000"
                     feeAsset:
                       type: string
@@ -189,7 +189,7 @@ paths:
       summary: Withdrawal Confirmation
       description: |
         When sinohope receives a withdrawal request, it will send a confirmation request to the URL specified by the merchant.
-        For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start] (./quick-start/qs-1-waas).
+        For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
       requestBody:
         content:
           application/json:
@@ -257,7 +257,7 @@ paths:
                       example: "1230000000000000000"
                     decimal:
                       type: integer
-                      description: Accuracy
+                      description: Precision
                       example: 18
                     fee:
                       type: string
@@ -348,7 +348,7 @@ paths:
                   example: 1
                 sinoId:
                   type: string
-                  description: sinoId, not passed by pagination query
+                  description: If sinoId is not provided, the query will be based on pagination
                   example: "413497079388421"
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
@@ -392,28 +392,27 @@ paths:
                               example: "asdf123123123"
                             sinoId:
                               type: string
-                              description: sinoId sinohope is a unique ID generated based on the current business
+                              description: The unique id generated by Sinohope based on the current business.
                               example: "123123123"
                             requestTime:
                               type: string
-                              description: Request time, date and time string, format:yyyy-MM-dd HH:mm:ss , GMT + 8 time zone.
+                              description: Request time, date and time string, format:yyyy-MM-dd HH:mm:ss, GMT + 8 time zone.
                               example: "2023-12-23 13:23:45"
                             param:
                               type: string
-                              description: Parameter when initiating a business request to an MPC node, the specific value varies depending on the businessExecType . KeyGen:The value is the cryptographic type of the key, ecdsa-secp256k1 or eddsa-ed25519 ; other types are data to be signed.
+                              description: Parameter when initiating a business request to an MPC node, the specific value varies depending on the businessExecType. KeyGen:The value is the cryptographic type of the key, ecdsa-secp256k1 or eddsa-ed25519; other types are data to be signed.
                               example: "ecdsa-secp256k1"
                             businessExecType:
                               type: integer
-                              description: Business execution type (KeyGen type request:1, signTx type request:2, signMessage)
-                               Type request:3, signRawData type request:4)
+                              description: Business execution type (KeyGen type request:1, signTx type request:2, signMessage type request:3, signRawData type request:4)
                               example: 1
                             businessExecStatus:
                               type: integer
-                              description: Business execution status (in progress:0, success:1, failure:2)
+                              description: The status of the business execution (in progress:0, success:1, failure:2)
                               example: 1
                             isSuccess:
                               type: boolean
-                              description: successful or not
+                              description: Indicates whether the operation was successful
                               example: true
                             failedReason:
                               type: string
@@ -454,8 +453,7 @@ paths:
                       onlineStatus:
                         type: integer
                         description: |-
-                          Online status (offline: 0, online: 1)
-                          < p > MPC Node and sinohope connection status </p >
+                          Online status (offline: 0, online: 1) <br/> The connection status of MPC Node and Sinohope.
                         example: 0
                   success:
                     type: boolean
@@ -467,7 +465,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
       summary: original data source signature
-      description: Directly sign the specified data, and the signature result can be queried through the /v1/waas/mpc/web3/sign_result or issued through the callback of the MPC-node.
+      description: Sign the specified data directly, and the signature result can be queried through /v1/waas/mpc/web3/sign_result, or distributed via callback from the MPC node.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -513,12 +511,11 @@ paths:
                 requestId:
                   type: string
                   description: |-
-                    Unique ID
-                    < p > User-generated request unique id, used for retry < p/>
+                    Unique id <br/> User-generated request unique id, used for retry
                   example: "413497079388421"
                 walletId:
                   type: string
-                  description: wallet id
+                  description: Wallet id
                   example: "413497079382091"
                 hdPath:
                   type: string
@@ -549,8 +546,7 @@ paths:
                       sinoId:
                         type: string
                         description: |-
-                          sinohope Id
-                          < p > unique id generated by sinohope for each business < p/>
+                          sinohope id <br/> unique id generated by sinohope for each business
                         example: "12312321"
                   success:
                     type: boolean
@@ -606,7 +602,7 @@ paths:
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: wallet id
+                  description: Wallet id
                   example: "413497079388421"
                 index:
                   type: string
@@ -618,9 +614,7 @@ paths:
                   example: 1
                 coinType:
                   type: integer
-                  description: Reference slip-44 https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-                    The coin type constant defined in the middle uses a non-hardened version. According to industry practice, for all eth-like public chains, Ethereum's
-                    coin type 60
+                  description: Refer to the coin type constants defined in slip-44 https://github.com/satoshilabs/slips/blob/master/slip-0044.md, using a non-hardened version. According to industry practice, for all eth-like public blockchains, Ethereum's coin type 60 can be used interchangeably.
                   example: 10
         required: false
       responses:
@@ -647,7 +641,7 @@ paths:
       tags:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/update_wallet"
-      summary: Update wallet properties (advanced features enabled and disabled)
+      summary: Update wallet properties (advanced features enabled/disabled)
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -687,14 +681,12 @@ paths:
                 walletId:
                   type: string
                   description: |-
-                    Wallet ID
-                    < p > When specified, it is based on the wallet switch < p/>
+                    Wallet id <br/> When specified, it is based on the wallet switch
                   example: "413497079388421"
                 advancedEnabled:
                   type: integer
                   description: |-
-                    Advanced Function Switch (Off: 0, On: 1)
-                    < p > After opening the support function: create address according to the specified path, original data source signature < p/>
+                    Advanced Function Switch (Off: 0, On: 1) <br/> Features supported after enabling: create address according to the specified path, signing raw data.
                   example: 1
         required: false
       responses:
@@ -765,7 +757,7 @@ paths:
       tags:
         - Common APIs
       operationId: "/v1/waas/common/get_supported_coins"
-      summary: List of supported currencies in the query chain
+      summary: Query the list of currencies supported by the chain
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -794,7 +786,7 @@ paths:
               properties:
                 chainSymbol:
                   type: string
-                  description: Chain name, abbreviation, chain identifier, unique
+                  description: Chain name, Abbreviation Chain Identifier, Uniqueness
                   example: "ETH"
         required: false
       responses:
@@ -820,15 +812,15 @@ paths:
                     properties:
                       assetName:
                         type: string
-                        description: Coin full name
+                        description: Full name of the currency
                         example: "ETH"
                       assetId:
                         type: string
-                        description: Coin identification, unique
+                        description: Currency identification, unique
                         example: "ETH_ETH"
                       assetDecimal:
                         type: integer
-                        description: Coin accuracy
+                        description: Currency precision
                         example: 18
                   success:
                     type: boolean
@@ -882,7 +874,7 @@ paths:
                                 example: "2023-08-16 16:04:49"
                               authorityType:
                                 type: string
-                                description: Permission classification:0 All, 1 Query, 2 Operation, 3 Withdrawal, 4 Arbitrary transaction, Description:apiKey is bound to the permissions of the vault, and this field parameter appears in the form of multiple permission combinations, separated by commas. For example:"1,3"
+                                description: Permission type:0 All, 1 Query, 2 Operation, 3 Withdrawal, 4 Any transaction, Description:apiKey is bound to the permissions of the vault, and this field parameter appears in the form of multiple permission combinations, separated by commas. For example:"1,3"
                                 example: "1"
                   success:
                     type: boolean
@@ -952,7 +944,7 @@ paths:
                   type: array
                   description: |-
                     Wallet information
-                    If it is not null, the count value must be consistent with the number of walletInfos
+                    If not empty, the count value must be consistent with the number of walletInfos
                   items:
                     type: object
                     properties:
@@ -966,8 +958,7 @@ paths:
                       advancedEnabled:
                         type: integer
                         description: |-
-                          Advanced Function Switch (Off: 0, On: 1)
-                          < p > After opening the support function: create address according to the specified path, original data source signature < p/>
+                          Advanced Function Switch (Off: 0, On: 1) <br/> After turn on the support function: create address according to the specified path, raw data signature
                         example: 1
         required: false
       responses:
@@ -1000,8 +991,7 @@ paths:
                         advancedEnabled:
                           type: integer
                           description: |-
-                            Advanced Function Switch (Off: 0, On: 1)
-                            < p > After opening the support function: create address according to the specified path, original data source signature < p/>
+                            Advanced Function Switch (Off: 0, On: 1) <br/> After turn on the support function: create address according to the specified path, raw data signature
                           example: 1
                   success:
                     type: boolean
@@ -1270,8 +1260,7 @@ paths:
                             advancedEnabled:
                               type: integer
                               description: |-
-                                Advanced Function Switch (Off: 0, On: 1)
-                                < p > After opening the support function: create an address according to the specified path, the original data source signature < p/>
+                                Advanced Function Switch (Off: 0, On: 1) <br/> After turn on the support function: create an address according to the specified path, the raw data signature
                               example: 1
                   success:
                     type: boolean
@@ -1428,8 +1417,7 @@ paths:
                       balance:
                         type: string
                         description: |-
-                          Amount
-                          < p > For example, 1 eth, precision 18 bits, here is 10 ^ 18 Wei, 1,000,000,000,000,000,000 < p/>
+                          Amount <br/> For example, 1 eth, precision 18 bits, here is 10 ^ 18 Wei, 1,000,000,000,000,000,000
                         example: "12223111"
                       assetDecimal:
                         type: integer
@@ -1601,7 +1589,7 @@ paths:
       tags:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/transfer_risk_control_switch"
-      summary: Check whether the current vault has set the risk control switch
+      summary: Check if the current vault has set the risk control switch
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1662,7 +1650,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/fee"
-      summary: Estimate transaction costs
+      summary: Estimate transaction fee
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1724,7 +1712,7 @@ paths:
                   example: "GOERLI"
                 amount:
                   type: string
-                  description: 'Transfer amount, if the chain belongs to btc like, the amount must be transmitted.'
+                  description: 'Transfer amount, if the chain belongs to btc like, the amount must be provided.'
                   example: "123"
                 inputData:
                   type: string
@@ -1879,15 +1867,15 @@ paths:
                   example: "450632968208222"
                 walletId:
                   type: string
-                  description: wallet id
+                  description: Wallet id
                   example: "456042601079301"
                 requestId:
                   type: string
-                  description: requestId of the requestor transaction
+                  description: The requestId of the requesting party's transaction
                   example: "2132134"
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: The symbol of the blockchain
                   example: ETH
                 assetId:
                   type: string
@@ -1919,11 +1907,11 @@ paths:
                   example: "1"
                 gasPrice:
                   type: string
-                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
+                  description: Transaction gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: "1000000000"
                 gasLimit:
                   type: string
-                  description: Trading gasLimit, fuel cap, ETH account model applicable
+                  description: Transaction gasLimit, fuel cap, ETH account model applicable
                   example: "60000"
                 note:
                   type: string
@@ -1956,7 +1944,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transaction"
       summary: Initiate any transaction
-      description: Initiate any transaction, currently mainly hosting EVM compatible chain
+      description: Initiate any transaction, currently mainly supporting EVM compatible chains
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2030,7 +2018,7 @@ paths:
                   example: "456042601079301"
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: Chain Identifier
                   example: ETH
                 from:
                   type: string
@@ -2058,11 +2046,11 @@ paths:
                   example: "1"
                 gasPrice:
                   type: string
-                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
+                  description: Transaction gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: "1000000000"
                 gasLimit:
                   type: string
-                  description: Trading gasLimit, fuel cap, ETH account model applicable
+                  description: Transaction gasLimit, fuel cap, ETH account model applicable
                   example: "60000"
                 inputData:
                   type: string
@@ -2146,15 +2134,15 @@ paths:
                   example: 1
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: Chain Identifier
                   example: ETH
                 gasLimit:
                   type: string
-                  description: Trading gasLimit, fuel cap, ETH account model applicable
+                  description: Transaction gasLimit, fuel cap, ETH account model applicable
                   example: 21000
                 gasPrice:
                   type: string
-                  description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
+                  description: Transaction gasPrice, fuel price, ETH account model applicable, unit is wei
                   example: 1300000
                 fee:
                   type: string
@@ -2187,8 +2175,8 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/cancel_transaction"
-      summary: Cancelled Transaction
-      description: Transaction cancellation, this method only supports EVM compatible chain series transaction cancellation
+      summary: Cancel Transaction
+      description: Cancel transaction, this method only supports cancellation of transactions in EVM compatible chain series
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2230,7 +2218,7 @@ paths:
                   example: 1
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: Chain Identifier
                   example: ETH
         required: false
       responses:
@@ -2306,15 +2294,15 @@ paths:
               properties:
                 address:
                   type: string
-                  description: link address
+                  description: Chain address
                   example: "0x4b67ec7fb5804dc645d584a715792f7ca76caace"
                 sinoIds:
                   type: string
-                  description: Obtain a list of confirmed transaction records through sinoIds query. Sinoid is the unique identifier of sinohope transaction ID, separated by commas. Sinoid cannot exceed 50
+                  description: To retrieve a list of confirmed transaction records by querying through sinoId. Sinoid is the unique identifier of sinohope transaction ID, separated by commas. Sinoid cannot exceed 50 entries
                   example: 1,2
                 requestIds:
                   type: string
-                  description: Obtain a list of confirmed transaction records through requestIds query. RequestId is separated by commas and cannot exceed 50 requestId
+                  description: To retrieve a list of confirmed transaction records by querying through requestIds. RequestId is separated by commas and cannot exceed 50 entries
                   example: 433352715218629,433352715218629
                 txHash:
                   type: string
@@ -2322,7 +2310,7 @@ paths:
                   example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: Chain Identifier
                   example: ETH
                 assetId:
                   type: string
@@ -2334,11 +2322,11 @@ paths:
                   $ref: '#/components/schemas/pageSize'
                 startUpdateTime:
                   type: string
-                  description: According to the update time query, start time, pass the start time, start and end also have to bring (format "2022-02-02 00:00:00")
+                  description: To query based on the update time, the start time must be included. When providing the start time, the end time must also be specified (format "2022-02-02 00:00:00")
                   example: 2022-02-02 00:00:00
                 endUpdateTime:
                   type: string
-                  Description: According to the update time query, the end time, the end time is passed, and the start time must also be included (2022-02-02 00:00:00))
+                  description: To query based on the update time, the end time must be included. When providing the end time, the start time must also be specified (format "2022-02-02 00:00:00")
                   example: 2022-03-02 00:00:00
         required: false
       responses:
@@ -2410,7 +2398,7 @@ paths:
               properties:
                 requestIds:
                   type: string
-                  description: Obtain a list of confirmed transaction records through requestIds query. RequestId is separated by commas, cannot be empty, and cannot exceed 50
+                  description: To retrieve a list of confirmed transaction records by querying through requestIds. RequestId is separated by commas, cannot be empty, and cannot exceed 50 entries
                   example: 433352715218629,433352715218629
         required: false
       responses:
@@ -2482,7 +2470,7 @@ paths:
               properties:
                 sinoIds:
                   type: string
-                  description: Obtain a list of confirmed transaction records through sinoId query. Sinoid is the unique identifier of sinohope transaction ID, separated by commas, cannot be empty, and cannot exceed 50
+                  description: To retrieve a list of confirmed transaction records by querying through sinoId. Sinoid is the unique identifier of sinohope transaction ID, separated by commas, cannot be empty, and cannot exceed 50 entries
                   example: 1,2,3,4
         required: false
       responses:
@@ -2561,7 +2549,7 @@ paths:
                   example: "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16"
                 chainSymbol:
                   type: string
-                  description: Chain ID
+                  description: Chain Identifier
                   example: ETH
         required: false
       responses:
@@ -2605,7 +2593,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_message"
       summary: Signing messages according to known specifications (EIP-191, EIP-712)
-      description: Messages are signed according to known specifications (EIP-191, EIP-712), and the signature results can be queried through the /v1/waas/mpc/web3/sign_result or issued through the callback of the MPC-node.
+      description: Messages are signed according to known specifications (EIP-191, EIP-712), and the signature results can be queried through /v1/waas/mpc/web3/sign_result or delivered via callback from MPC-node.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2646,7 +2634,7 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: requestId of the requestor transaction
+                  description: The requestId of the requesting party's transaction
                   example: 4242342,324234
                 chainSymbol:
                   type: string
@@ -2662,7 +2650,7 @@ paths:
                   example: personal_sign
                 message:
                   type: string
-                  description: String information to be signed
+                  description: String message to be signed
                   example: "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
         required: false
       responses:
@@ -2699,7 +2687,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_result"
-      summary: Query signature results
+      summary: Query signature result
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2729,11 +2717,11 @@ paths:
               properties:
                 requestId:
                   type: string
-                  description: Optional, pass at least 1 with sinoId
+                  description: Optional, at least one of requestId or sinoId must be provided
                   example: "433352715218629"
                 sinoId:
                   type: string
-                  description: Optional, pass at least 1 with requestId
+                  description: Optional, at least one of requestId or sinoId must be provided
                   example: "433352715218629"
         required: false
       responses:
@@ -2776,7 +2764,7 @@ components:
           example: "0xee506b40220af3692be8b84a95a6e02d956164007d875812c1be26b594c2c27a"
         actionType:
           type: string
-          description: The type of transaction request initiated by the user, "Transfer" - transfer transaction initiated through the create_transfer interface; "Web3Tx" - transaction initiated through the create_transaction interface, which should generally be a contract transaction. For recharge transactions, it is empty.
+          description: The type of transaction request initiated by the user, "Transfer" - transfer transaction initiated through the create_transfer interface; "Web3Tx" - transaction initiated through the create_transaction interface, which should generally be a contract transaction. For deposit transactions, it is empty.
           example: "Transfer"
         from:
           type: string
@@ -2804,7 +2792,7 @@ components:
           example: "ETH_ETH"
         decimal:
           type: integer
-          description: Asset Accuracy
+          description: Asset precision
           example: 18
         contractAddress:
           type: string
@@ -2816,7 +2804,7 @@ components:
           example: "ETH_ETH"
         feeAssetDecimal:
           type: integer
-          description: Fee asset accuracy
+          description: Fee asset precision
           example: 18
         usedFee:
           type: string
@@ -2828,19 +2816,19 @@ components:
           example: "30000000000000"
         gasPrice:
           type: string
-          description: Trading gasPrice, fuel price, ETH account model applicable, unit is wei
+          description: Transaction gasPrice, fuel price, applicable to ETH account model, in wei units
           example: "1000000000"
         gasLimit:
           type: string
-          description: Trading gasLimit, fuel cap, ETH account model applicable
+          description: Transaction gasLimit, fuel limit, applicable to ETH account model
           example: "60000"
         nonce:
           type: string
-          description: transaction nonce
+          description: Transaction nonce
           example: "2"
         inputData:
           type: string
-          description: Ethereum transaction data (this field is only valid for "Web3Tx" transactions initiated by create_transaction interfaces)
+          description: Ethereum transaction data (this field is only valid for "Web3Tx" transactions initiated by create_transaction interface)
           example: "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680"
         expireTime:
           type: integer
@@ -2848,11 +2836,11 @@ components:
           example: 1691500231
         expireBlockHeight:
           type: integer
-          description: Transaction effective height
+          description: Transaction expiry block height
           example: 6566009
         referBlockHeight:
           type: integer
-          description: referring height
+          description: Reference block height
           example: 6566020
         vin:
           type: array
@@ -2866,7 +2854,7 @@ components:
                 example: "0xa585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
               voutIndex:
                 type: string
-                description: Transaction index, representing the current unspent transaction location
+                description: Transaction index, representing the location of the current unspent transaction
                 example: "1"
               address:
                 type: string
@@ -2904,7 +2892,7 @@ components:
           example: "3423434"
         replacedSinoId:
           type: string
-          description: When replacing old transactions through the transaction acceleration/cancellation interface, the sinoId of the replaced transaction
+          description: The sinoId of the replaced transaction when replacing old transactions through the transaction acceleration/cancellation interface
           example: "456417158498300"
         chainSymbol:
           type: string
@@ -2912,11 +2900,11 @@ components:
           example: ETH
         txDirection:
           type: integer
-          description: Transaction direction type:0 withdrawal (transactions initiated by system addresses as from addresses), 1 recharge
+          description: Transaction direction type:0 withdrawal (transactions initiated by system addresses as from addresses), 1 deposit
           example: 1
         state:
           type: integer
-          description: Transaction status:0-Transaction approval in progress 1-Transaction approval successful 2-Transaction on-chain in progress 4-Broadcast failure 5-Transaction on-chain failure 6-Broadcast network timeout 10-Transaction on-chain successful 11-Transaction on-chain rollback 12-Transaction pending approval 13-Transaction approval rejection
+          description: Transaction status:0-Transaction approval in progress 1-Transaction approval successful 2-Transaction on-chain in progress 4-Broadcast failure 5-Transaction on-chain failure 6-Network broadcast timeout 10-Transaction on-chain successful 11-Transaction on-chain rollback 12-Transaction pending approval 13-Transaction approval rejection
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
@@ -2930,11 +2918,11 @@ components:
       properties:
         id:
           type: string
-          description: address id
+          description: Address id
           example: "11368"
         address:
           type: string
-          description: link address
+          description: Chain address
           example: "0x4b1613e2501b770463a12e397b34d9cac0d9497c"
         hdPath:
           type: string
