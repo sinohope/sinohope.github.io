@@ -164,7 +164,7 @@ init命令的主要任务是初始化节点信息，包括：
 - sinohope-mpc-node密码采用t-n组合方式，t必须小于等于n(如2/3，执行init和unseal时只需要输入2段密码)。
 - 如果配置中的`storage.t`设置为1，操作命令只需要执行1次，密码可由人工创建。
 - 如果配置中的`storage.t`大于1，操作命令需要执行t次，t-n密码需要使用专门工具生成，不可以任意创建。[点击获取密码生成工具](https://github.com/sinohope/shamir-pasasword)
-- t-n密码需要手动修改config.toml中的`storage.t`和`storage.t`。
+- t-n密码需要手动修改config.toml中的`storage.t`和`storage.n`。
 
 #### 2.2.3 (Optional) 部署及配置回调服务
 
@@ -379,7 +379,7 @@ openssl ec -in private_key.pem -pubout -out callback_server_public.pem
 retry-times = 60
 sleep-seconds = 60
 [[callback.server]]
-  address = "http://127.0.0.1:9090/v1/check"
+  address = "http://<callback url>"
   public-key-path = "./callback_server_public.pem"
 ```
 
@@ -502,7 +502,7 @@ type ResponseData struct {
 
 ##### 1、HTTP 接口
 
-> path: /v1/check
+> path: /check
 
 > method: post
 
@@ -549,11 +549,42 @@ type ResponseData struct {
 | toTag       | string | 交易的memo                                                   |
 | amount      | string | 金额                                                         |
 | fee         | string | 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费 |
-| fee_rate    | string | 手续费费率 1:快 2:中 3:慢                                    |
 | gasPrice    | string | gasprice                                                     |
 | gasLimit    | string | gaslimit                                                     |
 | inputdata   | string | 以太坊交易data                                               |
-| remark      | string | 备注：用于用户自己需要的一些备注信息                         |
+| note        | string | 备注：用于用户自己需要的一些备注信息                         |
+| curInputId  | string |  当前签名inputId                       |
+| extraData   | json   |  utxo交易的详细数据，包括vin,vout         |
+
+- extraData 的结构示例：
+
+```
+{
+    "toTag": "TOTAG1637",
+    "vinList": [
+        {
+            "address": "mwTnMZzAvUzVCQKGkdcAHYW1sMnJCumbJL",
+            "amount": 1425593,
+            "blockHash": "0000000000000005f9c6962d86854e412bf0cc1d61b5849c0ac2f83d701007a8",
+            "blockHeight": 2583605,
+            "blockState": 1,
+            "blockTimeStamp": 1711441887,
+            "currency": "btc",
+            "id": 6909,
+            "state": 0,
+            "tag": "",
+            "transactionHash": "17b0378f551ddfda5d512a7304fdc0f33493f0429a479e243f3653d7dca0700e",
+            "voutIndex": 1
+        }
+    ],
+    "voutList": [
+        {
+            "address": "mwTnMZzAvUzVCQKGkdcAHYW1sMnJCumbJL",
+            "amount": 22000
+        }
+    ]
+}
+```
 
 - extra_info 的结构定义如下：
 
@@ -586,7 +617,7 @@ data结构
 
 ##### 1、HTTP接口
 
-> path: /v1/rawdata_signature
+> path: /rawdata_signature
 > 
 > method: post
 > 

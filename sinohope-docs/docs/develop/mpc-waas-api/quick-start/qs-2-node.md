@@ -381,7 +381,7 @@ openssl ec -in private_key.pem -pubout -out callback_server_public.pem
 retry-times = 60
 sleep-seconds = 60
 [[callback.server]]
-  address = "http://127.0.0.1:9090/v1/check"
+  address = "http://<callback url>"
   public-key-path = "./callback_server_public.pem"
 ```
 
@@ -504,7 +504,7 @@ Each time the keygen and sign business mpc-node will request the user for risk c
 
 ##### 1. HTTP interface
 
-path: /v1/check
+path: /check
 
 method: post
 
@@ -551,11 +551,42 @@ The structure of tx_info is defined as follows:
 | toTag | string | transaction memo |
 | Amount | string | amount |
 | Fee | string | handling fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if | the parameter is provided for UTXO asset transfer, it represents the handling fee per byte |
-| fee_rate | string | Fee rate 1: Fast 2: Medium 3: Slow |
 | gasPrice    | string | gasprice                                                     |
 | gasLimit    | string | gaslimit                                                     |
 | Inputdata | string | Ethereum transaction data |
-| Remark | string | Remark: Some remarks information that users need.
+| note | string | note: Some remarks information that users need. |
+| curInputId  | string |  inputId of signature data   |
+| extraData   | json   |  Detailed data of utxo transactions, including vin, vout       |
+
+- Structure example of extraData:
+
+```
+{
+    "toTag": "TOTAG1637",
+    "vinList": [
+        {
+            "address": "mwTnMZzAvUzVCQKGkdcAHYW1sMnJCumbJL",
+            "amount": 1425593,
+            "blockHash": "0000000000000005f9c6962d86854e412bf0cc1d61b5849c0ac2f83d701007a8",
+            "blockHeight": 2583605,
+            "blockState": 1,
+            "blockTimeStamp": 1711441887,
+            "currency": "btc",
+            "id": 6909,
+            "state": 0,
+            "tag": "",
+            "transactionHash": "17b0378f551ddfda5d512a7304fdc0f33493f0429a479e243f3653d7dca0700e",
+            "voutIndex": 1
+        }
+    ],
+    "voutList": [
+        {
+            "address": "mwTnMZzAvUzVCQKGkdcAHYW1sMnJCumbJL",
+            "amount": 22000
+        }
+    ]
+}
+```
 
 - extra_info structure is defined as follows:
 
@@ -587,7 +618,7 @@ Only when the sign_type of the sign service is 2 or 3 and the MPC Node signature
 
 ##### 1. HTTP interface
 
-> path: /v1/rawdata_signature
+> path: /rawdata_signature
 > 
 > method: post
 > 
