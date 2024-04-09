@@ -164,3 +164,16 @@ When an error occurs in Sinohope WaaS services, uniformly formatted data will be
 | v0.9.4 | Cumulative updates: <br/>1. Add api `/v1/waas/mpc/transaction/fee`. <br/> 2. Fix: Correct the response feild `sinoId` of api `/v1/waas/mpc/web3/sign_message` from `integer` to `string`, and the request params `chainSymbol` of apis `/v1/waas/mpc/transaction/cancel_transaction` and `/v1/waas/mpc/transaction/speedup_transaction` is modified from `required` to `non-required`. | 2023-12-25 | Shihan, etc. |
 | v0.9.5 | Added new interfaces `/v1/waas/mpc/web3/sign_result`| 2024-01-10 | wd |  
 
+<div style={{"marginBottom":"2rem"}}><h2 id={"authentication"} style={{"marginBottom":"1rem"}}>Authentication</h2><SchemaTabs className={"openapi-tabs__security-schemes"}><TabItem label={"API Key: BIZ-API-KEY"} value={"BIZ-API-KEY"}>
+
+您的 WaaS API Key 公钥.
+
+<div><table><tbody><tr><th>Security Scheme Type:</th><td>apiKey</td></tr><tr><th>Header parameter name:</th><td>BIZ-API-KEY</td></tr></tbody></table></div></TabItem><TabItem label={"API Key: BIZ-API-NONCE"} value={"BIZ-API-NONCE"}>
+
+包含在待签名数据中的时间戳.
+
+<div><table><tbody><tr><th>Security Scheme Type:</th><td>apiKey</td></tr><tr><th>Header parameter name:</th><td>BIZ-API-NONCE</td></tr></tbody></table></div></TabItem><TabItem label={"API Key: BIZ-API-SIGNATURE"} value={"BIZ-API-SIGNATURE"}>
+
+使用您的 API Key 私钥对请求信息所做的签名。
+
+<div><table><tbody><tr><th>Security Scheme Type:</th><td>apiKey</td></tr><tr><th>Header parameter name:</th><td>BIZ-API-SIGNATURE</td></tr></tbody></table></div></TabItem></SchemaTabs></div>

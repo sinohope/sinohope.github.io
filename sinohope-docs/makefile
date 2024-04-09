@@ -3,7 +3,15 @@ ALL: build push
 build:
 	npm run clear
 	npm run clean-all
+	cp openapi/mpc-waas-api/openapi_cn.yaml openapi/mpc-waas-api/openapi.yaml
 	npm run build
+	cp docs/develop/mpc-waas-api/*.mdx i18n/zh-Hant/docusaurus-plugin-content-docs/current/develop/mpc-waas-api
+
+	npm run clear
+	npm run clean-all
+	cp openapi/mpc-waas-api/openapi_en.yaml openapi/mpc-waas-api/openapi.yaml
+	npm run build
+	rm openapi/mpc-waas-api/openapi.yaml
 
 update:
 	git pull origin main

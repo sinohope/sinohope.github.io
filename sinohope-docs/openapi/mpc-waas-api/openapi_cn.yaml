@@ -331,6 +331,10 @@ paths:
                 "pageIndex": 1,
                 "pageSize": 10
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -430,6 +434,10 @@ paths:
       operationId: "/v1/waas/mpc/mpcnode/status"
       summary: 查询MPC node状态
       description: 查询您的MPC Node当前的在线状态
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       responses:
         200:
           description: successful operation
@@ -494,6 +502,10 @@ paths:
                 "hdPath": "m/1/1/60/0",
                 "rawData": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -588,6 +600,10 @@ paths:
                 "algorithmType": 1,
                 "coinType": 10
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -670,6 +686,10 @@ paths:
                 "walletId": 413497079388421,
                 "advancedEnabled": 1
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -727,6 +747,10 @@ paths:
         - Common APIs
       operationId: "/v1/waas/common/get_supported_chains"
       summary: 查询系统支持链
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       responses:
         200:
           description: successful operation
@@ -784,6 +808,10 @@ paths:
             Request("POST", "/v1/waas/common/get_supported_coins/", map[string]string{
                 "chainSymbol": "ETH"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -839,6 +867,10 @@ paths:
         - Common APIs
       operationId: "/v1/waas/common/get_vaults"
       summary: 金库列表
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       responses:
         200:
           description: successful operation
@@ -927,6 +959,10 @@ paths:
                   }
                 ]
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1038,6 +1074,10 @@ paths:
                 "pageIndex": 1,
                 "pageSize": 10
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1130,6 +1170,10 @@ paths:
                 "count": 1,
                 "chainSymbol": "ETH"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1211,6 +1255,10 @@ paths:
                 "pageIndex": 1,
                 "pageSize": 10
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1302,6 +1350,10 @@ paths:
                 "vaultId": "450632968208222",
                 "walletId": "413497079388421"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1377,6 +1429,10 @@ paths:
                 "assetId": "USDT_ETH",
                 "address": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1464,6 +1520,10 @@ paths:
                 "assetId": "USDT_ETH",
                 "address": "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1536,6 +1596,10 @@ paths:
                 "pageIndex": 1,
                 "pageSize": 10
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1620,6 +1684,10 @@ paths:
             Request("POST", "/v1/waas/mpc/wallet/transfer_risk_control_switch/", map[string]string{
               "vaultId": "450632968208222"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1691,6 +1759,10 @@ paths:
                 "assetId": "ETH_GOERLI",
                 "amount" : "123"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -1858,6 +1930,10 @@ paths:
                 "gasLimit": "21000",
                 "note": "用户信息备注"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2003,6 +2079,10 @@ paths:
             "0x095ea7b300000000000000000000000057a1a5869ce3203689d1785b02b55257cb3e1dc60000000000000000000000000000000000000000000000000000000000989680",
                 "note": "用户交易信息备注"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2127,6 +2207,10 @@ paths:
                 "chainSymbol": "ETH",
                 "sinoId": "加速交易的sinoId"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2211,6 +2295,10 @@ paths:
                 "chainSymbol": "ETH",
                 "sinoId": "1"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2295,6 +2383,10 @@ paths:
                 "startUpdateTime": "2022-02-02 00:00:00",
                 "endUpdateTime": "2022-03-02 00:00:00"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2400,6 +2492,10 @@ paths:
             Request("POST", "/v1/waas/mpc/transaction/transactions_by_request_ids/", map[string]string{
                 "requestIds": "433352715218629,433352715218629"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2472,6 +2568,10 @@ paths:
             Request("POST", "/v1/waas/mpc/transaction/transactions_by_sino_ids/", map[string]string{
                 "sinoIds": "1,2,3,4"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2546,6 +2646,10 @@ paths:
                 "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
                 "chainSymbol": "ETH"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2632,6 +2736,10 @@ paths:
                 "signAlgorithm": "personal_sign",
                 "message": "232313c429aeda8bf786cf092224dddadbc0813f9f230b"
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2720,6 +2828,10 @@ paths:
                 "requestId": "433352715218629",
                 "sinoId": 433352715218629
             })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
       requestBody:
         content:
           application/json:
@@ -2765,6 +2877,22 @@ paths:
       x-codegen-request-body-name: root
 
 components:
+  securitySchemes:
+    BIZ-API-KEY:
+      type: apiKey
+      in: header
+      name: BIZ-API-KEY
+      description: 您的 WaaS API Key 公钥.
+    BIZ-API-NONCE:
+      type: apiKey
+      in: header
+      name: BIZ-API-NONCE
+      description: 包含在待签名数据中的时间戳.
+    BIZ-API-SIGNATURE:
+      type: apiKey
+      in: header
+      name: BIZ-API-SIGNATURE
+      description: 使用您的 API Key 私钥对请求信息所做的签名。
   schemas:
     transactionObject:
       type: object
