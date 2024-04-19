@@ -111,6 +111,73 @@ sinohope-mpc-node
 ├── config.toml （配置文件）
 └── node.sh （管理脚本）
 ```
+1. node.sh脚本用于控制mpc-node服务的行为，如生成分片私钥，启动服务等。执行`./node.sh help`会得到所有命令的说明。
+2. config.toml示例与说明如下：
+```
+[app]
+# 软件的名称，日志中有体现。
+name = "mpc-node" 
+# 3个分片，a,b,c。 不可以修改。    
+party-id = "a"     
+# 用户类型，不可以修改。   
+account-type = "2"    
+
+# 日志
+[log] 
+# 日志等级 : 0: Panic 1: Fatal 2: Error 3: Warn 4: Info 5: Debug 6: Trace
+[log.stdout]
+# 是否启用终端日志输出
+enable = true  
+ # 日志等级 
+level = 6      
+
+[log.file]
+# 是否启用文件日志输出
+enable = true 
+# 日志等级 
+level = 6 	   
+# 日志文件路径，是docker内部路径，执行node.sh start时，会把当前目录映射到docker内的/tmp/mpc-node
+path = "/tmp/mpc-node/logs/mpc-node.log"  
+
+# 分片存储
+[storage] 
+# 存储引擎类型，分为bolt和sgx两种，默认为bolt。bolt为文件数据库存储，sgx为文本文件存储。 如果使用intel-sgx-tee环境，必须指定为sgx存储。
+engine = "bolt"  
+# t/n 组合密码，可以是1/1的密码，也可以是2/3密码，任意输入2段密码即可。如果t>1，则密码必须由专门的工具生成密码，不可自由生成。  
+t = 1			  
+n = 2
+# 分片数据存储路径，是docker内部路径。
+db-file-path = "/tmp/mpc-node/asset.db"  
+# 服务地址与端口，是docker内部地址与端口。
+unseal-server-address = "0.0.0.0:8080"   
+
+# mpc server负责把3个mpc node连接起来。
+[mpc-service] 
+# node需要使用websocket与mpc server建立连接
+protocol = "wss"    。
+ # mpc server的url地址
+address = "api-pre.sinohope.com"  
+# mpc server的url路劲
+path = "/proxy"     
+
+# “签名结果”的加密， mpc对raw_data签名的结果做一次加密保护，这样别人拿到了签名结果也不可以使用。
+[encrypt-signature] 
+# 是否开启
+enable = true  
+# 加密使用的Secp256r1公钥路径，是docker内部路径。
+public-key-path = "/tmp/mpc-node/encrypt_sig_public.pem"  
+
+# 签名回调服务，mpc-node在签名之前，把待签名数据发给callback服务，由callback审核是否允许签名。
+[callback] 
+retry-times = 60
+sleep-seconds = 60
+# callback列表，如果列表为空，则回调不生效。
+[[callback.server]] 
+# callback地址
+address = "http://10.151.100.41:9090" 
+# mpc-node调用callback返回的结果，是使用Secp256r1私钥签名的，mpc-node通过公钥验证签名的正确性。公钥的路径，是docker内部路径。
+public-key-path = "/tmp/mpc-node/callback_server_public.pem" 
+```
 
 - MPC Node初始化成功后，会自动创建asset.db文件和logs目录：
 
@@ -513,7 +580,7 @@ type ResponseData struct {
 | 参数           | 类型   | 描述                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | 回调请求唯一ID                                               |
-| request_type   | string | 回调请求是字符串类型，有以下两种取值：keygen、sign           |
+| request_type   | string | 回调请求是字符串类型，有以下两种取值：keygen、sign、bip340-schnorr-sign           |
 | request_detail | struct | 回调请求详细信息，包括请求的一系列关键信息。不同的回调请求类型对应不同的 request_detail 结构；格式为 JSON 序列化后的字符串 |
 | extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；格式为 JSON 序列化后的字符串 |
 
@@ -525,7 +592,7 @@ type ResponseData struct {
 | party_ids    | []string | 参与生成私钥的节点ID集合                      |
 | cryptography | string   | 使用的签名算法。ecdsa-secp256k1/eddsa-ed25519 |
 
-- 当 `request_type == sign` 时，`request_detail` 的结构定义如下：
+- 当 `request_type == sign或request_type == bip340-schnorr-sign` 时，`request_detail` 的结构定义如下：
 
 | 参数       | 类型   | 描述                                                   |
 | ---------- | ------ | ------------------------------------------------------ |

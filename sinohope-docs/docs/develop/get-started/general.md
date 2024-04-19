@@ -69,9 +69,11 @@ Data to be signed:
 
 String concatenation rules:
 
-Sort the above key-value pairs in ascending order of the alphabet of the keys, then directly concatenate all `key` `value` (no delimiter between them, with the public key string having no key field) to form the final string to be signed, **encode the string to be signed as a byte array in UTF8**, and then use the private key (privateKey) generated locally to perform ECDSA signature on the data (the specific algorithm is `SHA256withECDSA`), output the signature using `ASN.1 DER` format, and then encode the byte array to a HEX string, then you will get the final signature string (see Sinohope demo: <https://github.com/sinohope/sinohope-java-api>).
+Sort the above key-value pairs in ascending order of the alphabet of the keys, then directly concatenate all `key` `value` (no delimiter between them, the final string needs to replace all spaces with empty characters. with the public key string having no key field) to form the final string to be signed, **encode the string to be signed as a byte array in UTF8**, and then use the private key (privateKey) generated locally to perform ECDSA signature on the data (the specific algorithm is `SHA256withECDSA`), output the signature using `ASN.1 DER` format, and then encode the byte array to a HEX string, then you will get the final signature string (see Sinohope demo: <https://github.com/sinohope/sinohope-java-api>).
 
-**Note**: In the concatenated string, the string corresponding to key is essential. For interfaces without request parameters, the concatenated string will start with the string `datapath`.
+**Note**: 
+- In the concatenated string, the string corresponding to key is essential. For interfaces without request parameters, the concatenated string will start with the string `datapath`.
+- the final concatenated string needs to replace all spaces with empty characters.
 
 See the following sections for detailed explanations of each part of the data.
 

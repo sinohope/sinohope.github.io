@@ -16,6 +16,8 @@ tags:
     description: 创建、管理、查询钱包账户与地址信息
   - name: Transaction APIs
     description: 创建及查询交易信息，创建离线签名
+  - name: Brc20 APIs
+    description: 铭文交易
   - name: Advanced APIs
     description: 高级功能允许直接签名指定的原始数据，需钱包组及钱包均开启“高级功能”才可用
   - name: MPC Node APIs
@@ -1156,7 +1158,8 @@ paths:
                 "vaultId": "450632968208222",
                 "walletId": "413497079388421",
                 "count": 1,
-                "chainSymbol": "ETH"
+                "chainSymbol": "ETH",
+                "encoding": 1
               },
               api_key, host
             )
@@ -1168,7 +1171,8 @@ paths:
                 "vaultId": "450632968208222",
                 "walletId": "413497079388421",
                 "count": 1,
-                "chainSymbol": "ETH"
+                "chainSymbol": "ETH",
+                "encoding": 1
             })
       security:
         - BIZ-API-KEY: []
@@ -1183,6 +1187,7 @@ paths:
                 - chainSymbol
                 - walletId
                 - requestId
+                - encoding
               type: object
               properties:
                 requestId:
@@ -1205,6 +1210,9 @@ paths:
                   type: string
                   description: 链名称 简称 链标识 具有唯一性
                   example: "ETH"
+                encoding:
+                  type: int
+                  description: 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
         required: false
       responses:
         200:
@@ -1904,7 +1912,7 @@ paths:
                 "toTag": "32143",
                 "amount": "1200000000000000",
                 "fee": "1000000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
                 "note": "用户信息备注"
@@ -1925,7 +1933,7 @@ paths:
                 "toTag": "32143",
                 "amount": "1200000000000000",
                 "fee": "1000000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
                 "note": "用户信息备注"
@@ -1987,11 +1995,11 @@ paths:
                   example: "1200000000000000"
                 fee:
                   type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  description: 手续费 
                   example: "60000000000000"
-                fee_rate:
+                feeRate:
                   type: string
-                  description: 手续费费率 1:快 2:中 3:慢
+                  description: UTXO类交易 每字节的手续费
                   example: "1"
                 gasPrice:
                   type: string
@@ -2050,7 +2058,7 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2072,7 +2080,7 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2130,11 +2138,11 @@ paths:
                   example: "0"
                 fee:
                   type: string
-                  description: 手续费 对于 UTXO 类的非EVM兼容链的交易,自设置fee, 如参数为 UTXO 资产转账提供，表示每字节的手续费
+                  description: 手续费 
                   example: "60000000000000"
-                fee_rate:
+                feeRate:
                   type: string
-                  description: 手续费费率 1:快 2:中 3:慢
+                  description: UTXO类交易 每字节的手续费
                   example: "1"
                 gasPrice:
                   type: string
@@ -2874,6 +2882,1025 @@ paths:
                     type: integer
                     description: 业务执行状态 (进行中：0，成功：1，失败：2）
                     example: 0
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe-deploy:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-deploy"
+      summary: 铭刻deploy铭文
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-deploy/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "totalSupply": "10000",
+                "limitPerMint": "100",
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-deploy/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "totalSupply": "10000",
+                "limitPerMint": "100",
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - totalSupply
+                - limitPerMint
+                - decimals
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                totalSupply:
+                  type: string
+                  description: 发行总量
+                  example: "10000"
+                limitPerMint:
+                  type: string
+                  description: 每次铸造数量上限
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_mint:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-mint"
+      summary: 铭刻mint铭文
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-mint/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-mint/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: 铸造brc20的数量
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_transfer:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-transfer"
+      summary: 铭刻transfer铭文
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-transfer/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-transfer/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: 铭刻可转账铭文的数量
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_transfer_by_id:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe_transfer_by_id"
+      summary: Brc20铭文转账
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe_transfer_by_id/",
+              {
+                "requestId":"123121132312232",
+                "from":"mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol":"BTC_TEST",
+                "ticker":"joy1"
+                "inscriptionId":"dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe_transfer_by_id/", map[string]string{
+                "requestId":"123121132312232",
+                "from":"mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol":"BTC_TEST",
+                "ticker":"joy1"
+                "inscriptionId":"dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - from
+                - to
+                - chainSymbol
+                - inscriptionId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "joy1"
+                from:
+                  type: string
+                  description: from 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                to:
+                  type: string
+                  description: to 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                inscriptionId:
+                  type: string
+                  description: brc20 铭文Id，由铭文所在UTXO的 txHash + 小写字母i + vout索引组成
+                  example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/one_stop_transfer:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/one_stop_transfer"
+      summary: 一站式brc20转账
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/one_stop_transfer/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 请求方交易的requestId
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: 铭刻可转账铭文的数量
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                to:
+                  type: string
+                  description: to 地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/query_inscribe_transfers:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/query_inscribe_transfers"
+      summary: 查询指定地址的指定资产的BRC20可转铭文信息
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/query_inscribe_transfers/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - ticker
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 查询的地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      height:
+                        type: integer
+                        description: 区块高度
+                        example: "456417158498600"
+                      total:
+                        type: integer
+                        description: 数据总条数
+                        example: 10
+                      start:
+                        type: integer
+                        description: 数据总条数
+                        example: 10
+                      detail: 
+                        type: array
+                        description: 铭文详情
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: 铭文类型，包括deploy、mint、transfer等
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 铭文名称
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: Brc20数量
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: Brc20币种精度
+                            inscriptionId:
+                              type: string
+                              description: 铭文Id，由铭文所在UTXO的 txHash + 小写字母i + vout索引组成
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: string
+                              description: 
+                              example: "546"
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/page_balance_summary:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/page_balance_summary"
+      summary: 指定地址的所有BRC20 资产余额信息 （分页查询）
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/page_balance_summary/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06",
+                "start":0,
+                "limit":100
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/page_balance_summary/", map[string]string{
+              "chainSymbol":"BTC_TEST",
+              "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06",
+              "start":0,
+              "limit":100
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+                - start
+                - limit
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: 查询的地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                start:
+                  type: integer
+                  description: 
+                  example: 0
+                limit: 
+                  type: integer
+                  description:
+                  example: 10
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      height:
+                        type: integer
+                        description: 区块高度
+                        example: "456417158498600"
+                      total:
+                        type: integer
+                        description: 数据总条数
+                        example: 10
+                      start:
+                        type: integer
+                        description: 数据总条数
+                        example: 10
+                      detail: 
+                        type: array
+                        description: 铭文详情
+                        items:  
+                          type: object
+                          properties:
+                            overallBalance: 
+                              type: string
+                              description: 总余额，包括可用余额和可转余额
+                              example: "15"
+                            ticker: 
+                              type: string
+                              description: 铭文名称
+                              example: "aacv"
+                            transferableBalance: 
+                              type: string
+                              description: 可转余额
+                              example: "5"
+                            availableBalance:
+                              type: string
+                              description: 可用余额
+                              example: "20"
+                            availableBalanceSafe:
+                              type: string
+                              description: 
+                            availableBalanceUnSafe:
+                              type: string
+                              description: 
+                            decimal:
+                              type: integer
+                              description: Brc20币种精度
+                              example: 18
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/address_ticker_info:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/address_ticker_info"
+      summary: 查询指定地址的指定名称的BRC20 资产信息
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/address_ticker_info/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/address_ticker_info/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - ticker
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                ticker:
+                  type: string
+                  description: 铭文名称
+                  example: "aacv"
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 查询的地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      ticker:
+                        type: string
+                        description: 铭文名称
+                        example: "aacv"
+                      overallBalance: 
+                              type: string
+                              description: 总余额，包括可用余额和可转余额
+                              example: "15"
+                      transferableBalance: 
+                        type: string
+                        description: 可转余额
+                        example: "5"
+                      availableBalance:
+                        type: string
+                        description: 可用余额
+                        example: "20"
+                      availableBalanceSafe:
+                        type: string
+                        description: 
+                        example: "20"
+                      availableBalanceUnSafe:
+                        type: string
+                        description: 
+                        example: "0"
+                      transferableCount:
+                        type: integer
+                        description:
+                        example: 7
+                      transferableInscriptions: 
+                        type: array
+                        description: 铭文详情
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: 铭文类型，包括deploy、mint、transfer等
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 铭文名称
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: Brc20数量
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: Brc20币种精度
+                            inscriptionNumber:
+                              type: integer
+                              description: 
+                              example: 2915906
+                            inscriptionId:
+                              type: string
+                              description: 铭文Id，由铭文所在UTXO的 txHash + 小写字母i + vout索引组成
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: string
+                              description: 
+                              example: "546"
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                      historyCount:
+                        type: integer
+                        description:
+                        example: 10
+                      historyInscriptions:
+                        type: array
+                        description: 铭文详情
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: 铭文类型，包括deploy、mint、transfer等
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 铭文名称
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: Brc20数量
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: Brc20币种精度
+                            inscriptionNumber:
+                              type: integer
+                              description: 
+                              example: 2915906
+                            inscriptionId:
+                              type: string
+                              description: 铭文Id，由铭文所在UTXO的 txHash + 小写字母i + vout索引组成
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: integer
+                              description: 
+                              example: 546
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  
+  /v1/waas/mpc/brc20/address_balance:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/address_balance"
+      summary: 查询指定地址BTC余额详情（总余额、非铭文余额、铭文相关余额）
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/address_balance/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/address_balance/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 查询的地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                        description: 地址
+                        example: "bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+                      satoshi:
+                        type: int
+                        desciption:
+                        example:
+                      pendingSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      utxoCount:
+                        type: int
+                        desciption:
+                        example:
+                      btcSatoshi:
+                        type: int
+                        desciption:
+                        example:   
+                      btcPendingSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      btcUtxoCount:
+                        type: int
+                        desciption:
+                        example:
+                      inscriptionSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      inscriptionPendingSatoshi:
+                        type: int
+                        desciption:
+                        example: 
+                      inscriptionUtxoCount:
+                        type: int
+                        desciption:
+                        example:                                           
+                  success:
+                    type: boolean
+                description: ""
       x-codegen-request-body-name: root
 
 components:

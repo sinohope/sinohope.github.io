@@ -16,6 +16,8 @@ tags:
     description: Create, manage, and query wallet account and address information
   - name: Transaction APIs
     description: Create and query transaction information, create offline signatures
+  - name: Brc20 APIs
+    description: Inscription transaction
   - name: Advanced APIs
     description: Advanced features allow direct signing of specified raw data. "Advanced features" must be enabled in both the wallet group and wallet to be available.
   - name: MPC Node APIs
@@ -1146,7 +1148,8 @@ paths:
                 "vaultId": "450632968208222",
                 "walletId": "413497079388421",
                 "count": 1,
-                "chainSymbol": "ETH"
+                "chainSymbol": "ETH",
+                "encoding": 1
               },
               api_key, host
             )
@@ -1158,7 +1161,8 @@ paths:
                 "vaultId": "450632968208222",
                 "walletId": "413497079388421",
                 "count": 1,
-                "chainSymbol": "ETH"
+                "chainSymbol": "ETH",
+                "encoding": 1
             })
       security:
         - BIZ-API-KEY: []
@@ -1173,6 +1177,7 @@ paths:
                 - chainSymbol
                 - walletId
                 - requestId
+                - encoding
               type: object
               properties:
                 requestId:
@@ -1195,6 +1200,9 @@ paths:
                   type: string
                   description: Chain name, abbreviation, chain identifier, unique
                   example: "ETH"
+                encoding:
+                  type: int
+                  description: 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
         required: false
       responses:
         200:
@@ -1892,7 +1900,7 @@ paths:
                 "toTag": "32143",
                 "amount": "1200000000000000",
                 "fee": "1000000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
                 "note": "User information note"
@@ -1913,7 +1921,7 @@ paths:
                 "toTag": "32143",
                 "amount": "1200000000000000",
                 "fee": "1000000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
                 "Note": "User information note"
@@ -1975,11 +1983,11 @@ paths:
                   example: "1200000000000000"
                 fee:
                   type: string
-                  description: Fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if the parameter is provided for UTXO asset transfer, it represents the fee per byte
+                  description: Fee
                   example: "60000000000000"
-                fee_rate:
+                feeRate:
                   type: string
-                  description: Fee rate 1:Fast 2:Medium 3:Slow
+                  description: Fee per byte
                   example: "1"
                 gasPrice:
                   type: string
@@ -2038,7 +2046,7 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2060,7 +2068,7 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "fee_rate": "1",
+                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2118,11 +2126,11 @@ paths:
                   example: "0"
                 fee:
                   type: string
-                  description: Fee, for transactions on non-EVM compatible chains of UTXO class, self-set fee, if the parameter is provided for UTXO asset transfer, it represents the fee per byte
+                  description: Fee
                   example: "60000000000000"
-                fee_rate:
+                feeRate:
                   type: string
-                  description: Fee rate 1:Fast 2:Medium 3:Slow
+                  description: Fee per byte
                   example: "1"
                 gasPrice:
                   type: string
@@ -2862,6 +2870,1025 @@ paths:
                     type: integer
                     description: Business execution status (in progress:0, success:1, failure:2)
                     example: 0
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe-deploy:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-deploy"
+      summary: Inscribe deploy inscription
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-deploy/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "totalSupply": "10000",
+                "limitPerMint": "100",
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-deploy/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "totalSupply": "10000",
+                "limitPerMint": "100",
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - totalSupply
+                - limitPerMint
+                - decimals
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: RequestId of the requester transaction
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: Inscription name
+                  example: "aacv"
+                totalSupply:
+                  type: string
+                  description: Total amount of issuance
+                  example: "10000"
+                limitPerMint:
+                  type: string
+                  description: Upper limit of casting quantity per casting
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: Chain identification
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from address
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_mint:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-mint"
+      summary: Inscribe mint inscription
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-mint/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-mint/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: RequestId of the requester transaction
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: amount
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from address
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_transfer:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe-transfer"
+      summary: Inscribe transfer inscription
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe-transfer/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe-transfer/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: 
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from address
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/inscribe_transfer_by_id:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/inscribe_transfer_by_id"
+      summary: Brc20 inscription transfer
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/inscribe_transfer_by_id/",
+              {
+                "requestId":"123121132312232",
+                "from":"mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol":"BTC_TEST",
+                "ticker":"joy1"
+                "inscriptionId":"dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/inscribe_transfer_by_id/", map[string]string{
+                "requestId":"123121132312232",
+                "from":"mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol":"BTC_TEST",
+                "ticker":"joy1"
+                "inscriptionId":"dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - from
+                - to
+                - chainSymbol
+                - inscriptionId
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 
+                  example: "2132134"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                ticker:
+                  type: string
+                  description: 
+                  example: "joy1"
+                from:
+                  type: string
+                  description: from 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                to:
+                  type: string
+                  description: to 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                inscriptionId:
+                  type: string
+                  description: Brc20 inscription Id, consisting of the txHash + lowercase letter I + vout index of the UTXO where the inscription is located
+                  example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/one_stop_transfer:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/one_stop_transfer"
+      summary: One-stop brc20 transfer
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/one_stop_transfer/",
+              {
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol": "BTC_TEST"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+                "requestId": "1231233322245",
+                "ticker": "aacv",
+                "amount": "100"
+                "from": "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh",
+                "to":"mpwULabJzMg6PBN5VMZT9X3azyDPbeB4hC",
+                "chainSymbol": "BTC_TEST"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - ticker
+                - amount
+                - from
+                - chainSymbol
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  description: 
+                  example: "2132134"
+                ticker:
+                  type: string
+                  description: 
+                  example: "aacv"
+                amount:
+                  type: string
+                  description: 
+                  example: "100"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                to:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/query_inscribe_transfers:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/query_inscribe_transfers"
+      summary: Query BRC20 transferable inscription information of specified assets at specified address
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/query_inscribe_transfers/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - ticker
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                ticker:
+                  type: string
+                  description: 
+                  example: "aacv"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      height:
+                        type: integer
+                        description: block height
+                        example: "456417158498600"
+                      total:
+                        type: integer
+                        description: Total number of data items
+                        example: 10
+                      start:
+                        type: integer
+                        description: 
+                        example: 10
+                      detail: 
+                        type: array
+                        description: 
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: Type of inscription, including deploy, mint, transfer, etc.
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: 
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: 
+                            inscriptionId:
+                              type: string
+                              description: 
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: string
+                              description: 
+                              example: "546"
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/page_balance_summary:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/page_balance_summary"
+      summary: All BRC20 asset balance information for the specified address (paged query)
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/page_balance_summary/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06",
+                "start":0,
+                "limit":100
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/page_balance_summary/", map[string]string{
+              "chainSymbol":"BTC_TEST",
+              "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06",
+              "start":0,
+              "limit":100
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+                - start
+                - limit
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                start:
+                  type: integer
+                  description: 
+                  example: 0
+                limit: 
+                  type: integer
+                  description:
+                  example: 10
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      height:
+                        type: integer
+                        description: 
+                        example: "456417158498600"
+                      total:
+                        type: integer
+                        description: 
+                        example: 10
+                      start:
+                        type: integer
+                        description: 
+                        example: 10
+                      detail: 
+                        type: array
+                        description: 
+                        items:  
+                          type: object
+                          properties:
+                            overallBalance: 
+                              type: string
+                              description: 
+                              example: "15"
+                            ticker: 
+                              type: string
+                              description: 
+                              example: "aacv"
+                            transferableBalance: 
+                              type: string
+                              description: 
+                              example: "5"
+                            availableBalance:
+                              type: string
+                              description: 
+                              example: "20"
+                            availableBalanceSafe:
+                              type: string
+                              description: 
+                            availableBalanceUnSafe:
+                              type: string
+                              description: 
+                            decimal:
+                              type: integer
+                              description: 
+                              example: 18
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/brc20/address_ticker_info:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/address_ticker_info"
+      summary: Query the BRC20 asset information of the specified address and the specified name
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/address_ticker_info/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/address_ticker_info/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - ticker
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                ticker:
+                  type: string
+                  description: 
+                  example: "aacv"
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      ticker:
+                        type: string
+                        description: 
+                        example: "aacv"
+                      overallBalance: 
+                              type: string
+                              description: 
+                              example: "15"
+                      transferableBalance: 
+                        type: string
+                        description: 
+                        example: "5"
+                      availableBalance:
+                        type: string
+                        description: 
+                        example: "20"
+                      availableBalanceSafe:
+                        type: string
+                        description: 
+                        example: "20"
+                      availableBalanceUnSafe:
+                        type: string
+                        description: 
+                        example: "0"
+                      transferableCount:
+                        type: integer
+                        description:
+                        example: 7
+                      transferableInscriptions: 
+                        type: array
+                        description: 
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: 
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: 
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: 
+                            inscriptionNumber:
+                              type: integer
+                              description: 
+                              example: 2915906
+                            inscriptionId:
+                              type: string
+                              description: 
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: string
+                              description: 
+                              example: "546"
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                      historyCount:
+                        type: integer
+                        description:
+                        example: 10
+                      historyInscriptions:
+                        type: array
+                        description: 
+                        items:  
+                          type: object
+                          properties:
+                            data: 
+                              type: object
+                              properties:
+                                op: 
+                                  type: string
+                                  description: Type of inscription, including deploy, mint, transfer, etc.
+                                  example: "transfer"
+                                tick: 
+                                  type: string
+                                  description: 
+                                  example: "aacv"
+                                lim: 
+                                  type: string
+                                  description: 
+                                  example: "100"
+                                amt:
+                                  type: string
+                                  description: 
+                                  example: "20"
+                                decimal:
+                                  type: string
+                                  description: 
+                            inscriptionNumber:
+                              type: integer
+                              description: 
+                              example: 2915906
+                            inscriptionId:
+                              type: string
+                              description: 
+                              example: "dbc64da12879875b1c8eabec67c4693ff596744b21dc35c283883b2034a8b58ei0"    
+                            satoshi:
+                              type: integer
+                              description: 
+                              example: 546
+                            confirmations:
+                              type: Integer
+                              description:
+                              example: 2
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  
+  /v1/waas/mpc/brc20/address_balance:
+    post:
+      tags:
+        - Brc20 APIs
+      operationId: "/v1/waas/mpc/brc20/address_balance"
+      summary: Query the details of the BTC balance of the specified address (total balance, non-inscription balance, inscription related balance)
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/brc20/address_balance/",
+              {
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/brc20/address_balance/", map[string]string{
+                "chainSymbol":"BTC_TEST",
+                "ticker":"xing",
+                "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - address
+                - chainSymbol
+              type: object
+              properties:
+                chainSymbol:
+                  type: string
+                  description: 
+                  example: BTC_TEST
+                address:
+                  type: string
+                  description: 
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                        description: 
+                        example: "bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
+                      satoshi:
+                        type: int
+                        desciption:
+                        example:
+                      pendingSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      utxoCount:
+                        type: int
+                        desciption:
+                        example:
+                      btcSatoshi:
+                        type: int
+                        desciption:
+                        example:   
+                      btcPendingSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      btcUtxoCount:
+                        type: int
+                        desciption:
+                        example:
+                      inscriptionSatoshi:
+                        type: int
+                        desciption:
+                        example:
+                      inscriptionPendingSatoshi:
+                        type: int
+                        desciption:
+                        example: 
+                      inscriptionUtxoCount:
+                        type: int
+                        desciption:
+                        example:                                           
+                  success:
+                    type: boolean
+                description: ""
       x-codegen-request-body-name: root
 
 components:
