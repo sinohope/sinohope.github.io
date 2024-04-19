@@ -1187,7 +1187,6 @@ paths:
                 - chainSymbol
                 - walletId
                 - requestId
-                - encoding
               type: object
               properties:
                 requestId:
@@ -2974,9 +2973,16 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 相关交易的id
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
-                description: ""
+                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/mpc/brc20/inscribe_mint:
     post:
@@ -3061,9 +3067,16 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"                    
                   success:
                     type: boolean
-                description: ""
+                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/mpc/brc20/inscribe_transfer:
     post:
@@ -3148,9 +3161,16 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
-                description: ""
+                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/mpc/brc20/inscribe_transfer_by_id:
     post:
@@ -3242,6 +3262,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: ""
+                        example: "456417158498600"
                   success:
                     type: boolean
                 description: ""
@@ -3294,6 +3321,7 @@ paths:
                 - amount
                 - from
                 - chainSymbol
+                - to
               type: object
               properties:
                 requestId:
@@ -3335,9 +3363,16 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: ""
+                        example: "456417158498600"
                   success:
                     type: boolean
-                description: ""
+                    description: ""
       x-codegen-request-body-name: root
   /v1/waas/mpc/brc20/query_inscribe_transfers:
     post:
@@ -3362,7 +3397,7 @@ paths:
         - lang: 'go'
           label: 'go'
           source: |
-            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+            Request("POST", "/v1/waas/mpc/brc20/query_inscribe_transfers/", map[string]string{
                 "chainSymbol":"BTC_TEST",
                 "ticker":"xing",
                 "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
@@ -4099,7 +4134,7 @@ components:
           type: integer
           description: |-
             链地址
-            地址类型（例：BTC链：Legacy（P2PKH）格式：0，Native SegWit（Bech32）格式：2）
+            地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
           example: 0
         pubkey:
           type: string

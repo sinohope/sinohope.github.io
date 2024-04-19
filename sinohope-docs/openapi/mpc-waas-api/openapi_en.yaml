@@ -1177,7 +1177,6 @@ paths:
                 - chainSymbol
                 - walletId
                 - requestId
-                - encoding
               type: object
               properties:
                 requestId:
@@ -1202,7 +1201,7 @@ paths:
                   example: "ETH"
                 encoding:
                   type: int
-                  description: 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
+                  description: Address type (1) REGACYGACYZONATION (1) SEGWITYNative (3) if left empty, default is 1:LEGACY)
         required: false
       responses:
         200:
@@ -2962,6 +2961,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
                 description: ""
@@ -3049,6 +3055,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
                 description: ""
@@ -3136,6 +3149,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
                 description: ""
@@ -3230,6 +3250,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498601"
                   success:
                     type: boolean
                 description: ""
@@ -3282,6 +3309,7 @@ paths:
                 - amount
                 - from
                 - chainSymbol
+                - to
               type: object
               properties:
                 requestId:
@@ -3323,6 +3351,13 @@ paths:
                   msg:
                     type: string
                     example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 
+                        example: "456417158498600,456417158498601"
                   success:
                     type: boolean
                 description: ""
@@ -3350,7 +3385,7 @@ paths:
         - lang: 'go'
           label: 'go'
           source: |
-            Request("POST", "/v1/waas/mpc/brc20/one_stop_transfer/", map[string]string{
+            Request("POST", "/v1/waas/mpc/brc20/query_inscribe_transfers/", map[string]string{
                 "chainSymbol":"BTC_TEST",
                 "ticker":"xing",
                 "address":"bc1pxaneaf3w4d27hl2y93fuft2xk6m4u3wc4rafevc6slgd7f5tq2dqyfgy06"
@@ -4087,7 +4122,7 @@ components:
           type: integer
           description: |-
             Chain address
-            Address Type (Example: BTC Chain: Legacy (P2PKH) Format: 0, Native SegWit (Bech32) Format: 2)
+            Address type (1) REGACYGACYZONATION (1) SEGWITYNative (3) if left empty, default is 1:LEGACY)
           example: 0
         pubkey:
           type: string
