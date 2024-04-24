@@ -155,7 +155,7 @@ paths:
                       example: "60000"
                     state:
                       type: integer
-                      description: 10-交易上链成功；5-主动发起的（合约交互类交易）已上链，但链上执行状态为失败。
+                      description: 10-交易上链成功；5-主动发起的（合约交互类交易）已上链，但链上执行状态为失败；4-失败(签名被拒绝等原因)
                       example: 10
                 extraInfo:
                   type: string
@@ -2057,7 +2057,6 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2079,7 +2078,6 @@ paths:
                 "toTag": "23133",
                 "amount": "",
                 "fee": "12000",
-                "feeRate": "1",
                 "gasPrice": "2300000",
                 "gasLimit": "21000",
                 "inputData":
@@ -2139,10 +2137,6 @@ paths:
                   type: string
                   description: 手续费 
                   example: "60000000000000"
-                feeRate:
-                  type: string
-                  description: UTXO类交易 每字节的手续费
-                  example: "1"
                 gasPrice:
                   type: string
                   description: 交易gasPrice，燃料价格，ETH 账号模型适用，单位为 wei
