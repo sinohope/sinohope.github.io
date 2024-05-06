@@ -1880,7 +1880,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transfer"
-      summary: Initiate a transfer transaction
+      summary: Initiate a transfer transaction, for UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4062,6 +4062,38 @@ components:
                 type: string
                 description: Transaction amount
                 example: "123000"
+    brc20Detail:
+      type: object
+      description: brc20相关信息
+      properties:
+        method:
+          type: string
+          description: operation type
+          example: "transfer"
+        ticker:
+          type: string
+          description: inscription name
+          example: "lao8"
+        quantity: 
+          type: string
+          description: the number of this operation
+          example: "10"
+        inscriptionId:
+          type: string
+          description: inscription id
+          example: "c04611b4986f69bab9cc311c2780f8af38b9c0ae7adda401e410869c5b84e1bbi0"
+        step:
+          type: int
+          description: 1:commit 2:reveal 3:transfer
+          example: 3
+        from:
+          type: string
+          description: from address
+          example: "mzF4dysdnBZ38d9pyhKavxM3wz9Xovipom"
+        to:
+          type: string
+          description: to address
+          example: "2N8KGpP9knMMZJ7hgdjXsBsdMFoLKL4obEj"
     transactionRecord:
       type: object
       description: Complete transaction record
@@ -4092,6 +4124,8 @@ components:
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
+        brc20Detail:
+          $ref: '#/components/schemas/brc20Detail'
         note:
           type: string
           description: User's explanatory information about the transaction, remarks

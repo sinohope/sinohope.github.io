@@ -1892,7 +1892,7 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transfer"
-      summary: 发起转账交易
+      summary: 发起转账交易,对于UTXO类交易，受到交易大小的限制以及签名时长等因素的影响，支持的最大input数量为100
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4074,6 +4074,38 @@ components:
                 type: string
                 description: 交易金额
                 example: "123000"
+    brc20Detail:
+      type: object
+      description: brc20相关信息
+      properties:
+        method:
+          type: string
+          description: 操作类型
+          example: "transfer"
+        ticker: 
+          type: string
+          description: 名称
+          example: "lao8"
+        quantity:
+          type: string
+          description: 本次操作的数量
+          example: "10"
+        inscriptionId:
+          type: string
+          description: 铭文id
+          example: "c04611b4986f69bab9cc311c2780f8af38b9c0ae7adda401e410869c5b84e1bbi0"
+        step:
+          type: int
+          description: 1:commit 2:reveal 3:transfer
+          example: 3
+        from:
+          type: string
+          description: from地址
+          example: "mzF4dysdnBZ38d9pyhKavxM3wz9Xovipom"
+        to:
+          type: string
+          description: to地址
+          example: "2N8KGpP9knMMZJ7hgdjXsBsdMFoLKL4obEj"
     transactionRecord:
       type: object
       description: 完整交易记录
@@ -4104,6 +4136,8 @@ components:
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
+        brc20Detail:
+          $ref: '#/components/schemas/brc20Detail'
         note:
           type: string
           description: 用户对交易的说明信息，备注
