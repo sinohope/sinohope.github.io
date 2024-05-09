@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Sinohope will continue to expand support for public chains and currencies. The data listed in this document may not be the most up-to-date. For WaaS services, please refer to the return values of the `/v1/waas/common/get_supported_chains` and `/v1/waas/common/get_supported_coins` interfaces.
 
-List last updated on: 2023/10/26.
+List last updated on: 2024/05/08.
 
 
 ## Main enviroment Chains and Coins
@@ -29,6 +29,9 @@ Blockchains:
 |Scroll|SCROLL|
 |Litecoin|LITECOIN|
 |Dogecoin|DOGECOIN|
+|Ripple|RIPPLE|
+|Bitlayer|BITLAYER|
+|B2|B2|
 
 Coins:
 
@@ -62,6 +65,9 @@ Coins:
 |ETH_SCROLL |18|SCROLL| |
 |LTC_LITECOIN |8|LITECOIN| |
 |DOGE_DOGECOIN |8|DOGECOIN| |
+|XRP_RIPPLE|6|RIPPLE| |
+|BTC_BITLAYER|18|BITLAYER| |
+|BTC_B2|18|B2| |
 
 ## Testnet Chains and coins for test
 
@@ -73,6 +79,8 @@ Testnet:
 |Bitcoin_Test|BTC_TEST|
 |BNB Chain_Test|BNB_TEST|
 |Scroll_Test|SCROLL_TEST|
+|Bitlayer_Test|BITLAYER_TEST|
+|B2_Test|B2_TEST|
 
 coins:
 
@@ -83,4 +91,7 @@ coins:
 |BTC_BTC_TEST |8|BTC_TEST| |
 |BNB_BNB_TEST |18|BNB_TEST| |
 |ETH_SCROLL_TEST |18|SCROLL_TEST| |
+|USDT_SCROLL_TEST |18|SCROLL_TEST| 0xf3f2d3cbbcfec21245b2890d5de7cfd6c482d4b4|
+|BTC_BITLAYER_TEST |18|BITLAYER_TEST| |
+|BTC_B2_TEST |18|B2_TEST| |
 
