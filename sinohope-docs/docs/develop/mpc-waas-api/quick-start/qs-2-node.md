@@ -102,7 +102,7 @@ Deploying and configuring MPC Node is a basic requirement for using Sinohope Waa
 
 #### 2.2.1 get and verify the installation package
 
-- Software packages (mainly management scripts and configuration files) are released through open source projects. Download link: [sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases). If it is an SGX server, please use the software under production/sgx.
+- Software packages (mainly management scripts and configuration files) are released through open source projects. Download link: [sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases). The programs located under `env/general` are used in the normal CPU environment, and the programs located under `env/intel-sgx` are used in the Intel sgx CPU environment.
 - The Releases page will contain the sha256 value of the main content. Please check the consistency of the hash value after downloading the content to the target location.
 
 The required initial files are as follows:

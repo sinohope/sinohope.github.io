@@ -102,7 +102,7 @@ ls /dev/*sgx*
 
 #### 2.2.1 获取并验证安装包
 
-- 软件包（主要是管理脚本及配置文件）通过开源项目进行发布，下载地址：[sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases)。如果是SGX服务器，请使用production/sgx下的软件。
+- 软件包（主要是管理脚本及配置文件）通过开源项目进行发布，下载地址：[sinohope-mpc-node/releases](https://github.com/sinohope/sinohope-mpc-node/releases)。位于`env/general`下的程序在普通cpu环境使用，位于`env/intel-sgx`下的程序在intel sgx cpu环境使用。
 - Releases 页面将包含主要内容的 sha256 值，请将内容下载到目标位置后，校验哈希值的一致性。
 
 所需的初始文件如下：
