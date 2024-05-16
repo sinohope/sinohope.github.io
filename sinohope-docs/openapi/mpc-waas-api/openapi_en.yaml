@@ -1201,7 +1201,7 @@ paths:
                   example: "ETH"
                 encoding:
                   type: int
-                  description: Address type (1) REGACYGACYZONATION (1) SEGWITYNative (3) if left empty, default is 1:LEGACY)
+                  description: Address type 1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED,4:TAPROOT if left empty, default is 1:LEGACY)
         required: false
       responses:
         200:
@@ -1880,7 +1880,9 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transfer"
-      summary: Initiate a transfer transaction, for UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
+      summary: Initiate a transfer transaction
+      description: |
+        For UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4150,7 +4152,7 @@ components:
           type: integer
           description: |-
             Chain address
-            Address type (1) REGACYGACYZONATION (1) SEGWITYNative (3) if left empty, default is 1:LEGACY)
+            Address type 1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED,4:TAPROOT
           example: 0
         pubkey:
           type: string

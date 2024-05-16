@@ -1211,7 +1211,7 @@ paths:
                   example: "ETH"
                 encoding:
                   type: int
-                  description: 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
+                  description: 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED,4:TAPROOT 不填默认为1:LEGACY）
         required: false
       responses:
         200:
@@ -1892,7 +1892,9 @@ paths:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transfer"
-      summary: 发起转账交易,对于UTXO类交易，受到交易大小的限制以及签名时长等因素的影响，支持的最大input数量为100
+      summary: 发起转账交易
+      description: |
+        对于UTXO类交易，受到交易大小的限制以及签名时长等因素的影响，支持的最大input数量为100
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4162,7 +4164,7 @@ components:
           type: integer
           description: |-
             链地址
-            地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED 不填默认为1:LEGACY）
+            地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED,4:TAPROOT 不填默认为1:LEGACY）
           example: 0
         pubkey:
           type: string
