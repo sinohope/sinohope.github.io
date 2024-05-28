@@ -580,7 +580,7 @@ type ResponseData struct {
 | 参数           | 类型   | 描述                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | 回调请求唯一ID                                               |
-| request_type   | string | 回调请求是字符串类型，有以下两种取值：keygen、sign、bip340-schnorr-sign           |
+| request_type   | string | 回调请求是字符串类型，有以下四种取值：keygen、sign、bip340-schnorr-sign、taproot-sign          |
 | request_detail | struct | 回调请求详细信息，包括请求的一系列关键信息。不同的回调请求类型对应不同的 request_detail 结构；格式为 JSON 序列化后的字符串 |
 | extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；格式为 JSON 序列化后的字符串 |
 
@@ -592,7 +592,7 @@ type ResponseData struct {
 | party_ids    | []string | 参与生成私钥的节点ID集合                      |
 | cryptography | string   | 使用的签名算法。ecdsa-secp256k1/eddsa-ed25519 |
 
-- 当 `request_type == sign或request_type == bip340-schnorr-sign` 时，`request_detail` 的结构定义如下：
+- 当 `request_type 为 sign 或 bip340-schnorr-sign 或 taproot-sign` 时，`request_detail` 的结构定义如下：
 
 | 参数       | 类型   | 描述                                                   |
 | ---------- | ------ | ------------------------------------------------------ |
@@ -621,6 +621,8 @@ type ResponseData struct {
 | inputdata   | string | 以太坊交易data                                               |
 | note        | string | 备注：用于用户自己需要的一些备注信息                         |
 | curInputId  | string |  当前签名inputId                       |
+| tapScriptRoot  | string |  taproot script 树根                       |
+| publickKey  | string |  from地址的公钥                       |
 | extraData   | json   |  utxo交易的详细数据，包括vin,vout         |
 
 - extraData 的结构示例：

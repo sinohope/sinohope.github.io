@@ -542,6 +542,14 @@ paths:
                   type: string
                   description: 签名数据
                   example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+                algorithmType:
+                  type: integer
+                  description: 签名算法：未提供或值为0 时（当前默认），使用创建地址时所指定的算法及曲线类型（ecdsa-secp256k1/eddsa-ed25519）执行默认的签名，
+                               值为 1 时（只对 ecdsa-secp256k1 的密钥有效）执行 符合BIP340 标准的 Schnorr 签名（支持 Bitcoin 铭文reveal交易）
+                               值为 2 时（只对 ecdsa-secp256k1 的密钥有效）执行 Taproot 签名
+                tapScriptRoot:
+                  type: string
+                  description: taproot script 树根，只对taproot签名有效，可空缺
         required: false
       responses:
         200:
@@ -2014,6 +2022,10 @@ paths:
                   type: string
                   description: 备注：用于用户自己需要的一些备注信息
                   example: 用户交易信息备注
+                utxoType: 
+                  type: string
+                  description: UTXO类型：btc_only、all(包括铭文)，非必填，空缺情况下是btc_only。请谨慎使用all，这有可能会将有价值的铭文UTXO转走。
+                  example: btc_only
         required: false
       responses:
         200:

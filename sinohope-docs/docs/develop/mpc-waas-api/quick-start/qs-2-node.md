@@ -583,7 +583,7 @@ Body: JSON-encoded data
 | 参数           | Type   | Description                                                  |
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | callback request unique ID |
-| request_type   | string | callback request is a string type, there are two values: keygen, sign,  bip340-schnorr-sign     |
+| request_type   | string | callback request is a string type, there are four values: keygen, sign,  bip340-schnorr-sign, taproot-sign     |
 | request_detail | struct | Callback request details, including a series of key information of the request. Different callback request types correspond to different request_detail structures; the format is JSON serialized string |
 | extra_info     | struct | callback request auxiliary information, including some additional relevant information of the request; format is JSON serialized string |
 
@@ -595,7 +595,7 @@ Body: JSON-encoded data
 | party_ids | []string | Collection of node IDs involved in generating private keys |
 | Cryptography | string | signature algorithm. ecdsa-secp256k1/eddsa-ed25519 |
 
-- When request_type == sign or request_type == bip340-schnorr-sign, the request_detail structure is defined as follows:
+- When request_type is sign or bip340-schnorr-sign or taproot-sign, the request_detail structure is defined as follows:
 
 | Parameters | Type   | Description                                                   |
 | ---------- | ------ | ------------------------------------------------------ |
@@ -624,7 +624,10 @@ The structure of tx_info is defined as follows:
 | Inputdata | string | Ethereum transaction data |
 | note | string | note: Some remarks information that users need. |
 | curInputId  | string |  inputId of signature data   |
+| tapScriptRoot | string | The tree root of taproot script |
+| publickKey | string | The public key of the from address |
 | extraData   | json   |  Detailed data of utxo transactions, including vin, vout       |
+
 
 - Structure example of extraData:
 

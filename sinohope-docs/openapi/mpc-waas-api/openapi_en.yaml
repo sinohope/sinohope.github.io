@@ -539,6 +539,14 @@ paths:
                   type: string
                   description: Signature data
                   example: "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
+                algorithmType:
+                  type: integer
+                  description: Signature algorithm, when not provided or with a value of 0 (the current default), the default signature is executed using the algorithm and curve type (ecdsa-secp256k1/eddsa-ed25519) specified when the address was created.
+                              When the value is 1 (valid for ecdsa-secp256k1 keys only), execute BIP340-compliant Schnorr signatures (Bitcoin glyph reveal transactions are supported).
+                              Perform Taproot signing at a value of 2 (valid only for ecdsa-secp256k1 keys)
+                tapScriptRoot:
+                  type: string
+                  description: taproot script root, Only taproot-sign can use it.
         required: false
       responses:
         200:
@@ -2002,6 +2010,10 @@ paths:
                   type: string
                   description: Note:Used for some note information that users need
                   example: User transaction information remarks
+                utxoType: 
+                  type: string
+                  description: UTXO type, btc_only|all (including inscription), not required, btc_only in case of vacancy. Please use all carefully as it is possible to transfer the valuable inscription UTXO.
+                  example: btc_only
         required: false
       responses:
         200:
