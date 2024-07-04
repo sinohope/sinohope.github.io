@@ -18,6 +18,8 @@ tags:
     description: 创建及查询交易信息，创建离线签名
   - name: Brc20 APIs
     description: 铭文交易
+  - name: Babylon Staking APIs
+    description: Babylon 质押交易
   - name: Rune APIs
     description: 符文交易
   - name: Advanced APIs
@@ -4262,6 +4264,248 @@ paths:
                 description: ""
       x-codegen-request-body-name: root
 
+  /v1/waas/mpc/staking/create:
+    post:
+      tags:
+        - Babylong Staking APIs
+      operationId: "/v1/waas/mpc/staking/create"
+      summary: 发起质押交易
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/staking/create",
+              {
+                "requestId": "1717141325",
+                "chainSymbol": "BTC_TEST",
+                "from": "mizC7hAsvaXRJzXXZ2R6BYofLadCQzKdwC",
+                "stakingAmount": "50000",
+                "stakingTime": "64000",
+                "finalityPubKey": "f4940b238dcd00535fde9730345bab6ff4ea6d413cc3602c4033c10f251c7e81",
+                "feeRate": "256",
+                "note": "123123"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/staking/create", map[string]string{
+                "requestId": "1717141325",
+                "chainSymbol": "BTC_TEST",
+                "from": "mizC7hAsvaXRJzXXZ2R6BYofLadCQzKdwC",
+                "stakingAmount": "50000",
+                "stakingTime": "64000",
+                "finalityPubKey": "f4940b238dcd00535fde9730345bab6ff4ea6d413cc3602c4033c10f251c7e81",
+                "feeRate": "256",
+                "note": "123123"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+                - chainSymbol
+                - from
+                - stakingAmount
+                - stakingTime
+                - finalityPubKey
+              type: object
+              properties:
+                requestId: 
+                  type:  string
+                chainSymbol:
+                  type: string
+                  description: 链标识
+                  example: BTC_TEST
+                from:
+                  type: string
+                  description: from地址
+                  example: "mzkW8wgqUfgc6qPd2wypDkotRUjzL4VECh"
+                stakingAmount:
+                  type: string
+                stakingTime:
+                  type: string
+                  description: 质押周期（区块数）
+                finalityPubKey:
+                  type: string
+                  description: finality provider publick key
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 交易id
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+
+  /v1/waas/mpc/staking/unbond:
+    post:
+      tags:
+        - Babylong Staking APIs
+      operationId: "/v1/waas/mpc/staking/unbond"
+      summary: 解绑
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/staking/unbond",
+              {
+                "requestId": "1717141325",
+                "OriRequestId": "1717141324"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/staking/unbond", map[string]string{
+                "requestId": "1717141325",
+                "OriRequestId": "1717141324"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+              type: object
+              properties:
+                requestId: 
+                  type:  string
+                oriRequestId:
+                  type: string
+                  description: 原staking交易的requestId
+                oriSinoId:
+                  type: string
+                  description: 原staking交易的sinoId，oriRequestId和oriSinoId只填一个即可
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 交易id
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+
+  /v1/waas/mpc/staking/spending_time_lock_path_tx:
+    post:
+      tags:
+        - Babylong Staking APIs
+      operationId: "/v1/waas/mpc/staking/spending_time_lock_path_tx"
+      summary: 到期提取
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/staking/spending_time_lock_path_tx",
+              {
+                "requestId": "1717141325",
+                "OriRequestId": "1717141324"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/staking/spending_time_lock_path_tx", map[string]string{
+                "requestId": "1717141325",
+                "OriRequestId": "1717141324"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+              type: object
+              properties:
+                requestId: 
+                  type:  string
+                oriRequestId:
+                  type: string
+                  description: 原staking交易的requestId
+                oriSinoId:
+                  type: string
+                  description: 原staking交易的sinoId，oriRequestId和oriSinoId只填一个即可
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      sinoId:
+                        type: string
+                        description: 交易id
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
 
 components:
   securitySchemes:
