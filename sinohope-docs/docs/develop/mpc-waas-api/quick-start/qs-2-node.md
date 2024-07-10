@@ -627,7 +627,41 @@ The structure of tx_info is defined as follows:
 | tapScriptRoot | string | The tree root of taproot script |
 | publickKey | string | The public key of the from address |
 | extraData   | json   |  Detailed data of utxo transactions, including vin, vout       |
+| brc20Details   | json   |  brc20Details   |
+| runeDetails   | json   |  runeDetails    |
 
+- Structure example of brc20Details:
+
+```
+[
+            {
+                "method": "transfer",
+                "ticker": "helloworkd",
+                "quantity": "920769938",
+                "inscriptionId": "affabbd94763045fb4bc4****************************************0",
+                "step": 3,
+                "from": "1Bt84h23CKi****************",
+                "to": "bc1q53ss0p87****************"
+            }
+]
+```
+
+- Structure example of runeDetails:
+
+```
+[
+    {
+        "fromAddress": "1Bt84h23CKi****************",
+        "toAddress": "bc1q53ss0p87****************",
+        "runeName": "HELLOWORLD",
+        "runeId": "2818544:3897",
+        "runeSpacedName": "HELLO•WORLD",
+        "runeAmount": "100",
+        "runeSymbol": "¤",
+        "runeDivisibility": 0
+    }
+]
+```
 
 - Structure example of extraData:
 

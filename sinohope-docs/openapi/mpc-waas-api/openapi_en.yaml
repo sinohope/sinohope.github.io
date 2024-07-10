@@ -161,6 +161,16 @@ paths:
                       type: integer
                       description: 10 - The transaction was successfully uploaded to the chain; 5 - The actively initiated (contract interaction type transaction) has been uploaded to the chain, but the on-chain execution status is failed; 4 - failure before on-chain, such as sign callback reject
                       example: 10
+                    brc20Details:
+                      type: array
+                      description: 交易记录列表
+                      items:
+                        $ref: '#/components/schemas/brc20Detail'
+                    runeDetails:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/runeDetail'
                 extraInfo:
                   type: string
                   description: Other information related to the callback request; there is currently no clear information
@@ -277,6 +287,16 @@ paths:
                       type: string
                       description: ethlike will have a value, non-ethlike will be given 0.
                       example: "60000"
+                    brc20Details:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/brc20Detail'
+                    runeDetails:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/runeDetail'
                 extraInfo:
                   type: string
                   description: Other information related to the callback request; there is currently no clear information.
@@ -4639,7 +4659,7 @@ components:
                 example: "123000"
     brc20Detail:
       type: object
-      description: brc20相关信息
+      description: brc20
       properties:
         method:
           type: string
@@ -4669,6 +4689,27 @@ components:
           type: string
           description: to address
           example: "2N8KGpP9knMMZJ7hgdjXsBsdMFoLKL4obEj"
+    runeDetail:
+      type: object
+      description: rune details
+      properties:
+        fromAddress:
+          type: string
+        toAddress:
+          type: string
+        runeName:
+          type: string
+          example: "HELLOWORLD"
+        runeId:
+          type: string
+          example: "28144:387"
+        runeSpacedName:
+          type: string
+          example: "HELLO•WORLD"
+        runeSymbol:
+          type: string
+        runeDivisibility:
+          type: int
     transactionRecord:
       type: object
       description: Complete transaction record
@@ -4699,8 +4740,16 @@ components:
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
-        brc20Detail:
-          $ref: '#/components/schemas/brc20Detail'
+        brc20Details:
+          type: array
+          description: 
+          items:
+            $ref: '#/components/schemas/brc20Detail'
+        runeDetails:
+          type: array
+          description: 
+          items:
+            $ref: '#/components/schemas/runeDetail'
         note:
           type: string
           description: User's explanatory information about the transaction, remarks

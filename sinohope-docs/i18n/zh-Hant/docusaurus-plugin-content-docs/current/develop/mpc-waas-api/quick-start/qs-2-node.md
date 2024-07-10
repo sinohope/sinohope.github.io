@@ -624,6 +624,42 @@ type ResponseData struct {
 | tapScriptRoot  | string |  taproot script 树根                       |
 | publickKey  | string |  from地址的公钥                       |
 | extraData   | json   |  utxo交易的详细数据，包括vin,vout         |
+| brc20Details   | json   |  brc20详细信息    |
+| runeDetails   | json   |  rune详细信息    |
+
+- brc20Details 的结构示例：
+
+```
+[
+    {
+        "method": "transfer",
+        "ticker": "helloworld",
+        "quantity": "920769938",
+        "inscriptionId": "63045affabbd947fb4bc425***********",
+        "step": 3,
+        "from": "1Bt84h23CKi****************",
+        "to": "bc1q53ss0p87****************"
+    }
+]
+```
+
+- runeDetails 的结构示例：
+
+```
+[
+    {
+        "fromAddress": "1Bt84h23CKi****************",
+        "toAddress": "bc1q53ss0p87****************",
+        "runeName": "HELLOWORLD",
+        "runeId": "2818544:3897",
+        "runeSpacedName": "HELLO•WORLD",
+        "runeAmount": "100",
+        "runeSymbol": "¤",
+        "runeDivisibility": 0
+    }
+]
+```
+
 
 - extraData 的结构示例：
 

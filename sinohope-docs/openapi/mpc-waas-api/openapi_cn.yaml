@@ -161,6 +161,16 @@ paths:
                       type: integer
                       description: 10-交易上链成功；5-主动发起的（合约交互类交易）已上链，但链上执行状态为失败；4-失败(签名被拒绝等原因)
                       example: 10
+                    brc20Details:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/brc20Detail'
+                    runeDetails:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/runeDetail'
                 extraInfo:
                   type: string
                   description: 与回调请求相关的其他信息；当前暂无明确信息
@@ -277,6 +287,16 @@ paths:
                       type: string
                       description: ethlike会有值，非ethlike给0
                       example: "60000"
+                    brc20Details:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/brc20Detail'
+                    runeDetails:
+                      type: array
+                      description: 
+                      items:
+                        $ref: '#/components/schemas/runeDetail'
                 extraInfo:
                   type: string
                   description: 与回调请求相关的其他信息；当前暂无明确信息。
@@ -4681,6 +4701,27 @@ components:
           type: string
           description: to地址
           example: "2N8KGpP9knMMZJ7hgdjXsBsdMFoLKL4obEj"
+    runeDetail:
+      type: object
+      description: rune details
+      properties:
+        fromAddress:
+          type: string
+        toAddress:
+          type: string
+        runeName:
+          type: string
+          example: "HELLOWORLD"
+        runeId:
+          type: string
+          example: "28144:387"
+        runeSpacedName:
+          type: string
+          example: "HELLO•WORLD"
+        runeSymbol:
+          type: string
+        runeDivisibility:
+          type: int
     transactionRecord:
       type: object
       description: 完整交易记录
@@ -4711,8 +4752,16 @@ components:
           example: 10
         transaction:
           $ref: '#/components/schemas/transactionObject'
-        brc20Detail:
-          $ref: '#/components/schemas/brc20Detail'
+        brc20Details:
+          type: array
+          description: 
+          items:
+            $ref: '#/components/schemas/brc20Detail'
+        runeDetails:
+          type: array
+          description: 
+          items:
+            $ref: '#/components/schemas/runeDetail'
         note:
           type: string
           description: 用户对交易的说明信息，备注
