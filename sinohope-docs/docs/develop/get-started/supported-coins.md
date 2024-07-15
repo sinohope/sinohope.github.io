@@ -32,6 +32,7 @@ Blockchains:
 |Ripple|RIPPLE|
 |Bitlayer|BITLAYER|
 |B2|B2|
+|Microvision Chain|MVC|
 
 Coins:
 
@@ -68,6 +69,7 @@ Coins:
 |XRP_RIPPLE|6|RIPPLE| |
 |BTC_BITLAYER|18|BITLAYER| |
 |BTC_B2|18|B2| |
+|SPACE_MVC|8|MVC| |
 
 ## Testnet Chains and coins for test
 

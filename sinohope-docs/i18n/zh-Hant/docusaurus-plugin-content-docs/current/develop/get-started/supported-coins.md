@@ -31,6 +31,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |Ripple|RIPPLE|
 |Bitlayer|BITLAYER|
 |B2|B2|
+|Microvision Chain|MVC|
 
 
 币种：
@@ -68,6 +69,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |XRP_RIPPLE|6|RIPPLE| |
 |BTC_BITLAYER|18|BITLAYER| |
 |BTC_B2|18|B2| |
+|SPACE_MVC|8|MVC| |
 
 ## 测试组织所支持的链及币种
 
