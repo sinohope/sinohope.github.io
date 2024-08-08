@@ -2902,11 +2902,11 @@ paths:
                     description: Business execution status (in progress:0, success:1, failure:2)
                     example: 0
       x-codegen-request-body-name: root
-  /v1/waas/mpc/brc20/inscribe-deploy:
+  /v1/waas/mpc/brc20/inscribe_deploy:
     post:
       tags:
         - Brc20 APIs
-      operationId: "/v1/waas/mpc/brc20/inscribe-deploy"
+      operationId: "/v1/waas/mpc/brc20/inscribe_deploy"
       summary: Inscribe deploy inscription
       x-codeSamples:
         - lang: 'python'
@@ -2914,7 +2914,7 @@ paths:
           source: |
             request(
               "POST",
-              "/v1/waas/mpc/brc20/inscribe-deploy/",
+              "/v1/waas/mpc/brc20/inscribe_deploy/",
               {
                 "requestId": "1231233322245",
                 "ticker": "aacv",
@@ -2928,7 +2928,7 @@ paths:
         - lang: 'go'
           label: 'go'
           source: |
-            Request("POST", "/v1/waas/mpc/brc20/inscribe-deploy/", map[string]string{
+            Request("POST", "/v1/waas/mpc/brc20/inscribe_deploy/", map[string]string{
                 "requestId": "1231233322245",
                 "ticker": "aacv",
                 "totalSupply": "10000",
