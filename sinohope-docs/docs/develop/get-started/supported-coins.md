@@ -33,6 +33,7 @@ Blockchains:
 |Bitlayer|BITLAYER|
 |B2|B2|
 |Microvision Chain|MVC|
+|Solana|SOLANA|
 
 Coins:
 
@@ -70,6 +71,8 @@ Coins:
 |BTC_BITLAYER|18|BITLAYER| |
 |BTC_B2|18|B2| |
 |SPACE_MVC|8|MVC| |
+|SOLANA|6|SOLANA| |
+|USDC_SOLANA|9|SOLANA|EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v|
 
 ## Testnet Chains and coins for test
 

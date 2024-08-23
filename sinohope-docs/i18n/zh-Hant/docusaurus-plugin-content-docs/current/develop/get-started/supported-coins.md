@@ -32,6 +32,7 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |Bitlayer|BITLAYER|
 |B2|B2|
 |Microvision Chain|MVC|
+|Solana|SOLANA|
 
 
 币种：
@@ -70,6 +71,8 @@ Sinohope将持续扩展对公链以及币种的支持，本文档所列数据不
 |BTC_BITLAYER|18|BITLAYER| |
 |BTC_B2|18|B2| |
 |SPACE_MVC|8|MVC| |
+|SOLANA|6|SOLANA| |
+|USDC_SOLANA|9|SOLANA|EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v|
 
 ## 测试组织所支持的链及币种
 
