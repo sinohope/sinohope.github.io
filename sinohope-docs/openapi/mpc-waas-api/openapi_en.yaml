@@ -2038,6 +2038,12 @@ paths:
                   type: string
                   description: UTXO type, btc_only|all (including inscription), not required, btc_only in case of vacancy. Please use all carefully as it is possible to transfer the valuable inscription UTXO.
                   example: btc_only
+                vins:
+                  type: array
+                  description: When the transaction is btc like, construct the vins used in the transaction, not required.
+                  items:
+                    $ref: '#/components/schemas/vin'
+
         required: false
       responses:
         200:
@@ -2059,6 +2065,7 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
+
   /v1/waas/mpc/transaction/create_transaction:
     post:
       tags:
