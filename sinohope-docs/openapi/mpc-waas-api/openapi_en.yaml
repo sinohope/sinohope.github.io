@@ -2730,6 +2730,105 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/page_available_vouts:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/mpc/transaction/page_available_vouts"
+      summary: Paginated query btc spendable utxo list
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/page_available_vouts/",
+              {
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/page_available_vouts/", map[string]string{
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - from
+              type: object
+              properties:
+                chainSymbol:
+                  type: string
+                  description: Chain Identifier
+                  example: "BTC_BTC"
+                from:
+                  type: string
+                  description: from address
+                  example: ""
+                page:
+                  type: integer
+                  description: Page number; default is 1 if not specified
+                  example: "1"
+                pageSize:
+                  type: integer
+                  description: The number of rows of data per page. If not specified, the default value is 100, and the maximum value is 1000.
+                  example: 100
+                sort:
+                  type: integer
+                  description: 1-ace；2-desc；Do not pass the default desc
+                  example: ""
+                sortType:
+                  type: string
+                  description: amount || id；Do not pass the default amount
+                  example: ""
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: Vins list
+                        items:
+                          $ref: '#/components/schemas/vin'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
   /v1/waas/mpc/web3/sign_message:
     post:
       tags:
@@ -4657,6 +4756,29 @@ components:
                 type: string
                 description: Transaction amount
                 example: "123000"
+    vin:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: vout ID
+          example: 12345
+        transactionHash:
+          type: string
+          description: tx hash
+          example: "0xa585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+        voutIndex:
+          type: integer
+          description: transfer index,Represents the current location of unspent transactions
+          example: 1
+        address:
+          type: string
+          description: Transaction address
+          example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+        amount:
+          type: integer
+          description: Transaction amount
+          example: 123000
     brc20Detail:
       type: object
       description: brc20

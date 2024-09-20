@@ -2050,6 +2050,12 @@ paths:
                   type: string
                   description: UTXO类型：btc_only、all(包括铭文)，非必填，空缺情况下是btc_only。请谨慎使用all，这有可能会将有价值的铭文UTXO转走。
                   example: btc_only
+                vins:
+                  type: array
+                  description: 交易为btc like时，构造交易使用的vins，非必填。
+                  items:
+                    $ref: '#/components/schemas/vin'
+
         required: false
       responses:
         200:
@@ -2738,6 +2744,105 @@ paths:
                         description: 交易记录列表
                         items:
                           $ref: '#/components/schemas/transactionRecord'
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/waas/mpc/transaction/page_available_vouts:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/waas/mpc/transaction/page_available_vouts"
+      summary: 分页查询btc 可花费的utxo列表
+      x-codeSamples:
+        - lang: 'python'
+          label: 'python'
+          source: |
+            request(
+              "POST",
+              "/v1/waas/mpc/transaction/page_available_vouts/",
+              {
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+              },
+              api_key, host
+            )
+        - lang: 'go'
+          label: 'go'
+          source: |
+            Request("POST", "/v1/waas/mpc/transaction/page_available_vouts/", map[string]string{
+                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
+                "chainSymbol": "ETH"
+            })
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - from
+              type: object
+              properties:
+                chainSymbol:
+                  type: string
+                  description: 链唯一标识
+                  example: "BTC_BTC"
+                from:
+                  type: string
+                  description: from 地址
+                  example: ""
+                page:
+                  type: integer
+                  description: 第几页；不传默认1
+                  example: "1"
+                pageSize:
+                  type: integer
+                  description: 每页多少行数据，不传默认100，最大1000
+                  example: 100
+                sort:
+                  type: integer
+                  description: 1-ace；2-desc；不传默认desc
+                  example: ""
+                sortType:
+                  type: string
+                  description: amount || id；不传默认amount
+                  example: ""
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: vin列表
+                        items:
+                          $ref: '#/components/schemas/vin'
                   success:
                     type: boolean
                 description: ""
@@ -4669,6 +4774,29 @@ components:
                 type: string
                 description: 交易金额
                 example: "123000"
+    vin:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: vout ID
+          example: 12345
+        transactionHash:
+          type: string
+          description: 交易hash
+          example: "0xa585a524c0f60d24d9c6bdebd47b94435d24e7f6181afbc1b6ba810d97cf0a77"
+        voutIndex:
+          type: integer
+          description: 交易index,代表当前未花费交易所在位置
+          example: 1
+        address:
+          type: string
+          description: 交易地址
+          example: "16tXHQkjcCPibB9eLnR4GUWPpcg3oasvDx"
+        amount:
+          type: integer
+          description: 交易金额
+          example: 123000
     brc20Detail:
       type: object
       description: brc20相关信息
