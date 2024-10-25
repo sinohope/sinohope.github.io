@@ -580,7 +580,7 @@ type ResponseData struct {
 | 参数           | 类型   | 描述                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | 回调请求唯一ID                                               |
-| request_type   | string | 回调请求是字符串类型，有以下四种取值：keygen、sign、bip340-schnorr-sign、taproot-sign          |
+| request_type   | string | 回调请求是字符串类型，有以下六种取值：keygen、sign、bip340-schnorr-sign、taproot-sign、pre-sign、pre-sign-online         |
 | request_detail | struct | 回调请求详细信息，包括请求的一系列关键信息。不同的回调请求类型对应不同的 request_detail 结构；格式为 JSON 序列化后的字符串 |
 | extra_info     | struct | 回调请求辅助信息，包括请求的一些额外相关信息；格式为 JSON 序列化后的字符串 |
 
@@ -592,7 +592,7 @@ type ResponseData struct {
 | party_ids    | []string | 参与生成私钥的节点ID集合                      |
 | cryptography | string   | 使用的签名算法。ecdsa-secp256k1/eddsa-ed25519 |
 
-- 当 `request_type 为 sign 或 bip340-schnorr-sign 或 taproot-sign` 时，`request_detail` 的结构定义如下：
+- 当 `request_type 为 sign 或 bip340-schnorr-sign 或 taproot-sign 或 pre-sign 或 pre-sign-online` 时，`request_detail` 的结构定义如下：
 
 | 参数       | 类型   | 描述                                                   |
 | ---------- | ------ | ------------------------------------------------------ |
@@ -626,6 +626,7 @@ type ResponseData struct {
 | extraData   | json   |  utxo交易的详细数据，包括vin,vout         |
 | brc20Details   | json   |  brc20详细信息    |
 | runeDetails   | json   |  rune详细信息    |
+| pre_sign_signature_id | string |预签名id，pre-sign-online使用的预签名数据的id|
 
 - brc20Details 的结构示例：
 
@@ -797,5 +798,13 @@ public-key-path = "/tmp/mpc-node/encrypt_sig_public.pem"
 
 
 回调服务demo中，对回调结果(加密的签名数据)做了解密处理，可参考Sinohope 提供的回调服务示例：[GitHub - sinohope/mpc-node-callback-demo](https://github.com/sinohope/mpc-node-callback-demo)
+
+### 5.4 预签名
+mpc签名比较消耗CPU，也比较耗时，一般单次签名可能需要3-5秒才能完成，时间的长短取决于mpc-node的配置和网络状况。如果希望获得毫秒级的体验，可以开启预签名。开启之后，系统
+会在mpc-node空闲的时候做预签名（pre-sign），在真正需要对交易进行签名时使用之前准备好的预签名数据做pre-sign-online，pre-sign-online的效率远高于普通的sign。
+
+- 开启预签名前的准备：签名callback服务要支持request_type为pre-sign、pre-sign-online的两种的业务类型。
+- 如何开启：目前需要联系管理员，由管理员协助开启
+
 
 

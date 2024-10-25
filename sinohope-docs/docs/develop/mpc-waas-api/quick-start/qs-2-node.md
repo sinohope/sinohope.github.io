@@ -572,6 +572,8 @@ Each time the keygen and sign business mpc-node will request the user for risk c
 
 ##### 1. HTTP interface
 
+
+
 path: /check
 
 method: post
@@ -583,7 +585,7 @@ Body: JSON-encoded data
 | 参数           | Type   | Description                                                  |
 | -------------- | ------ | ------------------------------------------------------------ |
 | callback_id    | string | callback request unique ID |
-| request_type   | string | callback request is a string type, there are four values: keygen, sign,  bip340-schnorr-sign, taproot-sign     |
+| request_type   | string | callback request is a string type, there are six values: keygen, sign, pre-sign, pre-sign-online, bip340-schnorr-sign, taproot-sign     |
 | request_detail | struct | Callback request details, including a series of key information of the request. Different callback request types correspond to different request_detail structures; the format is JSON serialized string |
 | extra_info     | struct | callback request auxiliary information, including some additional relevant information of the request; format is JSON serialized string |
 
@@ -595,7 +597,7 @@ Body: JSON-encoded data
 | party_ids | []string | Collection of node IDs involved in generating private keys |
 | Cryptography | string | signature algorithm. ecdsa-secp256k1/eddsa-ed25519 |
 
-- When request_type is sign or bip340-schnorr-sign or taproot-sign, the request_detail structure is defined as follows:
+- When request_type is sign or bip340-schnorr-sign or taproot-sign or pre-sign or pre-sign-online, the request_detail structure is defined as follows:
 
 | Parameters | Type   | Description                                                   |
 | ---------- | ------ | ------------------------------------------------------ |
@@ -629,6 +631,7 @@ The structure of tx_info is defined as follows:
 | extraData   | json   |  Detailed data of utxo transactions, including vin, vout       |
 | brc20Details   | json   |  brc20Details   |
 | runeDetails   | json   |  runeDetails    |
+| pre_sign_signature_id | string | preSign signature id|
 
 - Structure example of brc20Details:
 
@@ -800,3 +803,9 @@ public-key-path = "/tmp/mpc-node/encrypt_sig_public.pem"
 
 In the callback service demo, decryption processing is performed on the callback result (encrypted signature data), which can be referred to in the callback service example provided by Sinohope: [GitHub - sinohope/mpc-node-callback-demo](https://github.com/sinohope/mpc-node-callback-demo)
 
+### 5.4 pre-sign
+
+The MPC signature consumes a CPU and it takes time. Generally, a single signature may take 3-5 seconds to complete. The length of time depends on the performance and network conditions of the MPC-Node. If you want to get a millisecond experience, you can start the pre-sign. After opening, the system will make pre-sign when MPC-Node is free, and use the pre-sign-data before when signing the transaction.
+
+- Preparation before the pre-sign: Signature Callback service supports two types of business types that support Request_type as Pre-Sign and Pre-Sign-Online.
+- How to enable pre-sign strategy: At present, you need to contact the administrator, and the administrator will be assisted to use it
