@@ -127,7 +127,7 @@ paths:
                       example: "1001"
                     amount:
                       type: string
-                      description: 金额
+                      description: 金额，当assetId所代表的资产类型为nft时，则代表nft数量（721合约固定为1）
                       example: "1230000000000000000"
                     decimal:
                       type: integer
@@ -171,6 +171,10 @@ paths:
                       description: 
                       items:
                         $ref: '#/components/schemas/runeDetail'
+                    tokenId:
+                      type: string
+                      description: 交易为eth like时，当assetId所代表的资产类型为nft时，返回该字段
+                      example: 123
                 extraInfo:
                   type: string
                   description: 与回调请求相关的其他信息；当前暂无明确信息
@@ -269,7 +273,7 @@ paths:
                       example: "user notes"
                     amount:
                       type: string
-                      description: 金额（精度转换前）
+                      description: 金额（精度转换前），当assetId所代表的资产类型为nft时，则代表nft数量（721合约固定为1）
                       example: "1230000000000000000"
                     decimal:
                       type: integer
@@ -297,6 +301,10 @@ paths:
                       description: 
                       items:
                         $ref: '#/components/schemas/runeDetail'
+                    tokenId:
+                      type: string
+                      description: 交易为eth like时，当assetId所代表的资产类型为nft时，返回该字段
+                      example: 123
                 extraInfo:
                   type: string
                   description: 与回调请求相关的其他信息；当前暂无明确信息。
@@ -1530,6 +1538,11 @@ paths:
                         type: integer
                         description: 币种精度
                         example: 18
+                      nftInfos:
+                        type: array
+                        description: 'nft infos'
+                        items:
+                          $ref: '#/components/schemas/nftInfo'
                   success:
                     type: boolean
       x-codegen-request-body-name: root
@@ -1948,7 +1961,8 @@ paths:
                 "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "note": "用户信息备注"
+                "note": "用户信息备注",
+                "tokenId": ""
               },
               api_key, host
             )
@@ -1969,7 +1983,8 @@ paths:
                 "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "note": "用户信息备注"
+                "note": "用户信息备注",
+                "tokenId": ""
             })
       security:
         - BIZ-API-KEY: []
@@ -2024,7 +2039,7 @@ paths:
                   example: "32143"
                 amount:
                   type: string
-                  description: 金额
+                  description: 金额，当assetId所代表的资产类型为nft时，则代表nft数量（721合约固定为1）
                   example: "1200000000000000"
                 fee:
                   type: string
@@ -2055,6 +2070,10 @@ paths:
                   description: 交易为btc like时，构造交易使用的vins，非必填。
                   items:
                     $ref: '#/components/schemas/vin'
+                tokenId:
+                  type: string
+                  description: 交易为eth like时，当assetId所代表的资产类型为nft时，需要传入该字段
+                  example: 123
 
         required: false
       responses:
@@ -4680,7 +4699,7 @@ components:
           example: "1001"
         amount:
           type: string
-          description: 金额：最小精度的整数值 例如：1230000000000000000
+          description: 金额：最小精度的整数值 例如：1230000000000000000 当assetId所代表的资产类型为nft时，则代表nft数量（721合约固定为1）
           example: "1230000000000000000"
         assetId:
           type: string
@@ -4774,6 +4793,10 @@ components:
                 type: string
                 description: 交易金额
                 example: "123000"
+        tokenId:
+          type: string
+          description: 交易为eth like时，当assetId所代表的资产类型为nft时，返回该字段
+          example: 123
     vin:
       type: object
       properties:
@@ -4920,7 +4943,22 @@ components:
           type: string
           description: 公钥
           example: "021855d461cf75ac6579d32a2af92d0dc26f0f0736ac766f8ad7894407ab360ffb"
-    
+    nftInfo:
+      type: object
+      description: nft信息
+      properties:
+        tokenId:
+          type: string
+          description: nft的tokenId
+          example: "123123"
+        contract:
+          type: string
+          description: nft的合约地址
+          example: "0x4b1613e2501b770463a12e397b34d9cac0d9497c"
+        value:
+          type: string
+          description: nft的数量
+          example: "1"
     pageIndex:
       type: integer
       description: 当前页码，首页为 1。

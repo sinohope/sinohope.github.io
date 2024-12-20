@@ -127,7 +127,7 @@ paths:
                       example: "1001"
                     amount:
                       type: string
-                      description: Amount
+                      description: Amount,When the asset type represented by assetId is nft, it represents the number of nft (fixed to 1 for 721 contract)
                       example: "1230000000000000000"
                     decimal:
                       type: integer
@@ -171,6 +171,10 @@ paths:
                       description: 
                       items:
                         $ref: '#/components/schemas/runeDetail'
+                    tokenId:
+                      type: string
+                      description: When the transaction is eth like, When the asset type represented by assetId is nft, this field is returned
+                      example: 123
                 extraInfo:
                   type: string
                   description: Other information related to the callback request; there is currently no clear information
@@ -269,7 +273,7 @@ paths:
                       example: "user notes"
                     amount:
                       type: string
-                      description: Amount (before precision conversion)
+                      description: Amount (before precision conversion),When the asset type represented by assetId is nft, it represents the number of nft (fixed to 1 for 721 contract)
                       example: "1230000000000000000"
                     decimal:
                       type: integer
@@ -297,6 +301,10 @@ paths:
                       description: 
                       items:
                         $ref: '#/components/schemas/runeDetail'
+                    tokenId:
+                      type: string
+                      description: When the transaction is eth like, When the asset type represented by assetId is nft, this field is returned
+                      example: 123
                 extraInfo:
                   type: string
                   description: Other information related to the callback request; there is currently no clear information.
@@ -1518,6 +1526,11 @@ paths:
                         type: integer
                         Description: Currency accuracy
                         example: 18
+                      nftInfos:
+                        type: array
+                        description: 'nft infos'
+                        items:
+                          $ref: '#/components/schemas/nftInfo'
                   success:
                     type: boolean
       x-codegen-request-body-name: root
@@ -1936,7 +1949,8 @@ paths:
                 "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "note": "User information note"
+                "note": "User information note",
+                "tokenId": ""
               },
               api_key, host
             )
@@ -1957,7 +1971,8 @@ paths:
                 "feeRate": "1",
                 "gasPrice": "13250000",
                 "gasLimit": "21000",
-                "Note": "User information note"
+                "Note": "User information note",
+                "tokenId": ""
             })
       security:
         - BIZ-API-KEY: []
@@ -2012,7 +2027,7 @@ paths:
                   example: "32143"
                 amount:
                   type: string
-                  description: Amount
+                  description: Amount, When the asset type represented by assetId is nft, it represents the number of nft (fixed to 1 for 721 contract)
                   example: "1200000000000000"
                 fee:
                   type: string
@@ -2043,6 +2058,10 @@ paths:
                   description: When the transaction is btc like, construct the vins used in the transaction, not required.
                   items:
                     $ref: '#/components/schemas/vin'
+                tokenId:
+                  type: string
+                  description: When the transaction is eth like, When the asset type represented by assetId is nft, this field needs to be passed in
+                  example: 123
 
         required: false
       responses:
@@ -4669,7 +4688,7 @@ components:
           example: "1001"
         amount:
           type: string
-          description: Amount:Integer value with minimum precision, for example:1230000000000000000
+          description: Amount:Integer value with minimum precision, for example:1230000000000000000,When the asset type represented by assetId is nft, it represents the number of nft (fixed to 1 for 721 contract)
           example: "1230000000000000000"
         assetId:
           type: string
@@ -4763,6 +4782,10 @@ components:
                 type: string
                 description: Transaction amount
                 example: "123000"
+        tokenId:
+          type: string
+          description: When the transaction is eth like, When the asset type represented by assetId is nft, this field is returned
+          example: 123
     vin:
       type: object
       properties:
@@ -4909,7 +4932,22 @@ components:
           type: string
           description: Public key
           example: "021855d461cf75ac6579d32a2af92d0dc26f0f0736ac766f8ad7894407ab360ffb"
-    
+    nftInfo:
+      type: object
+      description: nft info
+      properties:
+        tokenId:
+          type: string
+          description: nft tokenId
+          example: "123123"
+        contract:
+          type: string
+          description: nft contract address
+          example: "0x4b1613e2501b770463a12e397b34d9cac0d9497c"
+        value:
+          type: string
+          description: nft number
+          example: "1"
     pageIndex:
       type: integer
       description: Current page number, the first page is 1.
