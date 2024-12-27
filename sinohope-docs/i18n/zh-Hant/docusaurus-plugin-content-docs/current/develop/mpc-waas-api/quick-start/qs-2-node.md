@@ -145,7 +145,7 @@ path = "/tmp/mpc-node/logs/mpc-node.log"
 engine = "bolt"  
 # t/n 组合密码，可以是1/1的密码，也可以是2/3密码，任意输入2段密码即可。如果t>1，则密码必须由专门的工具生成密码，不可自由生成。  
 t = 1			  
-n = 2
+n = 1
 # 分片数据存储路径，是docker内部路径。
 db-file-path = "/tmp/mpc-node/asset.db"  
 # 服务地址与端口，是docker内部地址与端口。
@@ -156,7 +156,7 @@ unseal-server-address = "0.0.0.0:8080"
 # node需要使用websocket与mpc server建立连接
 protocol = "wss"    。
  # mpc server的url地址
-address = "api-pre.sinohope.com"  
+address = "api.sinohope.com"  
 # mpc server的url路劲
 path = "/proxy"     
 
@@ -376,9 +376,7 @@ Retype new password:
 ```JSON
 ./node.sh reset
 ? Enter current password: 
-New password:
-Retype new password:
-{"status": "ok", "data": "re-bkey-init success"}
+{"data":"re-bkey-init success","status":"ok"}
 ```
 
 
