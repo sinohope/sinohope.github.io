@@ -1,3 +1,6 @@
+---
+sidebar_position: "4"
+---
 # web3 SDK
 
 ## 概览

@@ -1,3 +1,6 @@
+---
+sidebar_position: "3"
+---
 # babylon staking
 
 ## 什么是babylon

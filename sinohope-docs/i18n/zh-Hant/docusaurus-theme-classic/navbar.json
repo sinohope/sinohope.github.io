@@ -43,9 +43,9 @@
     "message": "OpenLoop API",
     "description": "Navbar item with label OpenLoop API"
   },
-  "item.label.MPC WaaS API": {
-    "message": "MPC WaaS API",
-    "description": "Navbar item with label MPC WaaS API"
+  "item.label.Open API": {
+    "message": "Open API",
+    "description": "Navbar item with label Open API"
   },
   "item.label.Full Custody WaaS API": {
     "message": "Full Custody WaaS API",

@@ -9,7 +9,7 @@ servers:
   - url: https://api-sandbox.sinohope.com/
 tags:
   - name: Callback APIs
-    description: Callback API definition. For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
+    description: Callback API definition. For callback rules, please refer to the relevant instructions in [Open API-Configure API Callbacks](./quick-start/qs-1-openapi).
   - name: Common APIs
     description: Query interfaces for multiple business lines
   - name: Account&address APIs
@@ -26,6 +26,8 @@ tags:
     description: Advanced features allow direct signing of specified raw data. "Advanced features" must be enabled in both the wallet group and wallet to be available.
   - name: MPC Node APIs
     description: Query MPC protocol execution information and your MPC Node online status
+  - name: Auto Sweeping and Gas station APIs
+    description: Auto Sweeping and Gas station API
 paths:
   /v1/call_back/transaction/notify:
     servers:
@@ -36,8 +38,8 @@ paths:
       operationId: "/v1/call_back/transaction/notify"
       summary: Transaction Notification
       description: |
-       After the address has been deposited or the transaction initiated actively is put on the chain, a notification will be pushed.
-       For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
+        - After the address has been deposited or the transaction initiated actively is put on the chain, a notification will be pushed.
+        - For callback rules, please refer to the relevant instructions in [Open API Quick Start](./quick-start/qs-1-openapi).
       requestBody:
         content:
           application/json:
@@ -208,8 +210,9 @@ paths:
       operationId: "/v1/call_back/withdrawal/confirm"
       summary: Withdrawal Confirmation
       description: |
-        When sinohope receives a withdrawal request, it will send a confirmation request to the URL specified by the merchant.
-        For callback rules, please refer to the relevant instructions in [MPC WaaS Quick Start](./quick-start/qs-1-waas).
+        - When sinohope receives a withdrawal request, it will send a confirmation request to the URL specified by the merchant.
+        - For callback rules, please refer to the relevant instructions in [Open API Quick Start](./quick-start/qs-1-openapi).
+        - Only supports "WaaS" services.
       requestBody:
         content:
           application/json:
@@ -339,6 +342,8 @@ paths:
         - MPC Node APIs
       operationId: "/v1/waas/mpc/mpcnode/list_mpc_requests"
       summary: Query MPC protocol execution records
+      description: |
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -466,7 +471,9 @@ paths:
         - MPC Node APIs
       operationId: "/v1/waas/mpc/mpcnode/status"
       summary: Query MPC node status
-      description: Check the current online status of your MPC Node
+      description: ｜
+        - Check the current online status of your MPC Node
+        - Only supports "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -507,7 +514,9 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
       summary: original data source signature
-      description: Sign the specified data directly, and the signature result can be queried through /v1/waas/mpc/web3/sign_result, or distributed via callback from the MPC node.
+      description: ｜
+        - Sign the specified data directly, and the signature result can be queried through /v1/waas/mpc/web3/sign_result, or distributed via callback from the MPC node.
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -611,7 +620,9 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/gen_address_by_path"
       summary: Create an address based on the specified path
-      description: Create an address based on the specified derived path
+      description: ｜
+        - Create an address based on the specified derived path
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -700,6 +711,8 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/update_wallet"
       summary: Update wallet properties (advanced features enabled/disabled)
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -775,12 +788,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/common/get_supported_chains:
+  /v1/api/common/get_supported_chains:
     post:
       tags:
         - Common APIs
-      operationId: "/v1/waas/common/get_supported_chains"
+      operationId: "/v1/api/common/get_supported_chains"
       summary: Query system support chain
+      description: |
+        - /v1/waas/common/get_supported_chains DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -818,30 +834,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/common/get_supported_coins:
+  /v1/api/common/get_supported_coins:
     post:
       tags:
         - Common APIs
-      operationId: "/v1/waas/common/get_supported_coins"
+      operationId: "/v1/api/common/get_supported_coins"
       summary: Query the list of currencies supported by the chain
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/common/get_supported_coins/",
-              {
-                "chainSymbol": "ETH"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/common/get_supported_coins/", map[string]string{
-                "chainSymbol": "ETH"
-            })
+      description: |
+        - /v1/waas/common/get_supported_coins DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -895,12 +896,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/common/get_vaults:
+  /v1/api/common/get_vaults:
     post:
       tags:
         - Common APIs
-      operationId: "/v1/waas/common/get_vaults"
+      operationId: "/v1/api/common/get_vaults"
       summary: Vault List
+      description: |
+        - /v1/waas/common/get_vaults DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -953,46 +957,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/create_wallets:
+  /v1/api/address/create_wallets:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/create_wallets"
+      operationId: "/v1/api/address/create_wallets"
       summary: Creating a wallet
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/create_wallets/",
-              {
-                "requestId": "413497079388421",
-                "vaultId": "450632968208222",
-                "count": 1,
-                "walletInfos": [
-                  {
-                    "walletName": "wallet1",
-                    "advancedEnabled": 1
-                  }
-                ]
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/create_wallets/", map[string]string{
-                "count": 1,
-                "walletInfos": [
-                  {
-                    "requestId": "413497079388421",
-                    "vaultId": "450632968208222",
-                    "walletName": "wallet1",
-                    "advancedEnabled": 1
-                  }
-                ]
-            })
+      description: |
+        - /v1/waas/mpc/create_wallets DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1074,38 +1047,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/wallet/list_addresses:
+  /v1/api/address/list_addresses:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/wallet/list_addresses"
+      operationId: "/v1/api/address/list_addresses"
       summary: Query chain address
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/wallet/list_addresses/",
-              {
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421",
-                "chainSymbol": "ETH",
-                "pageIndex": 1,
-                "pageSize": 10
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/wallet/list_addresses/", map[string]string{
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421",
-                "chainSymbol": "ETH",
-                "pageIndex": 1,
-                "pageSize": 10
-            })
+      description: |
+        - /v1/waas/mpc/wallet/list_addresses DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1170,40 +1120,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/wallet/generate_chain_addresses:
+  /v1/api/address/generate_chain_addresses:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/wallet/generate_chain_addresses"
+      operationId: "/v1/api/address/generate_chain_addresses"
       summary: Generate chain address
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/wallet/generate_chain_addresses/",
-              {
-                "requestId": "413497079388421",
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421",
-                "count": 1,
-                "chainSymbol": "ETH",
-                "encoding": 1
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/wallet/generate_chain_addresses/", map[string]string{
-                "requestId": "413497079388421",
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421",
-                "count": 1,
-                "chainSymbol": "ETH",
-                "encoding": 1
-            })
+      description: |
+        - /v1/waas/mpc/wallet/generate_chain_addresses DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1264,34 +1189,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/wallet/list_wallets:
+  /v1/api/address/list_wallets:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/wallet/list_wallets"
+      operationId: "/v1/api/address/list_wallets"
       summary: Query wallet list
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/wallet/list_wallets/",
-              {
-                "vaultId": "450632968208222",
-                "pageIndex": 1,
-                "pageSize": 10
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/wallet/list_wallets/", map[string]string{
-                "vaultId": "450632968208222",
-                "pageIndex": 1,
-                "pageSize": 10
-            })
+      description: |
+        - /v1/waas/mpc/wallet/list_wallets DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1360,32 +1266,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/wallet/list_added_chains:
+  /v1/api/address/list_added_chains:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/wallet/list_added_chains"
+      operationId: "/v1/api/address/list_added_chains"
       summary: Query the chain with the added address under the specified wallet and its first address information
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/wallet/list_added_chains/",
-              {
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/wallet/list_added_chains/", map[string]string{
-                "vaultId": "450632968208222",
-                "walletId": "413497079388421"
-            })
+      description: |
+        - /v1/waas/mpc/wallet/list_added_chains DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1439,32 +1328,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/wallet/get_address_balance:
+  /v1/api/address/get_address_balance:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/wallet/get_address_balance"
+      operationId: "/v1/api/address/get_address_balance"
       summary: Query address balance information
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/wallet/get_address_balance/",
-              {
-                "assetId": "USDT_ETH",
-                "address": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/wallet/get_address_balance/", map[string]string{
-                "assetId": "USDT_ETH",
-                "address": "0x4dac0911bbb5f363e04c425d84a84a98355285fb359ca212701528bf9f4164d4"
-            })
+      description: |
+        - /v1/waas/mpc/wallet/get_address_balance DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1534,32 +1406,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-  /v1/waas/mpc/is_valid_address:
+  /v1/api/common/is_valid_address:
     post:
       tags:
         - Account&address APIs
-      operationId: "/v1/waas/mpc/is_valid_address"
+      operationId: "/v1/api/common/is_valid_address"
       summary: Check if the currency address is correct
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/is_valid_address/",
-              {
-                "assetId": "USDT_ETH",
-                "address": "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/is_valid_address/", map[string]string{
-                "assetId": "USDT_ETH",
-                "address": "0x67d0F791D950CdC25Ac44bA249328022f4df93b6"
-            })
+      description: |
+        - /v1/waas/mpc/is_valid_address DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1601,7 +1456,11 @@ paths:
                     properties:
                       isValid:
                         type: boolean
-                        description: Inspection results
+                        description: Check if the currency address is correct.
+                        example: true
+                      isInnerAddress:
+                        type: boolean
+                        description: Verify whether the address is an internal organizational address.
                         example: true
                   success:
                     type: boolean
@@ -1612,6 +1471,8 @@ paths:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/transfer_address_book"
       summary: After the current vault settings switch, the address book that supports transfers
+      description: |
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1706,6 +1567,8 @@ paths:
         - Account&address APIs
       operationId: "/v1/waas/mpc/wallet/transfer_risk_control_switch"
       summary: Check if the current vault has set the risk control switch
+      description: |
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -1764,41 +1627,15 @@ paths:
                   success:
                     type: boolean
       x-codegen-request-body-name: root
-
-  /v1/waas/mpc/transaction/fee:
+  /v1/api/transaction/fee:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/fee"
+      operationId: "/v1/api/transaction/fee"
       summary: Estimate transaction fee
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/fee",
-              {
-                "chainSymbol": "GOERLI",
-                "operationType": "TRANSFER",
-                "from": "0xcec96d6b9a0ba75f1dcb882454ad582f273b2842",
-                "to": "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad",
-                "assetId": "ETH_GOERLI",
-                "amount" : "123"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/fee", map[string]string{
-                "chainSymbol": "GOERLI",
-                "operationType": "TRANSFER",
-                "from": "0xcec96d6b9a0ba75f1dcb882454ad582f273b2842",
-                "to": "0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad",
-                "assetId": "ETH_GOERLI",
-                "amount" : "123"
-            })
+      description: |
+        - /v1/waas/mpc/transaction/fee DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -1920,60 +1757,16 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/create_transfer:
+  /v1/api/transaction/create_transfer:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/create_transfer"
+      operationId: "/v1/api/transaction/create_transfer"
       summary: Initiate a transfer transaction
       description: |
-        For UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/create_transfer/",
-              {
-                "vaultId": "450632968208222",
-                "walletId": "52321312",
-                "requestId": "2132134",
-                "chainSymbol": "ETH",
-                "assetId": "USDC_ETH",
-                "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                "toTag": "32143",
-                "amount": "1200000000000000",
-                "fee": "1000000",
-                "feeRate": "1",
-                "gasPrice": "13250000",
-                "gasLimit": "21000",
-                "note": "User information note",
-                "tokenId": ""
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/create_transfer/", map[string]string{
-                "vaultId": "450632968208222",
-                "walletId": "52321312",
-                "requestId": "2132134",
-                "chainSymbol": "ETH",
-                "assetId": "USDC_ETH",
-                "from": "0xc429aeda8bf786cf092224dddadbc0813f9f230b",
-                "to": "0x546A62c54F50D57D30478C8C275360f20239A23E",
-                "toTag": "32143",
-                "amount": "1200000000000000",
-                "fee": "1000000",
-                "feeRate": "1",
-                "gasPrice": "13250000",
-                "gasLimit": "21000",
-                "Note": "User information note",
-                "tokenId": ""
-            })
+        - /v1/waas/mpc/transaction/create_transfer DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
+        - For UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -2084,14 +1877,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/transaction/create_transaction:
     post:
       tags:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transaction"
       summary: Initiate any transaction
-      description: Initiate any transaction, currently mainly supporting EVM compatible chains
+      description: ｜
+        - Initiate any transaction, currently mainly supporting EVM compatible chains
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2226,40 +2020,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/speedup_transaction:
+  /v1/api/transaction/speedup_transaction:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/speedup_transaction"
+      operationId: "/v1/api/transaction/speedup_transaction"
       summary: Transaction Acceleration
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/speedup_transaction/",
-              {
-                "requestId": "123234,45345,324234",
-                "gasLimit": "21000",
-                "gasPrice": "1300000",
-                "fee": "344000",
-                "chainSymbol": "ETH",
-                "sinoId": "sinoId for accelerating transactions"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/speedup_transaction/", map[string]string{
-                "requestId": "123234,45345,324234",
-                "gasLimit": "21000",
-                "gasPrice": "1300000",
-                "fee": "344000",
-                "chainSymbol": "ETH",
-                "sinoId": "sinoId for accelerating transactions"
-            })
+      description: |
+        - /v1/waas/mpc/transaction/speedup_transaction DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -2319,13 +2088,16 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/cancel_transaction:
+  /v1/api/transaction/cancel_transaction:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/cancel_transaction"
+      operationId: "/v1/api/transaction/cancel_transaction"
       summary: Cancel Transaction
-      description: Cancel transaction, this method only supports cancellation of transactions in EVM compatible chain series
+      description: |
+        - /v1/waas/mpc/transaction/cancel_transaction DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
+        - Cancel transaction, this method only supports cancellation of transactions in EVM compatible chain series
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2394,48 +2166,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/list_transactions:
+  /v1/api/transaction/list_transactions:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/list_transactions"
+      operationId: "/v1/api/transaction/list_transactions"
       summary: Transaction List
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/list_transactions/",
-              {
-                "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
-                "sinoId": "1,2",
-                "requestId": "433352715218629,433352715218629",
-                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
-                "chainSymbol": "ETH",
-                "assetId": "USDC_ETH",
-                "pageIndex": 1,
-                "pageSize": 10,
-                "startUpdateTime": "2022-02-02 00:00:00",
-                "endUpdateTime": "2022-03-02 00:00:00"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/list_transactions/", map[string]string{
-                "address": "0x4b67ec7fb5804dc645d584a715792f7ca76caace",
-                "sinoId": "1,2",
-                "requestId": "433352715218629,433352715218629",
-                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
-                "chainSymbol": "ETH",
-                "assetId": "USDC_ETH",
-                "pageIndex": 1,
-                "pageSize": 10,
-                "startUpdateTime": "2022-02-02 00:00:00",
-                "endUpdateTime": "2022-03-02 00:00:00"
-            })
+      description: |
+        - /v1/waas/mpc/transaction/list_transactions DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -2521,12 +2260,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/transactions_by_request_ids:
+  /v1/api/transaction/transactions_by_request_ids:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/transactions_by_request_ids"
+      operationId: "/v1/api/transaction/transactions_by_request_ids"
       summary: Query transaction list based on requestIds
+      description: |
+        - /v1/waas/mpc/transaction/transactions_by_request_ids DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2597,30 +2339,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/transactions_by_sino_ids:
+  /v1/api/transaction/transactions_by_sino_ids:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/transactions_by_sino_ids"
+      operationId: "/v1/api/transaction/transactions_by_sino_ids"
       summary: Query transaction list based on sinoIds
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/transactions_by_sino_ids/",
-              {
-                "sinoIds": "1,2,3,4"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/transactions_by_sino_ids/", map[string]string{
-                "sinoIds": "1,2,3,4"
-            })
+      description: |
+        - /v1/waas/mpc/transaction/transactions_by_sino_ids DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -2673,32 +2400,15 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  /v1/waas/mpc/transaction/transactions_by_tx_hash:
+  /v1/api/transaction/transactions_by_tx_hash:
     post:
       tags:
         - Transaction APIs
-      operationId: "/v1/waas/mpc/transaction/transactions_by_tx_hash"
+      operationId: "/v1/api/transaction/transactions_by_tx_hash"
       summary: Query transaction list based on txHash
-      x-codeSamples:
-        - lang: 'python'
-          label: 'python'
-          source: |
-            request(
-              "POST",
-              "/v1/waas/mpc/transaction/transactions_by_tx_hash/",
-              {
-                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
-                "chainSymbol": "ETH"
-              },
-              api_key, host
-            )
-        - lang: 'go'
-          label: 'go'
-          source: |
-            Request("POST", "/v1/waas/mpc/transaction/transactions_by_tx_hash/", map[string]string{
-                "txHash": "0x4c32136443dc0d0eb7584f0d991fb1a4602323b97f6f1a064de3db19e95d2f16",
-                "chainSymbol": "ETH"
-            })
+      description: |
+        - /v1/waas/mpc/transaction/transactions_by_tx_hash DEPRECATED
+        - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
           BIZ-API-NONCE: []
@@ -2762,6 +2472,8 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/page_available_vouts"
       summary: Paginated query btc spendable utxo list
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2861,7 +2573,9 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_message"
       summary: Signing messages according to known specifications (EIP-191, EIP-712)
-      description: Messages are signed according to known specifications (EIP-191, EIP-712), and the signature results can be queried through /v1/waas/mpc/web3/sign_result or delivered via callback from MPC-node.
+      description: |
+        - Messages are signed according to known specifications (EIP-191, EIP-712), and the signature results can be queried through /v1/waas/mpc/web3/sign_result or delivered via callback from MPC-node.
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -2960,6 +2674,8 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_result"
       summary: Query signature result
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3033,6 +2749,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_deploy"
       summary: Inscribe deploy inscription
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3135,6 +2853,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-mint"
       summary: Inscribe mint inscription
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3229,6 +2949,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-transfer"
       summary: Inscribe transfer inscription
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3323,6 +3045,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_transfer_by_id"
       summary: Brc20 inscription transfer
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3424,6 +3148,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/one_stop_transfer"
       summary: One-stop brc20 transfer
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3525,6 +3251,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/query_inscribe_transfers"
       summary: Query BRC20 transferable inscription information of specified assets at specified address
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3653,6 +3381,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/page_balance_summary"
       summary: All BRC20 asset balance information for the specified address (paged query)
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3780,6 +3510,8 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_ticker_info"
       summary: Query the BRC20 asset information of the specified address and the specified name
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -3970,13 +3702,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-  
   /v1/waas/mpc/brc20/address_balance:
     post:
       tags:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_balance"
       summary: Query the details of the BTC balance of the specified address (total balance, non-inscription balance, inscription related balance)
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4082,13 +3815,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/runes/transfer:
     post:
       tags:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/transfer"
       summary: rune transfer
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4182,13 +3916,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/runes/page_balance_summary:
     post:
       tags:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/page_balance_summary"
       summary: rune balance summary
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4296,13 +4031,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/runes/balance:
     post:
       tags:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/balance"
       summary: rune balance
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4396,13 +4132,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/staking/create:
     post:
       tags:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/create"
       summary: create staking transaction
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4495,13 +4232,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/staking/unbond:
     post:
       tags:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/unbond"
       summary: unbond
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4567,13 +4305,14 @@ paths:
                     type: boolean
                 description: ""
       x-codegen-request-body-name: root
-
   /v1/waas/mpc/staking/spending_time_lock_path_tx:
     post:
       tags:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/spending_time_lock_path_tx"
       summary: expired withdraw
+      description: ｜
+        - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
           label: 'python'
@@ -4637,6 +4376,265 @@ paths:
                         description: transactionId
                   success:
                     type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+
+  /v1/api/sweep/set_strategy:
+    post:
+      tags:
+        - Auto Sweeping and Gas station APIs
+      operationId: "/v1/api/sweep/set_strategy"
+      summary: Set up a Sweeping strategy
+      description: ｜
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - requestId
+              type: object
+              properties:
+                vaultId:
+                  type:  string
+                  description: 金库id
+                toAddress:
+                  type: string
+                  description: 归集to地址
+                assetId:
+                  type: string
+                  description: 资产id
+                minimumCollectionAmount:
+                  type: string
+                  description: 必填，最小归集金额
+                minimumReserveAmount:
+                  type: string
+                  description: 选填，最小保留金额
+                feeLimit:
+                  type: string
+                  description: 选填，如预估当前交易手续费大于阈值，则跳过本轮归集
+                enabled:
+                  type: integer
+                  description: 默认0关闭，1开启；关闭后
+                autoFueling:
+                  type: integer
+                  description: 必填，0-关闭；1-开启
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/sweep/strategy_lists:
+    post:
+      tags:
+        - Auto Sweeping and Gas station APIs
+      operationId: "/v1/api/sweep/strategy_lists"
+      summary: Query Sweeping strategy
+      description: ｜
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: [ ]
+          BIZ-API-NONCE: [ ]
+          BIZ-API-SIGNATURE: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - vaultId
+              type: object
+              properties:
+                vaultId:
+                  type: string
+                  description: 金库id
+                pageIndex:
+                  $ref: '#/components/schemas/pageIndex'
+                pageSize:
+                  $ref: '#/components/schemas/pageSize'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      pageIndex:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalSize:
+                        type: integer
+                        example: 10
+                      list:
+                        type: array
+                        description: vin列表
+                        items:
+                          type: object
+                          properties:
+                            vaultId:
+                              type: string
+                            toAddress:
+                              type: string
+                            assetId:
+                              type: string
+                            chainSymbol:
+                              type: string
+                              description: 链唯一标识
+                              example: ETH
+                            minimumCollectionAmount:
+                              type: string
+                              description: 最小归集金额：最小精度的整数值 例如：1230000000000000000
+                              example: "1230000000000000000"
+                            minimumReserveAmount:
+                              type: string
+                              description: 最小保留金额 例如：1230000000000000000
+                              example: "1230000000000000000"
+                            feeLimit:
+                              type: string
+                              description: 手续费限制：最小精度的整数值 例如：1230000000000000000
+                              example: "1230000000000000000"
+                            enabled:
+                              type: integer
+                              description: 是否开启归集 默认0关闭，1开启；
+                            type:
+                              type: integer
+                              description: 0:token 1:coin
+                            autoFueling:
+                              type: string
+                              description: 是否开启加油 0关闭，1开启；
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/sweep/set_gas_station:
+    post:
+      tags:
+        - Auto Sweeping and Gas station APIs
+      operationId: "/v1/api/sweep/set_gas_station"
+      summary: Set up gas station
+      description: ｜
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - address
+              type: object
+              properties:
+                chainSymbol:
+                  type:  string
+                  description: 链唯一标识
+                address:
+                  type: string
+                  description: 加油站地址
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/sweep/gas_station_lists:
+    post:
+      tags:
+        - Auto Sweeping and Gas station APIs
+      operationId: "/v1/api/sweep/gas_station_lists"
+      summary: Search for gas stations
+      description: ｜
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+              type: object
+              properties:
+                chainSymbol:
+                  type:  string
+                  description: 链唯一标识
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    description: gas加油信息
+                    items:
+                      type: object
+                      properties:
+                        chainSymbol:
+                          type: string
+                          description: 链唯一标识
+                          example: ETH
+                        address:
+                          type: string
                 description: ""
       x-codegen-request-body-name: root
 

@@ -21,7 +21,11 @@ sidebar_position: 1
 
 ### 组织和层级
 
-Sinohope 采用分层结构管理组织内的链地址，包括四个层级：根密钥、金库、钱包、各个链上的地址。
+Sinohope 分为自托管钱包、WaaS钱包、全托管钱包。其中自托管钱包和WaaS钱包基于MPC-TSS技术提供服务，开发者可通过Open API集成相关功能。全托管钱包基于传统单私钥钱包提供中心化的托管服务。  
+
+自托管和WaaS钱包，采用分层结构管理对应的链地址，分别包括四个层级。如下图示意：
+
+![](./img/organize.png)
 
 ### 基于API&SDK开发集成
 
@@ -35,11 +39,9 @@ Sinohope提供了基于HTTP协议的API，也将提供多种语言的SDK，方�
 # Docs Index
 [General](/docs/develop/get-started/general)
 
-[Openloop-api](/docs/category/openloop-api)
+[系统支持的公链及币种](/docs/develop/get-started/supported-coins)
 
-[Mpc-waas-api](/docs/category/mpc-waas-api)
-
-[Full-custody-waas-api](/docs/category/full-custody-waas-api)
+[Open API](/docs/category/mpc-waas-api)
 
 # Developer Group
 ![tg](./img/telegram-developer.png)

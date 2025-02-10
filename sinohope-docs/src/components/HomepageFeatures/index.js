@@ -64,7 +64,7 @@ const FeatureList = [
           <div className={styles.buttons}>
             <Link
               to="/docs/category/mpc-waas-api">
-              MPC WaaS API
+                Open API
             </Link>
           </div>
           <div className={styles.buttons}>

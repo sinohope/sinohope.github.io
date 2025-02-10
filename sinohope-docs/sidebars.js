@@ -60,12 +60,12 @@ const sidebars = {
     {
       type: "category",
       collapsed: false,
-      label: "MPC WaaS API",
+      label: "Open API",
       link: {
         type: "generated-index",
-        title: "MPC WaaS API",
+        title: "Open API",
         description:
-          "MPC WaaS API",
+          "Open API",
         slug: "/category/mpc-waas-api",
       },
       items: require("./docs/develop/mpc-waas-api/sidebar.js"),

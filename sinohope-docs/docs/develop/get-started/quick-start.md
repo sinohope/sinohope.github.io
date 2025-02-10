@@ -21,7 +21,11 @@ To start using Sinohope developer services, you need to contact [Sinohope](https
 
 ### Organizations and Hierarchies
 
-Sinohope adopts a hierarchical structure to manage chain addresses within an organization, including four levels: root key, vault, wallet, and addresses on each chain.
+Sinohope's wallet services include self-custody wallets, WaaS wallets, and fully-custody wallets. The self-custody wallets and WaaS wallets are based on MPC-TSS technology, and developers can integrate relevant functions through Open API. The fully-custodial wallet provides centralized custodial services based on traditional single private key wallets.  
+
+The self-custody and WaaS wallets use a hierarchical structure to manage the corresponding chain addresses, consisting of four levels as shown in the diagram below:
+
+![](./img/organize.png)
 
 ### Development Integration Based on API&SDK
 
@@ -35,11 +39,9 @@ Currently provided SDKs: [java sdk](https://github.com/sinohope/sinohope-java-ap
 # Docs Index
 [General](./general)
 
-[Openloop-api](/docs/category/openloop-api) 
+[Supported Blockchains and Coins](./supported-coins)
 
-[Mpc-waas-api](/docs/category/mpc-waas-api)
-
-[Full-custody-waas-api](/docs/category/full-custody-waas-api)
+[Open API](/docs/category/mpc-waas-api)
 
 # Developer Group
 ![tg](./img/telegram-developer.png)
