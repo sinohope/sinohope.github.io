@@ -471,7 +471,7 @@ paths:
         - MPC Node APIs
       operationId: "/v1/waas/mpc/mpcnode/status"
       summary: Query MPC node status
-      description: ｜
+      description: |
         - Check the current online status of your MPC Node
         - Only supports "WaaS" services.
       security:
@@ -514,7 +514,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
       summary: original data source signature
-      description: ｜
+      description: |
         - Sign the specified data directly, and the signature result can be queried through /v1/waas/mpc/web3/sign_result, or distributed via callback from the MPC node.
         - Only supports "WaaS" services.
       x-codeSamples:
@@ -620,7 +620,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/gen_address_by_path"
       summary: Create an address based on the specified path
-      description: ｜
+      description: |
         - Create an address based on the specified derived path
         - Only supports "WaaS" services.
       x-codeSamples:
@@ -711,7 +711,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/update_wallet"
       summary: Update wallet properties (advanced features enabled/disabled)
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -1883,7 +1883,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/create_transaction"
       summary: Initiate any transaction
-      description: ｜
+      description: |
         - Initiate any transaction, currently mainly supporting EVM compatible chains
         - Only supports "WaaS" services.
       x-codeSamples:
@@ -2472,7 +2472,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/page_available_vouts"
       summary: Paginated query btc spendable utxo list
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -2674,7 +2674,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_result"
       summary: Query signature result
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -2749,7 +2749,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_deploy"
       summary: Inscribe deploy inscription
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -2853,7 +2853,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-mint"
       summary: Inscribe mint inscription
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -2949,7 +2949,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-transfer"
       summary: Inscribe transfer inscription
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3045,7 +3045,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_transfer_by_id"
       summary: Brc20 inscription transfer
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3148,7 +3148,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/one_stop_transfer"
       summary: One-stop brc20 transfer
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3251,7 +3251,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/query_inscribe_transfers"
       summary: Query BRC20 transferable inscription information of specified assets at specified address
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3381,7 +3381,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/page_balance_summary"
       summary: All BRC20 asset balance information for the specified address (paged query)
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3510,7 +3510,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_ticker_info"
       summary: Query the BRC20 asset information of the specified address and the specified name
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3708,7 +3708,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_balance"
       summary: Query the details of the BTC balance of the specified address (total balance, non-inscription balance, inscription related balance)
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3821,7 +3821,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/transfer"
       summary: rune transfer
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -3922,7 +3922,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/page_balance_summary"
       summary: rune balance summary
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -4037,7 +4037,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/balance"
       summary: rune balance
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -4138,7 +4138,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/create"
       summary: create staking transaction
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -4238,7 +4238,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/unbond"
       summary: unbond
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -4311,7 +4311,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/spending_time_lock_path_tx"
       summary: expired withdraw
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -4385,7 +4385,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/set_strategy"
       summary: Set up a Sweeping strategy
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -4448,7 +4448,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/strategy_lists"
       summary: Query Sweeping strategy
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       security:
         - BIZ-API-KEY: [ ]
@@ -4543,7 +4543,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/set_gas_station"
       summary: Set up gas station
-      description: ｜
+      description: | 
         - Only supports "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -4589,7 +4589,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/gas_station_lists"
       summary: Search for gas stations
-      description: ｜
+      description: |
         - Only supports "WaaS" services.
       security:
         - BIZ-API-KEY: []

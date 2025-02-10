@@ -37,7 +37,7 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/transaction/notify"
       summary: 交易通知
-      description: ｜
+      description: |
         - 地址有充值，或者主动发起的交易上链后，推送通知。
         - 关于回调规则，可参考 [Open API 快速入门](./quick-start/qs-1-openapi) 中的相关说明。
       requestBody:
@@ -209,7 +209,7 @@ paths:
         - Callback APIs
       operationId: "/v1/call_back/withdrawal/confirm"
       summary: 提现二次确认
-      description: ｜
+      description: |
         - 当sinohope收到提现请求时，会向商户指定的url发送确认请求。
         - 关于回调规则，可参考 [Open API 快速入门](./quick-start/qs-1-openapi) 中的相关说明。
         - 仅支持“WaaS”业务
@@ -516,7 +516,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/sign_raw_data"
       summary: 原始数据签名
-      description: ｜
+      description: |
         - 直接对指定数据进行签名，签名结果可通过 /v1/waas/mpc/web3/sign_result查询，或通过MPC-node的回调下发。
         - 仅支持“WaaS”业务
       x-codeSamples:
@@ -624,7 +624,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/gen_address_by_path"
       summary: 根据指定的路径创建地址
-      description: ｜
+      description: |
         - 根据指定派生路径创建地址
         - 仅支持“WaaS”业务
       x-codeSamples:
@@ -717,7 +717,7 @@ paths:
         - Advanced APIs
       operationId: "/v1/waas/mpc/wallet/advance/update_wallet"
       summary: 更新钱包属性（高级功能开启、关闭）
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -2342,7 +2342,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/api/transaction/transactions_by_sino_ids"
       summary: 根据sinoIds查询交易列表
-      description: ｜
+      description: |
         - /v1/waas/mpc/transaction/transactions_by_sino_ids 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
@@ -2403,7 +2403,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/api/transaction/transactions_by_tx_hash"
       summary: 根据txHash查询交易列表
-      description: ｜
+      description: |
         - /v1/waas/mpc/transaction/transactions_by_tx_hash 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
@@ -2469,7 +2469,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/transaction/page_available_vouts"
       summary: 分页查询btc 可花费的utxo列表
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -2671,7 +2671,7 @@ paths:
         - Transaction APIs
       operationId: "/v1/waas/mpc/web3/sign_result"
       summary: 查询签名结果
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -2746,7 +2746,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_deploy"
       summary: 铭刻deploy铭文
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -2850,7 +2850,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-mint"
       summary: 铭刻mint铭文
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -2946,7 +2946,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe-transfer"
       summary: 铭刻transfer铭文
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3042,7 +3042,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/inscribe_transfer_by_id"
       summary: Brc20铭文转账
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3145,7 +3145,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/one_stop_transfer"
       summary: 一站式brc20转账
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3248,7 +3248,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/query_inscribe_transfers"
       summary: 查询指定地址的指定资产的BRC20可转铭文信息
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3378,7 +3378,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/page_balance_summary"
       summary: 指定地址的所有BRC20 资产余额信息 （分页查询）
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3507,7 +3507,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_ticker_info"
       summary: 查询指定地址的指定名称的BRC20 资产信息
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3705,7 +3705,7 @@ paths:
         - Brc20 APIs
       operationId: "/v1/waas/mpc/brc20/address_balance"
       summary: 查询指定地址BTC余额详情（总余额、非铭文余额、铭文相关余额）
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3818,7 +3818,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/transfer"
       summary: rune转账
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -3919,7 +3919,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/page_balance_summary"
       summary: 获取地址runes信息
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -4034,7 +4034,7 @@ paths:
         - Rune APIs
       operationId: "/v1/waas/mpc/runes/balance"
       summary: 获取rune余额
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -4135,7 +4135,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/create"
       summary: 发起质押交易
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -4235,7 +4235,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/unbond"
       summary: 解绑
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -4308,7 +4308,7 @@ paths:
         - Babylong Staking APIs
       operationId: "/v1/waas/mpc/staking/spending_time_lock_path_tx"
       summary: 到期提取
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       x-codeSamples:
         - lang: 'python'
@@ -4381,7 +4381,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/set_strategy"
       summary: 设置归集策略
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -4449,7 +4449,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/strategy_lists"
       summary: 查询归集策略
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       security:
         - BIZ-API-KEY: [ ]
@@ -4544,7 +4544,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/set_gas_station"
       summary: 设置gas加油站
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -4590,7 +4590,7 @@ paths:
         - Auto Sweeping and Gas station APIs
       operationId: "/v1/api/sweep/gas_station_lists"
       summary: 查询gas加油站
-      description: ｜
+      description: |
         - 仅支持“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -4923,7 +4923,7 @@ components:
           example: "m/1/1/60/0"
         encoding:
           type: integer
-          description: ｜
+          description: |
             - 链地址
             - 地址类型（1:LEGACY,2:SEGWIT_NATIVE,3:SEGWIT_NESTED,4:TAPROOT 不填默认为1:LEGACY）
           example: 0
