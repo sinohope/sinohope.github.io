@@ -1868,6 +1868,10 @@ paths:
                   type: string
                   description: 交易为eth like时，当assetId所代表的资产类型为nft时，需要传入该字段
                   example: 123
+                utxoSelector:
+                  type: integer
+                  description: utxo选择，0-默认模式，按照金额就近选；1-按照金额从大到校；2-按照金额从小到大
+                  example: 0
 
         required: false
       responses:

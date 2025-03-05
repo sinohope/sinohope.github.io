@@ -1855,7 +1855,10 @@ paths:
                   type: string
                   description: When the transaction is eth like, When the asset type represented by assetId is nft, this field needs to be passed in
                   example: 123
-
+                utxoSelector:
+                  type: integer
+                  description: UTXO selection  0-default mode, select by closest amount; 1-select from largest to smallest amount; 2-select from smallest to largest amount
+                  example: 0
         required: false
       responses:
         200:
