@@ -4404,28 +4404,28 @@ paths:
               properties:
                 vaultId:
                   type:  string
-                  description: 金库id
+                  description: vault id
                 toAddress:
                   type: string
-                  description: 归集to地址
+                  description: to address
                 assetId:
                   type: string
-                  description: 资产id
+                  description: asset id
                 minimumCollectionAmount:
                   type: string
-                  description: 必填，最小归集金额
+                  description: Required,Minimum Collection Amount
                 minimumReserveAmount:
                   type: string
-                  description: 选填，最小保留金额
+                  description: Optional, Minimum Reserved Amount；If it's TRON (TRX), it's recommended to set it above 2,000,000 (2 TRX)
                 feeLimit:
                   type: string
-                  description: 选填，如预估当前交易手续费大于阈值，则跳过本轮归集
+                  description: Optional, Skip collection when estimated fee exceeds threshold
                 enabled:
                   type: integer
-                  description: 默认0关闭，1开启；关闭后
+                  description: Default 0 (Off), 1 (On); When disabled
                 autoFueling:
                   type: integer
-                  description: 必填，0-关闭；1-开启
+                  description: Required, 0=Off; 1=On
         required: false
       responses:
         200:
@@ -4467,7 +4467,7 @@ paths:
               properties:
                 vaultId:
                   type: string
-                  description: 金库id
+                  description: vault id
                 pageIndex:
                   $ref: '#/components/schemas/pageIndex'
                 pageSize:
@@ -4503,7 +4503,7 @@ paths:
                         example: 10
                       list:
                         type: array
-                        description: vin列表
+                        description: vin list
                         items:
                           type: object
                           properties:
@@ -4515,29 +4515,29 @@ paths:
                               type: string
                             chainSymbol:
                               type: string
-                              description: 链唯一标识
+                              description: Chain ID
                               example: ETH
                             minimumCollectionAmount:
                               type: string
-                              description: 最小归集金额：最小精度的整数值 例如：1230000000000000000
+                              description: Minimum Collection Amount. Integer value in smallest unit. For example:1230000000000000000
                               example: "1230000000000000000"
                             minimumReserveAmount:
                               type: string
-                              description: 最小保留金额 例如：1230000000000000000
+                              description: Minimum Reserved Amount. For example:1230000000000000000
                               example: "1230000000000000000"
                             feeLimit:
                               type: string
-                              description: 手续费限制：最小精度的整数值 例如：1230000000000000000
+                              description: Fee Limit. Integer value in smallest unit. For example:1230000000000000000
                               example: "1230000000000000000"
                             enabled:
                               type: integer
-                              description: 是否开启归集 默认0关闭，1开启；
+                              description: Enable Collection. Default 0=Off, 1=On;
                             type:
                               type: integer
                               description: 0:token 1:coin
                             autoFueling:
                               type: string
-                              description: 是否开启加油 0关闭，1开启；
+                              description: Enable Gas Refill. Default 0=Off, 1=On;
                 description: ""
       x-codegen-request-body-name: root
   /v1/api/sweep/set_gas_station:
@@ -4563,10 +4563,10 @@ paths:
               properties:
                 chainSymbol:
                   type:  string
-                  description: 链唯一标识
+                  description: Chain ID
                 address:
                   type: string
-                  description: 加油站地址
+                  description: Gas Station Address
         required: false
       responses:
         200:
@@ -4608,7 +4608,7 @@ paths:
               properties:
                 chainSymbol:
                   type:  string
-                  description: 链唯一标识
+                  description: Chain ID
         required: false
       responses:
         200:
@@ -4628,18 +4628,69 @@ paths:
                     type: boolean
                   data:
                     type: array
-                    description: gas加油信息
+                    description: Gas Refill Information
                     items:
                       type: object
                       properties:
                         chainSymbol:
                           type: string
-                          description: 链唯一标识
+                          description: Chain ID
                           example: ETH
                         address:
                           type: string
                 description: ""
       x-codegen-request-body-name: root
+  /v1/api/config/set_delegate_energy:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/api/config/set_delegate_energy"
+      summary: Tron Resource Delegation
+      description: |
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - settlementAddress
+                - isEnabled
+              type: object
+              properties:
+                chainSymbol:
+                  type:  string
+                  description: TRON
+                settlementAddress:
+                  type:  string
+                  description: settlement address
+                isEnabled:
+                  type:  integer
+                  description: is enable. 0=Off, 1=On;
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+
 
 components:
   securitySchemes:

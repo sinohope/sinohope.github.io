@@ -4418,7 +4418,7 @@ paths:
                   description: 必填，最小归集金额
                 minimumReserveAmount:
                   type: string
-                  description: 选填，最小保留金额
+                  description: 选填，最小保留金额；如果是tron trx，建议设置>2000000(2trx)
                 feeLimit:
                   type: string
                   description: 选填，如预估当前交易手续费大于阈值，则跳过本轮归集
@@ -4640,6 +4640,56 @@ paths:
                           example: ETH
                         address:
                           type: string
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/config/set_delegate_energy:
+    post:
+      tags:
+        - Transaction APIs
+      operationId: "/v1/api/config/set_delegate_energy"
+      summary: 配置tron能量租赁
+      description: |
+        - 仅支持“WaaS”业务
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - chainSymbol
+                - settlementAddress
+                - isEnabled
+              type: object
+              properties:
+                chainSymbol:
+                  type:  string
+                  description: 链唯一标识 TRON
+                settlementAddress:
+                  type:  string
+                  description: 结算地址
+                isEnabled:
+                  type:  integer
+                  description: 是否开启tron能量租赁：0-关闭；1-开启
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
                 description: ""
       x-codegen-request-body-name: root
 
