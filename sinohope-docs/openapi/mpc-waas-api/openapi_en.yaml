@@ -28,6 +28,8 @@ tags:
     description: Query MPC protocol execution information and your MPC Node online status
   - name: Auto Sweeping and Gas station APIs
     description: Auto Sweeping and Gas station API
+  - name: Set Config APIs
+    description: Config APIs
 paths:
   /v1/call_back/transaction/notify:
     servers:
@@ -4643,7 +4645,7 @@ paths:
   /v1/api/config/set_delegate_energy:
     post:
       tags:
-        - Transaction APIs
+        - Set Config APIs
       operationId: "/v1/api/config/set_delegate_energy"
       summary: Tron Resource Delegation
       description: |
@@ -4671,6 +4673,73 @@ paths:
                 isEnabled:
                   type:  integer
                   description: is enable. 0=Off, 1=On;
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/config/set_transfer_strategy:
+    post:
+      tags:
+        - Set Config APIs
+      operationId: "/v1/api/config/set_transfer_strategy"
+      summary: Configure advanced trading strategies
+      description: |
+        - Only supports "WaaS" services.
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - hitResult
+                - vaultId
+                - state
+              type: object
+              properties:
+                fromAddress:
+                  type:  string
+                  description: Specify from addresses, separated by commas
+                assetId:
+                  type:  string
+                  description: Specify token
+                toAddress:
+                  type:  string
+                  description: Specify to addresses, separated by commas
+                limits:
+                  type: array
+                  description: Transaction limit rules
+                  items:
+                    $ref: '#/components/schemas/setTransferStrategyLimit'
+                hitResult:
+                  type: integer
+                  description: Hit results 1 - Transaction triggers approval;2 - Transaction is prohibited
+                  example: 1
+                vaultId:
+                  type: string
+                  description: vault id
+                  example: "450632968208222"
+                state:
+                  type: integer
+                  description: state 0-close;1-open
+
         required: false
       responses:
         200:
@@ -5008,3 +5077,19 @@ components:
       type: integer
       description: Number of data items per page (not less than 1, not more than 50; default is 10)
       example: 10
+    setTransferStrategyLimit:
+      type: object
+      description: Transaction restriction rules
+      properties:
+        type:
+          type: integer
+          description: Limit type 1-All users cumulative; 2-Individual cumulative; 3-Per transaction
+          example: "1"
+        chargeUnit:
+          type: string
+          description: Asset valuation unit：usdt、eth、btc
+          example: 'usdt'
+        limit24TimeAmount:
+          type: string
+          description: Amount limit：This value represents the amount after precision processing and can include decimal points. For example, if the limit is 5 USDT, simply set the amount here to 5.
+          example: '5'

@@ -28,6 +28,8 @@ tags:
     description: 查询mpc协议执行信息以及您的MPC Node在线状态
   - name: Auto Sweeping and Gas station APIs
     description: 归集和加油站 APIs
+  - name: Set Config APIs
+    description: 设置相关 APIs
 paths:
   /v1/call_back/transaction/notify:
     servers:
@@ -4645,7 +4647,7 @@ paths:
   /v1/api/config/set_delegate_energy:
     post:
       tags:
-        - Transaction APIs
+        - Set Config APIs
       operationId: "/v1/api/config/set_delegate_energy"
       summary: 配置tron能量租赁
       description: |
@@ -4673,6 +4675,72 @@ paths:
                 isEnabled:
                   type:  integer
                   description: 是否开启tron能量租赁：0-关闭；1-开启
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  msg:
+                    type: string
+                    example: "ok"
+                  success:
+                    type: boolean
+                description: ""
+      x-codegen-request-body-name: root
+  /v1/api/config/set_transfer_strategy:
+    post:
+      tags:
+        - Set Config APIs
+      operationId: "/v1/api/config/set_transfer_strategy"
+      summary: 配置高级交易规则
+      description: |
+        - 仅支持“WaaS”业务
+      security:
+        - BIZ-API-KEY: []
+          BIZ-API-NONCE: []
+          BIZ-API-SIGNATURE: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - hitResult
+                - vaultId
+                - state
+              type: object
+              properties:
+                fromAddress:
+                  type:  string
+                  description: 指定地址，逗号隔开
+                assetId:
+                  type:  string
+                  description: 指定token
+                toAddress:
+                  type:  string
+                  description: 指定to地址，逗号隔开
+                limits:
+                  type: array
+                  description: 交易限制规则
+                  items:
+                    $ref: '#/components/schemas/setTransferStrategyLimit'
+                hitResult:
+                  type: integer
+                  description: 命中结果：1-高级策略：交易触发审批；2-高级策略：交易被禁止
+                  example: 1
+                vaultId:
+                  type: string
+                  description: 金库id
+                  example: "450632968208222"
+                state:
+                  type: integer
+                  description: state 0-关闭;1-开启
         required: false
       responses:
         200:
@@ -5009,3 +5077,20 @@ components:
       type: integer
       description: 每页数据条数（不得小于1,不得大于50；默认 10）
       example: 10
+    setTransferStrategyLimit:
+      type: object
+      description: 交易限制规则
+      properties:
+        type:
+          type: integer
+          description: 限制类型:1-所有人累计；2-个人累计；3-每笔交易
+          example: "1"
+        chargeUnit:
+          type: string
+          description: 资产计价单位：usdt、eth、btc
+          example: 'usdt'
+        limit24TimeAmount:
+          type: string
+          description: 金额限制：该值为精度之后的值，可带小数点，比如限制5usdt，则直接设置这里金额为5
+          example: '5'
+
