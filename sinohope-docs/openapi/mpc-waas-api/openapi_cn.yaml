@@ -805,7 +805,6 @@ paths:
       operationId: "/v1/api/common/get_supported_chains"
       summary: 查询系统支持链
       description: |
-        - /v1/waas/common/get_supported_chains 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -851,7 +850,6 @@ paths:
       operationId: "/v1/api/common/get_supported_coins"
       summary: 查询链支持的币种列表
       description: |
-        - /v1/waas/common/get_supported_coins 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -913,7 +911,6 @@ paths:
       operationId: "/v1/api/common/get_vaults"
       summary: 金库列表
       description: |
-        - /v1/waas/common/get_vaults 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -974,7 +971,6 @@ paths:
       operationId: "/v1/api/address/create_wallets"
       summary: 创建钱包
       description: |
-        - /v1/waas/mpc/create_wallets 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1066,7 +1062,6 @@ paths:
       operationId: "/v1/api/address/list_addresses"
       summary: 查询链地址
       description: |
-        - /v1/waas/mpc/wallet/list_addresses 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1139,7 +1134,6 @@ paths:
       operationId: "/v1/api/address/generate_chain_addresses"
       summary: 生成链地址
       description: |
-        - /v1/waas/mpc/wallet/generate_chain_addresses 已废弃
         - 支持“自托管”和“WaaS”业务
 
       security:
@@ -1209,7 +1203,6 @@ paths:
       operationId: "/v1/api/address/list_wallets"
       summary: 查询钱包列表
       description: |
-        - /v1/waas/mpc/wallet/list_wallets 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1287,7 +1280,6 @@ paths:
       operationId: "/v1/api/address/list_added_chains"
       summary: 查询指定钱包下已添加地址的链及其首个地址信息
       description: |
-        - /v1/waas/mpc/wallet/list_added_chains 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1349,7 +1341,6 @@ paths:
       operationId: "/v1/api/address/get_address_balance"
       summary: 查询地址余额信息
       description: |
-        - /v1/waas/mpc/wallet/get_address_balance 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1428,7 +1419,6 @@ paths:
       operationId: "/v1/api/common/is_valid_address"
       summary: 检查币种地址是否正确
       description: |
-        - /v1/waas/mpc/is_valid_address 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1649,7 +1639,6 @@ paths:
       operationId: "/v1/api/transaction/fee"
       summary: 估算交易所需费用
       description: |
-        - /v1/waas/mpc/transaction/fee 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -1779,7 +1768,6 @@ paths:
       operationId: "/v1/api/transaction/create_transfer"
       summary: 发起转账交易
       description: |
-        - /v1/waas/mpc/transaction/create_transfer 已废弃
         - 支持“自托管”和“WaaS”业务
         - 对于UTXO类交易，受到交易大小的限制以及签名时长等因素的影响，支持的最大input数量为100
       security:
@@ -2046,7 +2034,6 @@ paths:
       operationId: "/v1/api/transaction/speedup_transaction"
       summary: 交易加速
       description: |
-        - /v1/waas/mpc/transaction/speedup_transaction 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -2114,7 +2101,6 @@ paths:
       operationId: "/v1/api/transaction/cancel_transaction"
       summary: 交易取消
       description: |
-        - /v1/waas/mpc/transaction/cancel_transaction 已废弃
         - 支持“自托管”和“WaaS”业务
         - 交易取消，该方法只支持EVM兼容链系列交易取消
       x-codeSamples:
@@ -2192,7 +2178,6 @@ paths:
       operationId: "/v1/api/transaction/list_transactions"
       summary: 交易列表
       description: |
-        - /v1/waas/mpc/transaction/list_transactions 已废弃
         - 支持“自托管”和“WaaS”业务
 
       security:
@@ -2287,7 +2272,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_request_ids"
       summary: 根据requestIds查询交易列表
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_request_ids 已废弃
         - 支持“自托管”和“WaaS”业务
 
       security:
@@ -2349,7 +2333,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_sino_ids"
       summary: 根据sinoIds查询交易列表
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_sino_ids 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []
@@ -2410,7 +2393,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_tx_hash"
       summary: 根据txHash查询交易列表
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_tx_hash 已废弃
         - 支持“自托管”和“WaaS”业务
       security:
         - BIZ-API-KEY: []

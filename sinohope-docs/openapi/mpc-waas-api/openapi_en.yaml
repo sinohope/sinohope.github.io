@@ -797,7 +797,6 @@ paths:
       operationId: "/v1/api/common/get_supported_chains"
       summary: Query system support chain
       description: |
-        - /v1/waas/common/get_supported_chains DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -843,7 +842,6 @@ paths:
       operationId: "/v1/api/common/get_supported_coins"
       summary: Query the list of currencies supported by the chain
       description: |
-        - /v1/waas/common/get_supported_coins DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -905,7 +903,6 @@ paths:
       operationId: "/v1/api/common/get_vaults"
       summary: Vault List
       description: |
-        - /v1/waas/common/get_vaults DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -966,7 +963,6 @@ paths:
       operationId: "/v1/api/address/create_wallets"
       summary: Creating a wallet
       description: |
-        - /v1/waas/mpc/create_wallets DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1056,7 +1052,6 @@ paths:
       operationId: "/v1/api/address/list_addresses"
       summary: Query chain address
       description: |
-        - /v1/waas/mpc/wallet/list_addresses DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1129,7 +1124,6 @@ paths:
       operationId: "/v1/api/address/generate_chain_addresses"
       summary: Generate chain address
       description: |
-        - /v1/waas/mpc/wallet/generate_chain_addresses DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1198,7 +1192,6 @@ paths:
       operationId: "/v1/api/address/list_wallets"
       summary: Query wallet list
       description: |
-        - /v1/waas/mpc/wallet/list_wallets DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1275,7 +1268,6 @@ paths:
       operationId: "/v1/api/address/list_added_chains"
       summary: Query the chain with the added address under the specified wallet and its first address information
       description: |
-        - /v1/waas/mpc/wallet/list_added_chains DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1337,7 +1329,6 @@ paths:
       operationId: "/v1/api/address/get_address_balance"
       summary: Query address balance information
       description: |
-        - /v1/waas/mpc/wallet/get_address_balance DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1415,7 +1406,6 @@ paths:
       operationId: "/v1/api/common/is_valid_address"
       summary: Check if the currency address is correct
       description: |
-        - /v1/waas/mpc/is_valid_address DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1636,7 +1626,6 @@ paths:
       operationId: "/v1/api/transaction/fee"
       summary: Estimate transaction fee
       description: |
-        - /v1/waas/mpc/transaction/fee DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -1766,7 +1755,6 @@ paths:
       operationId: "/v1/api/transaction/create_transfer"
       summary: Initiate a transfer transaction
       description: |
-        - /v1/waas/mpc/transaction/create_transfer DEPRECATED
         - Supports "self-custody" and "WaaS" services.
         - For UTXO transactions, the maximum number of input supported is 100 due to the limitation of transaction size and signature duration.
       security:
@@ -2032,7 +2020,6 @@ paths:
       operationId: "/v1/api/transaction/speedup_transaction"
       summary: Transaction Acceleration
       description: |
-        - /v1/waas/mpc/transaction/speedup_transaction DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -2100,7 +2087,6 @@ paths:
       operationId: "/v1/api/transaction/cancel_transaction"
       summary: Cancel Transaction
       description: |
-        - /v1/waas/mpc/transaction/cancel_transaction DEPRECATED
         - Supports "self-custody" and "WaaS" services.
         - Cancel transaction, this method only supports cancellation of transactions in EVM compatible chain series
       x-codeSamples:
@@ -2178,7 +2164,6 @@ paths:
       operationId: "/v1/api/transaction/list_transactions"
       summary: Transaction List
       description: |
-        - /v1/waas/mpc/transaction/list_transactions DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -2272,7 +2257,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_request_ids"
       summary: Query transaction list based on requestIds
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_request_ids DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       x-codeSamples:
         - lang: 'python'
@@ -2351,7 +2335,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_sino_ids"
       summary: Query transaction list based on sinoIds
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_sino_ids DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
@@ -2412,7 +2395,6 @@ paths:
       operationId: "/v1/api/transaction/transactions_by_tx_hash"
       summary: Query transaction list based on txHash
       description: |
-        - /v1/waas/mpc/transaction/transactions_by_tx_hash DEPRECATED
         - Supports "self-custody" and "WaaS" services.
       security:
         - BIZ-API-KEY: []
